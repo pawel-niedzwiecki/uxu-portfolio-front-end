@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
-    siteUrl: "https://www.yourdomain.tld",
-    title: "uxu-portfolio-front-end",
+    siteUrl: "https://www.uxu.pl",
+    title: "UXU | Paweł Niedźwiecki | Portfolio",
   },
   plugins: [
     "gatsby-plugin-styled-components",
@@ -11,7 +11,19 @@ module.exports = {
     {
       resolve: "gatsby-plugin-manifest",
       options: {
-        icon: "src/images/icon.png",
+        icon: "src/assets/img/icon.png",
+      },
+    },
+    {
+      resolve: "gatsby-plugin-react-svg",
+    },
+    {
+      resolve: `gatsby-source-strapi`,
+      options: {
+        apiURL: `https://uxu-portfolio.herokuapp.com`,
+        queryLimit: 1000,
+        collectionTypes: [`histories`, `portfolios`, `tags`],
+        singleTypes: [`data-contact`],
       },
     },
     "gatsby-plugin-sharp",
@@ -20,7 +32,7 @@ module.exports = {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "images",
-        path: "./src/images/",
+        path: "./src/assets/",
       },
       __key: "images",
     },
