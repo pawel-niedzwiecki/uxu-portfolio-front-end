@@ -5,16 +5,18 @@ import React from "react";
 import Container from "./style/style";
 
 // TypeScript for Props
-type Props = {
+type ContainerComponentProps = {
   size?: string;
+  style?: {};
+  className?: string;
   children: JSX.Element | JSX.Element[];
 };
 
 // create new component
-const ContainerComponent = ({ size, children }: Props, props: any) => {
+const ContainerComponent = ({ size, style, className, children }: ContainerComponentProps, props: any) => {
   return (
     <>
-      <Container size={size} {...props}>
+      <Container size={size} style={style} className={className}>
         {children}
       </Container>
     </>

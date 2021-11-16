@@ -2,6 +2,7 @@ interface MainSettingsTemplate {
   white: string;
   black: string;
   aqua: string;
+  riverBed: string;
   blueDark: string;
   blue: string;
   gray: string;
@@ -17,13 +18,14 @@ const settings: MainSettingsTemplate = {
   white: "#ffff",
   black: "#000",
   aqua: "#00FFF0",
+  riverBed: "#44495B",
   blueDark: "#040815",
   blue: "#0A122A",
-  gray: "#B7B7B7",
+  gray: "#7E7E7E",
   danger: "#E18787",
 
   // settings break
-  break: { small: "0.5rem", main: "1rem", big: "2rem" },
+  break: { small: "0.5rem", main: "1rem", big: "4rem" },
 
   // settings breakpoint
   breakPoint: [
@@ -38,7 +40,7 @@ const settings: MainSettingsTemplate = {
   gridCol: 12,
 
   // settings max width
-  max_width: "128rem",
+  max_width: "144rem",
 };
 
 export default settings;

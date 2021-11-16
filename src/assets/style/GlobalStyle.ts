@@ -1,9 +1,22 @@
 // import plugin
 import * as styled from "styled-components";
 
-// create & import new style
+interface GlobalStyleProps {
+  theme: {
+    white: string;
+    black: string;
+    aqua: string;
+    riverBed: string;
+    blueDark: string;
+    blue: string;
+    gray: string;
+    danger: string;
+    break: { small: string; main: string; big: string };
+  };
+}
 
-const GlobalStyle = styled.createGlobalStyle`
+// create & import new style
+const GlobalStyle = styled.createGlobalStyle<GlobalStyleProps>`
   *,
   *::before,
   *::after {
@@ -20,16 +33,17 @@ const GlobalStyle = styled.createGlobalStyle`
     --uxu-pl-break-smaller: ${({ theme }) => theme.break.small};
     --uxu-pl-break-main: ${({ theme }) => theme.break.main};
     --uxu-pl-break-bigger: ${({ theme }) => theme.break.big};
-    --polski-dev-text: ${({ theme }) => theme.white};
-    --polski-dev-border: ${({ theme }) => theme.white};
-    --polski-dev-link-start: ${({ theme }) => theme.white};
-    --polski-dev-link-hover: ${({ theme }) => theme.white};
-    --polski-dev-bg-primary: ${({ theme }) => theme.blueDark};
-    --polski-dev-bg-secondary: ${({ theme }) => theme.white};
-    --polski-dev-button-text: ${({ theme }) => theme.white};
-    --polski-dev-button-text-hover: ${({ theme }) => theme.white};
-    --polski-dev-button-background: ${({ theme }) => theme.white};
-    --polski-dev-button-background-hover: ${({ theme }) => theme.white};
+    --uxu-pl-text: ${({ theme }) => theme.white};
+    --uxu-pl-text-off: ${({ theme }) => theme.gray};
+    --uxu-pl-border: ${({ theme }) => theme.riverBed};
+    --uxu-pl-link-start: ${({ theme }) => theme.aqua};
+    --uxu-pl-link-hover: ${({ theme }) => theme.white};
+    --uxu-pl-bg-primary: ${({ theme }) => theme.blueDark};
+    --uxu-pl-bg-secondary: ${({ theme }) => theme.blue};
+    --uxu-pl-button-text: ${({ theme }) => theme.white};
+    --uxu-pl-button-text-hover: ${({ theme }) => theme.aqua};
+    --uxu-pl-button-background: ${({ theme }) => theme.aqua};
+    --uxu-pl-button-background-hover: ${({ theme }) => theme.white};
   }
 
   body {
@@ -39,8 +53,9 @@ const GlobalStyle = styled.createGlobalStyle`
     font-size: 1.6rem;
     font-style: normal;
     font-weight: normal;
-    color: var(--polski-dev-text);
-    background-color: var(--polski-dev-bg-primary);
+    height: 300vh;
+    color: var(--uxu-pl-text);
+    background-color: var(--uxu-pl-bg-primary);
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans",
       sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   }
@@ -54,6 +69,8 @@ const GlobalStyle = styled.createGlobalStyle`
   h6 {
     margin: 0;
     padding: 0;
+    font-weight: 300;
+    font-family: "Open Sans", sans-serif;
   }
 
   p,
@@ -65,12 +82,6 @@ const GlobalStyle = styled.createGlobalStyle`
   }
 
   b,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
   strong {
     font-weight: bold;
   }
@@ -79,11 +90,16 @@ const GlobalStyle = styled.createGlobalStyle`
     opacity: 1;
     transition: all 0.3s;
     text-decoration: none;
-    color: var(--polski-dev-link-start);
+    color: var(--uxu-pl-link-start);
 
     &:hover {
-      color: var(--polski-dev-link-hover);
+      color: var(--uxu-pl-link-hover);
     }
+  }
+
+  svg {
+    transition: all 0.3s;
+    fill: var(--uxu-pl-link-start);
   }
 
   ol,

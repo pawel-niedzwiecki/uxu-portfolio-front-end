@@ -12,14 +12,16 @@ interface ColComponentProps {
   lg?: number;
   xl?: number;
   xxl?: number;
-  children?: JSX.Element | JSX.Element[];
+  style?: {};
+  className?: string;
+  children?: JSX.Element | JSX.Element[] | any;
 }
 
 // create new component
-const ColComponent = ({ children, xs, sm, md, lg, xl, xxl }: ColComponentProps, props: any) => {
+const ColComponent = ({ children, style, className, xs, sm, md, lg, xl, xxl }: ColComponentProps, props: any) => {
   return (
     <>
-      <Col xs={xs} sm={sm} md={md} lg={lg} xl={xl} xxl={xxl} {...props}>
+      <Col xs={xs} sm={sm} md={md} lg={lg} xl={xl} xxl={xxl} style={style} className={className} {...props}>
         {children}
       </Col>
     </>
