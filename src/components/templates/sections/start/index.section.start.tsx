@@ -2,10 +2,13 @@
 import React, { useState, useEffect, useContext } from "react";
 
 // import component
-import { Container, Row, Col } from "components/orgamis/flexboxgrid";
+import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 
 // import styled
 import { Section, H1, H2, List, Item, Button } from "./style/styled";
+
+// import hooks
+import useModal from "hooks/useModal";
 
 // import provider
 import { LanguageContext } from "providers/LanguageProvider";
@@ -15,6 +18,7 @@ import face from "assets/img/face.png";
 
 // create component
 const StartSectionComponent = () => {
+  const { Modal, isOpen, handleOpenModal, handleClouseModal } = useModal();
   const { language } = useContext(LanguageContext);
   const [hello, setHello] = useState(false);
 
@@ -30,12 +34,15 @@ const StartSectionComponent = () => {
     <Section>
       <Container className="bg" style={{ backgroundImage: `url(${face})` }}>
         <Row>
-          <Col xs={12} md={8} className="col">
+          <Col xs={12} md={7} className="col">
             {hello ? (
               <>
                 <H2>{language === "pl" ? "Hej, mam na imię Paweł" : "Hey, i have name Paweł"}</H2>
                 <H1>{language === "pl" ? "jestem programistom JavaScript" : "i am programmer JavaScript"}</H1>
-                <Button>{language === "pl" ? "porozmawiajmy o twoim pomyśle" : "let's talk about you idea"}</Button>
+                <Button onClick={handleOpenModal}>
+                  {language === "pl" ? "porozmawiajmy o Twoim pomyśle" : "let's talk about You idea"}
+                </Button>
+                {isOpen ? <Modal handleClouseModal={handleClouseModal}>Forms</Modal> : null}
                 <List>
                   <Item>
                     <a href="#portfolio" title="portfolio">
@@ -58,7 +65,7 @@ const StartSectionComponent = () => {
               <></>
             )}
           </Col>
-          <Col xs={12} md={4}></Col>
+          <Col xs={12} md={5}></Col>
         </Row>
       </Container>
     </Section>

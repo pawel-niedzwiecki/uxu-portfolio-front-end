@@ -139,8 +139,8 @@ export const Item = styled.li`
       content: "";
       display: block;
       top: 2rem;
-      width: 6rem;
-      right: -3rem;
+      width: 3rem;
+      right: -1.5rem;
       height: 0.1rem;
       position: absolute;
       background: var(--uxu-pl-text-off);
@@ -161,6 +161,7 @@ export const Item = styled.li`
   a {
     color: white;
     font-size: 2rem;
+    font-weight: bold;
     @media all and (min-width: 768px) {
       font-size: 3.2rem;
     }
@@ -186,10 +187,10 @@ export const Button = styled.button`
   padding: 1rem 2rem;
   font-size: 1.5rem;
   font-weight: bold;
-  border-radius: 1rem;
-  background-color: ${({ theme }) => theme.aqua};
-  border: none;
-  color: black;
+  border-radius: 5rem;
+  border: 0.5rem solid ${({ theme }) => theme.aqua};
+  background-color: transparent;
+  color: ${({ theme }) => theme.aqua};
   transition: all 0.3s;
   cursor: pointer;
   animation-duration: 500ms;
@@ -213,6 +214,7 @@ export const Button = styled.button`
   }
 
   &:hover {
-    background-color: ${({ theme }) => theme.white};
+    color: black;
+    background-color: ${({ theme }) => theme.aqua};
   }
 `;

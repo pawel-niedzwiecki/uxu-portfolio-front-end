@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import { Header, Logo, List, Item } from "./style/styled";
 
 // import component
-import { Container, Row, Col } from "components/orgamis/flexboxgrid/index";
+import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 
 // import hooks
 import useWindowData from "hooks/useWindowData";
