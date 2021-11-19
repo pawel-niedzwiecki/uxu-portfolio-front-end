@@ -3,9 +3,10 @@ import React, { useState, useEffect, useContext } from "react";
 
 // import component
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
+import { Button } from "components/atoms/button/index.button";
 
 // import styled
-import { Section, H1, H2, List, Item, Button } from "./style/styled";
+import { Section, H1, H2, List, Item } from "./style/styled";
 
 // import hooks
 import useModal from "hooks/useModal";
@@ -39,7 +40,7 @@ const StartSectionComponent = () => {
               <>
                 <H2>{language === "pl" ? "Hej, mam na imię Paweł" : "Hey, i have name Paweł"}</H2>
                 <H1>{language === "pl" ? "jestem programistom JavaScript" : "i am programmer JavaScript"}</H1>
-                <Button onClick={handleOpenModal}>
+                <Button onClick={handleOpenModal} className="btn">
                   {language === "pl" ? "porozmawiajmy o Twoim pomyśle" : "let's talk about You idea"}
                 </Button>
                 {isOpen ? <Modal handleClouseModal={handleClouseModal}>Forms</Modal> : null}

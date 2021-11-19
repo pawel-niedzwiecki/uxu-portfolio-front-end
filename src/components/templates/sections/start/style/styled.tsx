@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const Section = styled.section`
   width: 100%;
-  overflow: hidden;
+  overflow: unset;
   position: relative;
 
   .bg {
@@ -34,6 +34,24 @@ export const Section = styled.section`
 
     @media all and (min-width: 768px) {
       min-height: 62rem;
+    }
+  }
+
+  .btn {
+    margin: 3rem auto 0rem 0;
+    animation-duration: 500ms;
+    animation-fill-mode: forwards;
+    animation-name: startAnimation4;
+  }
+
+  @keyframes startAnimation4 {
+    from {
+      opacity: 0;
+      top: 0rem;
+    }
+    to {
+      opacity: 1;
+      top: 3rem;
     }
   }
 `;
@@ -179,42 +197,4 @@ export const Item = styled.li`
 export const Img = styled.img`
   display: block;
   max-width: 100%;
-`;
-
-export const Button = styled.button`
-  margin-right: auto;
-  margin: 3rem auto 0rem 0;
-  padding: 1rem 2rem;
-  font-size: 1.5rem;
-  font-weight: bold;
-  border-radius: 5rem;
-  border: 0.5rem solid ${({ theme }) => theme.aqua};
-  background-color: transparent;
-  color: ${({ theme }) => theme.aqua};
-  transition: all 0.3s;
-  cursor: pointer;
-  animation-duration: 500ms;
-  animation-fill-mode: forwards;
-  animation-name: startAnimation4;
-
-  @media all and (min-width: 768px) {
-    font-size: 2rem;
-    padding: 2rem 4rem;
-  }
-
-  @keyframes startAnimation4 {
-    from {
-      opacity: 0;
-      top: 0rem;
-    }
-    to {
-      opacity: 1;
-      top: 3rem;
-    }
-  }
-
-  &:hover {
-    color: black;
-    background-color: ${({ theme }) => theme.aqua};
-  }
 `;
