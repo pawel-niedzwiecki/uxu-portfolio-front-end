@@ -1,5 +1,5 @@
 // import plugin
-import React from "react";
+import React, { useContext } from "react";
 
 // import component
 import { Button, ButtonOutLink } from "components/atoms/button/index.button";
@@ -21,8 +21,13 @@ import {
   FlipBoxButton,
 } from "./style/styled";
 
+// context
+import { DataBaseContext } from "providers/DataBaseProvider";
+
 // create component
 const PortfolioSectionComponent = () => {
+  const { portfolio } = useContext(DataBaseContext);
+
   return (
     <Section>
       <Container>
@@ -45,6 +50,58 @@ const PortfolioSectionComponent = () => {
           </Col>
           <Col xs={12} md={9}>
             <Row>
+              {!!portfolio.length
+                ? portfolio.map((item) => {
+                    console.log(item);
+
+                    return (
+                      <Col xs={12} md={6} lg={4} className="col" key={item.id}>
+                        {" "}
+                        <FlipBox>
+                          <FlipBoxInner>
+                            <FlipBoxFront>
+                              <Header>{item.ProjectName}</Header>
+                            </FlipBoxFront>
+                            <FlipBoxBack>
+                              <FlipBoxHeader>technologie</FlipBoxHeader>
+                              <FlipBoxList>
+                                <FlipBoxListItem>
+                                  <span>#</span>javascript
+                                </FlipBoxListItem>
+                                <FlipBoxListItem>
+                                  <span>#</span>css
+                                </FlipBoxListItem>
+                                <FlipBoxListItem>
+                                  <span>#</span>react
+                                </FlipBoxListItem>
+                                <FlipBoxListItem>
+                                  <span>#</span>gatsby
+                                </FlipBoxListItem>
+                                <FlipBoxListItem>
+                                  <span>#</span>javascript
+                                </FlipBoxListItem>
+                                <FlipBoxListItem>
+                                  <span>#</span>css
+                                </FlipBoxListItem>
+                                <FlipBoxListItem>
+                                  <span>#</span>react
+                                </FlipBoxListItem>
+                                <FlipBoxListItem>
+                                  <span>#</span>gatsby
+                                </FlipBoxListItem>
+                              </FlipBoxList>
+
+                              <FlipBoxButton>
+                                <ButtonOutLink href="#">Online</ButtonOutLink>
+                                <ButtonOutLink href="#">GitHub</ButtonOutLink>
+                              </FlipBoxButton>
+                            </FlipBoxBack>
+                          </FlipBoxInner>
+                        </FlipBox>
+                      </Col>
+                    );
+                  })
+                : null}
               <Col xs={12} md={6} lg={4} className="col">
                 <FlipBox>
                   <FlipBoxInner>

@@ -9,6 +9,7 @@ import settings from "assets/style/settings";
 import GlobalStyle from "assets/style/GlobalStyle";
 
 // import provider
+import DataBaseProvider from "providers/DataBaseProvider";
 import LanguageProvider, { LanguageContext } from "providers/LanguageProvider";
 
 // import component
@@ -22,17 +23,19 @@ const Root = () => {
     <ThemeProvider theme={settings}>
       <GlobalStyle />
       <LanguageProvider>
-        <LayoutComponent>
-          <Switch>
-            <Route exact path="/">
-              {language === "pl" ? <Redirect to="/pl" /> : <Redirect to="/en" />}
-            </Route>
-            <Route path="/:lang">
-              <Home />
-            </Route>
-            <Route path="*">404</Route>
-          </Switch>
-        </LayoutComponent>
+        <DataBaseProvider>
+          <LayoutComponent>
+            <Switch>
+              <Route exact path="/">
+                {language === "pl" ? <Redirect to="/pl" /> : <Redirect to="/en" />}
+              </Route>
+              <Route path="/:lang">
+                <Home />
+              </Route>
+              <Route path="*">404</Route>
+            </Switch>
+          </LayoutComponent>
+        </DataBaseProvider>
       </LanguageProvider>
     </ThemeProvider>
   );
