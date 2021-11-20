@@ -44,7 +44,11 @@ interface ButtonOutLinkProps {
 
 // create component
 export const ButtonOutLink = ({ children, href }: ButtonOutLinkProps, props: any) => {
-  return <ButtonOutLinkStyled href={href}>{children}</ButtonOutLinkStyled>;
+  return (
+    <ButtonOutLinkStyled href={href} target="_blank">
+      {children}
+    </ButtonOutLinkStyled>
+  );
 };
 
 // create interface

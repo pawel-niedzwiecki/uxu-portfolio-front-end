@@ -7,6 +7,7 @@ export const DataBaseContext = React.createContext({
   histories: [],
   tags: [],
   dataContact: {},
+  error: { portfolio: false, histories: false, tags: false, dataContact: false },
 });
 
 // create interface
@@ -17,12 +18,13 @@ interface DataBaseProviderProps {
 
 // create component
 const DataBaseProvider = ({ children }: DataBaseProviderProps) => {
+  const [tags, setTags] = useState([]);
   const [portfolio, setPortfolio] = useState([]);
   const [histories, setHistories] = useState([]);
-  const [tags, setTags] = useState([]);
   const [dataContact, setDataContact] = useState({});
+  const [error, setError] = useState({ portfolio: false, histories: false, tags: false, dataContact: false });
 
-  async function callToApi(url: string, set: string) {
+  const callToApi = async (url: string, set: string) => {
     interface requestOptionsProps {
       method: string;
       headers: {};
@@ -35,30 +37,44 @@ const DataBaseProvider = ({ children }: DataBaseProviderProps) => {
       },
     };
 
-    const setData = await fetch(url, requestOptions)
+    const setData = (data: any) => {
+      switch (set) {
+        case "history":
+          return setHistories(data || []);
+        case "portfolio":
+          return setPortfolio(data || []);
+        case "tags":
+          return setTags(data || []);
+        case "dataContact":
+          return setDataContact(data || {});
+      }
+    };
+
+    const setErr = () => {
+      switch (set) {
+        case "history":
+          return setError({ ...error, histories: true });
+        case "portfolio":
+          return setError({ ...error, portfolio: true });
+        case "tags":
+          return setError({ ...error, tags: true });
+        case "dataContact":
+          return setError({ ...error, dataContact: true });
+      }
+    };
+
+    await fetch(url, requestOptions)
       .then((response) => response.json())
-      .then((result) => result)
-      .catch((err) => console.log(err));
-
-    console.log(setData);
-
-    switch (set) {
-      case "history":
-        return setHistories(setData);
-      case "portfolio":
-        return setPortfolio(setData);
-      case "tags":
-        return setTags(setData);
-      case "dataContact":
-        return setDataContact(setData);
-    }
-  }
+      .then((result) => setData(result))
+      .catch((err) => setErr());
+  };
 
   useEffect(() => {
     callToApi("https://uxu-portfolio.herokuapp.com/histories", "history");
     callToApi("https://uxu-portfolio.herokuapp.com/portfolios", "portfolio");
     callToApi("https://uxu-portfolio.herokuapp.com/tags", "tags");
     callToApi("https://uxu-portfolio.herokuapp.com/data-contact", "dataContact");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -68,6 +84,7 @@ const DataBaseProvider = ({ children }: DataBaseProviderProps) => {
         histories,
         tags,
         dataContact,
+        error,
       }}
     >
       {children}

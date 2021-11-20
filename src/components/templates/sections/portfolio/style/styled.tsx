@@ -27,6 +27,10 @@ export const SelectBox = styled.div`
     font-weight: normal;
     border-radius: inherit;
 
+    &.active {
+      color: ${({ theme }) => theme.white};
+    }
+
     &:hover {
       background-color: transparent;
       color: ${({ theme }) => theme.white};
@@ -34,7 +38,38 @@ export const SelectBox = styled.div`
   }
 `;
 
-export const List = styled.ul``;
+export const List = styled.ul`
+  .loadContent {
+    width: 100%;
+    height: 45px;
+    display: block;
+    overflow: hidden;
+    position: relative;
+    padding: 1rem 0;
+
+    &::after {
+      width: 100%;
+      content: "";
+      height: 100%;
+      display: block;
+      position: absolute;
+      animation-duration: 1s;
+      animation-name: loadContent;
+      animation-iteration-count: infinite;
+      background: linear-gradient(90deg, rgba(10, 18, 42, 1) 10%, rgba(4, 8, 21, 1) 50%, rgba(10, 18, 42, 1) 90%);
+    }
+  }
+
+  @keyframes loadContent {
+    to {
+      left: 90%;
+    }
+
+    from {
+      left: -90%;
+    }
+  }
+`;
 
 export const Header = styled.h1`
   font-size: 3rem;
