@@ -1,6 +1,5 @@
 // import plugin
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 // create new elemnt
 export const Header = styled.header`
@@ -11,9 +10,11 @@ export const Header = styled.header`
   transition: all 0.3s;
 `;
 
-export const Logo = styled(Link)`
+export const Logo = styled.button`
+  border: none;
   display: block;
   position: relative;
+  background: transparent;
 
   svg {
     height: 4rem;

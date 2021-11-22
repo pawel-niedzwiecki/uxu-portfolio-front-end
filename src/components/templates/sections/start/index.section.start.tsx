@@ -32,7 +32,7 @@ const StartSectionComponent = () => {
   }, []);
 
   return (
-    <Section>
+    <Section id="start">
       <Container className="bg" style={{ backgroundImage: `url(${face})` }}>
         <Row>
           <Col xs={12} md={7} className="col">
@@ -46,19 +46,31 @@ const StartSectionComponent = () => {
                 {isOpen ? <Modal handleClouseModal={handleClouseModal}>Forms</Modal> : null}
                 <List>
                   <Item>
-                    <a href="#portfolio" title="portfolio">
+                    <Button
+                      onClick={() => {
+                        window.scrollTo({ top: document.getElementById("portfolio").getBoundingClientRect().top - 30, behavior: "smooth" });
+                      }}
+                    >
                       portfolio
-                    </a>
+                    </Button>
                   </Item>
                   <Item>
-                    <a href="#history" title={language === "pl" ? "moja historia" : "my history"}>
+                    <Button
+                      onClick={() => {
+                        window.scrollTo({ top: document.getElementById("history").getBoundingClientRect().top - 30, behavior: "smooth" });
+                      }}
+                    >
                       {language === "pl" ? "moja historia" : "my history"}
-                    </a>
+                    </Button>
                   </Item>
                   <Item>
-                    <a href="#contact" title={language === "pl" ? "kontakt" : "contact"}>
+                    <Button
+                      onClick={() => {
+                        window.scrollTo({ top: document.getElementById("contact").getBoundingClientRect().top - 30, behavior: "smooth" });
+                      }}
+                    >
                       {language === "pl" ? "kontakt" : "contact"}
-                    </a>
+                    </Button>
                   </Item>
                 </List>
               </>

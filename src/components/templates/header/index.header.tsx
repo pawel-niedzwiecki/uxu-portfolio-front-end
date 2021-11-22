@@ -20,7 +20,7 @@ import { ReactComponent as Brand } from "assets/icon/logo.svg";
 // create new component
 const HeaderComponent = () => {
   const windowData = useWindowData();
-  const { language, languageChange } = useContext(LanguageContext);
+  const { languageChange } = useContext(LanguageContext);
 
   return (
     <Header
@@ -33,7 +33,11 @@ const HeaderComponent = () => {
       <Container>
         <Row>
           <Col xs={6}>
-            <Logo to={`/${language}`}>
+            <Logo
+              onClick={() => {
+                window.scrollTo({ top: document.getElementById("start").getBoundingClientRect().top, behavior: "smooth" });
+              }}
+            >
               <Brand />
             </Logo>
           </Col>

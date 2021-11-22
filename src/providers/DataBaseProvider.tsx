@@ -1,5 +1,7 @@
 // import plugin
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+
+import { LanguageContext } from "providers/LanguageProvider";
 
 // create context
 export const DataBaseContext = React.createContext({
@@ -18,6 +20,8 @@ interface DataBaseProviderProps {
 
 // create component
 const DataBaseProvider = ({ children }: DataBaseProviderProps) => {
+  const { language } = useContext(LanguageContext);
+
   const [tags, setTags] = useState([]);
   const [portfolio, setPortfolio] = useState([]);
   const [histories, setHistories] = useState([]);
@@ -70,12 +74,12 @@ const DataBaseProvider = ({ children }: DataBaseProviderProps) => {
   };
 
   useEffect(() => {
-    callToApi("https://uxu-portfolio.herokuapp.com/histories", "history");
+    callToApi(`https://uxu-portfolio.herokuapp.com/histories?_locale=${language}`, "history");
     callToApi("https://uxu-portfolio.herokuapp.com/portfolios", "portfolio");
     callToApi("https://uxu-portfolio.herokuapp.com/tags", "tags");
     callToApi("https://uxu-portfolio.herokuapp.com/data-contact", "dataContact");
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [language]);
 
   return (
     <DataBaseContext.Provider

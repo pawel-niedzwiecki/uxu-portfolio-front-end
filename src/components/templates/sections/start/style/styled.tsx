@@ -176,7 +176,10 @@ export const Item = styled.li`
     }
   }
 
-  a {
+  button {
+    padding: 0;
+    border: none;
+    border-radius: 0;
     color: white;
     font-size: 2rem;
     font-weight: bold;
@@ -185,6 +188,7 @@ export const Item = styled.li`
     }
 
     &:hover {
+      background: transparent;
       color: ${({ theme }) => theme.aqua};
     }
   }

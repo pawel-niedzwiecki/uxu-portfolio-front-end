@@ -45,7 +45,7 @@ const PortfolioSectionComponent = () => {
   }, [portfolio, filtrPortfolio]);
 
   return (
-    <Section>
+    <Section id="portfolio">
       <Container>
         <Row>
           <Col xs={12} md={3}>
@@ -59,7 +59,6 @@ const PortfolioSectionComponent = () => {
                         className={filtrPortfolio === "all" && "active"}
                         onClick={() => {
                           setFiltrPortfolio("all");
-                          console.log("all");
                         }}
                       >
                         {language === "pl" ? "Wszystko" : "All "}
@@ -87,7 +86,7 @@ const PortfolioSectionComponent = () => {
                   )
                 ) : (
                   [1, 2, 3, 4, 5].map((x) => (
-                    <li>
+                    <li key={x}>
                       <SquareConent typ="dark" height={4.5} />
                     </li>
                   ))

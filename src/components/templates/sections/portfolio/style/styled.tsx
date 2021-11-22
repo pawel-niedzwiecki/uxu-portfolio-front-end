@@ -5,6 +5,7 @@ export const Section = styled.section`
   width: 100%;
   overflow: unset;
   position: relative;
+  padding: ${({ theme }) => theme.break.big} 0;
 
   .col {
     padding: 1rem;
@@ -12,7 +13,7 @@ export const Section = styled.section`
 `;
 
 export const SelectBox = styled.div`
-  top: 8.2rem;
+  top: 7.9rem;
   width: 100%;
   margin-top: 1rem;
   position: -webkit-sticky;
