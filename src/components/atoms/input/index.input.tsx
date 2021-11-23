@@ -18,21 +18,17 @@ export const InputText = ({ id, children, required }: InputTextProps) => {
   const refInput = useRef(null);
 
   useEffect(() => {
-    refInput.current.addEventListener("focus", () => {
+    const { current } = refInput;
+
+    current.addEventListener("focus", () => {
       setFocusInput(true);
     });
-    refInput.current.addEventListener("blur", () => {
+    current.addEventListener("blur", () => {
       setFocusInput(false);
     });
 
     return () => {
-      refInput.current.removeEventListener("focus", () => {
-        setFocusInput(true);
-      });
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      refInput.current.removeEventListener("blur", () => {
-        setFocusInput(false);
-      });
+        
     };
   }, []);
 
@@ -64,16 +60,6 @@ export const InputEmail = ({ id, children, required }: InputEmailProps) => {
     refInput.current.addEventListener("blur", () => {
       setFocusInput(false);
     });
-
-    return () => {
-      refInput.current.removeEventListener("focus", () => {
-        setFocusInput(true);
-      });
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      refInput.current.removeEventListener("blur", () => {
-        setFocusInput(false);
-      });
-    };
   }, []);
 
   return (
@@ -98,23 +84,15 @@ export const InputTel = ({ id, children, required }: InputTelProps) => {
   const refInput = useRef(null);
 
   useEffect(() => {
-    refInput.current.addEventListener("focus", () => {
-      setFocusInput(true);
-    });
-    refInput.current.addEventListener("blur", () => {
-      setFocusInput(false);
-    });
-
-    return () => {
-      refInput.current.removeEventListener("focus", () => {
+    if (!!refInput.current) {
+      refInput.current.addEventListener("focus", () => {
         setFocusInput(true);
       });
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      refInput.current.removeEventListener("blur", () => {
+      refInput.current.addEventListener("blur", () => {
         setFocusInput(false);
       });
-    };
-  }, []);
+    }
+  }, [focusInput]);
 
   return (
     <Label htmlFor={id}>

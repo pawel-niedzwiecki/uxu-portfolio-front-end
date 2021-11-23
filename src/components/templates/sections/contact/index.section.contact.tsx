@@ -3,8 +3,8 @@ import React, { useContext } from "react";
 
 // import component
 import { ButtonOutLink, ButtonSubmit } from "components/atoms/button/index.button";
-import { InputText, InputEmail, InputTel, TextArea, CheckBoxClassic } from "components/molecules/form/index.form";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
+import { InputText, InputEmail, InputTel, TextArea, CheckBoxClassic } from "components/molecules/form/index.form";
 
 // import styled
 import { Section, SelectBox, List, Header, BoxContact, Title, Form, BoxAnimation, SharpCircle, SharpSquare, SharpTriangle } from "./style/styled";
@@ -22,8 +22,6 @@ import { ReactComponent as Square } from "assets/icon/square.svg";
 // create component
 const ContactSectionComponent = () => {
   const { language } = useContext(LanguageContext);
-
-  console.log(language);
 
   return (
     <Section id="contact">

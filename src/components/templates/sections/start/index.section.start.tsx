@@ -2,11 +2,12 @@
 import React, { useState, useEffect, useContext } from "react";
 
 // import component
+import { Button, ButtonSubmit } from "components/atoms/button/index.button";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { Button } from "components/atoms/button/index.button";
+import { InputText, InputEmail, InputTel, CheckBoxClassic } from "components/molecules/form/index.form";
 
 // import styled
-import { Section, H1, H2, List, Item } from "./style/styled";
+import { Section, H1, H2, List, Item, ModalContent, ModdalTitle, ModdalDescription, Form } from "./style/styled";
 
 // import hooks
 import useModal from "hooks/useModal";
@@ -43,7 +44,24 @@ const StartSectionComponent = () => {
                 <Button onClick={handleOpenModal} className="btn">
                   {language === "pl" ? "porozmawiajmy o Twoim pomyśle" : "let's talk about You idea"}
                 </Button>
-                {isOpen ? <Modal handleClouseModal={handleClouseModal}>Forms</Modal> : null}
+                {isOpen ? (
+                  <Modal handleClouseModal={handleClouseModal}>
+                    <ModalContent>
+                      <ModdalTitle>Hej! przedstaw się</ModdalTitle>
+                      <ModdalDescription>Ponieważ fajne projekty zaczynają się od tej wiadomosći.</ModdalDescription>
+                      <Form>
+                        <InputText id="nameYour">Imię</InputText>
+                        <InputEmail id="emailYour">email</InputEmail>
+                        <InputTel id="telYour">email</InputTel>
+                        <CheckBoxClassic id="ches">
+                          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
+                          erat, sed diam
+                        </CheckBoxClassic>
+                        <ButtonSubmit style={{ marginTop: "3rem" }}>Wyślij</ButtonSubmit>
+                      </Form>
+                    </ModalContent>
+                  </Modal>
+                ) : null}
                 <List>
                   <Item>
                     <Button

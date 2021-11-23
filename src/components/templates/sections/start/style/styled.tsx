@@ -202,3 +202,30 @@ export const Img = styled.img`
   display: block;
   max-width: 100%;
 `;
+
+export const ModalContent = styled.div`
+  width: 100%;
+  max-width: 55rem;
+  position: relative;
+`;
+
+export const ModdalTitle = styled.h1`
+  font-size: 4rem;
+  font-weight: bold;
+  display: block;
+  width: 100%;
+  text-align: center;
+`;
+export const ModdalDescription = styled.p`
+  width: 100%;
+  display: block;
+  font-size: 2rem;
+  text-align: center;
+`;
+
+export const Form = styled.form`
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+`;
