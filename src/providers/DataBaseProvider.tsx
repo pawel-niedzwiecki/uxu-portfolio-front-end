@@ -8,8 +8,7 @@ export const DataBaseContext = React.createContext({
   portfolio: [],
   histories: [],
   tags: [],
-  dataContact: {},
-  error: { portfolio: false, histories: false, tags: false, dataContact: false },
+  error: { portfolio: false, histories: false, tags: false },
 });
 
 // create interface
@@ -25,7 +24,6 @@ const DataBaseProvider = ({ children }: DataBaseProviderProps) => {
   const [tags, setTags] = useState([]);
   const [portfolio, setPortfolio] = useState([]);
   const [histories, setHistories] = useState([]);
-  const [dataContact, setDataContact] = useState({});
   const [error, setError] = useState({ portfolio: false, histories: false, tags: false, dataContact: false });
 
   const callToApi = async (url: string, set: string) => {
@@ -49,8 +47,6 @@ const DataBaseProvider = ({ children }: DataBaseProviderProps) => {
           return setPortfolio(data || []);
         case "tags":
           return setTags(data || []);
-        case "dataContact":
-          return setDataContact(data || {});
       }
     };
 
@@ -62,8 +58,6 @@ const DataBaseProvider = ({ children }: DataBaseProviderProps) => {
           return setError({ ...error, portfolio: true });
         case "tags":
           return setError({ ...error, tags: true });
-        case "dataContact":
-          return setError({ ...error, dataContact: true });
       }
     };
 
@@ -77,7 +71,6 @@ const DataBaseProvider = ({ children }: DataBaseProviderProps) => {
     callToApi(`https://uxu-portfolio.herokuapp.com/histories?_locale=${language}`, "history");
     callToApi("https://uxu-portfolio.herokuapp.com/portfolios", "portfolio");
     callToApi("https://uxu-portfolio.herokuapp.com/tags", "tags");
-    callToApi("https://uxu-portfolio.herokuapp.com/data-contact", "dataContact");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [language]);
 
@@ -87,7 +80,6 @@ const DataBaseProvider = ({ children }: DataBaseProviderProps) => {
         portfolio,
         histories,
         tags,
-        dataContact,
         error,
       }}
     >

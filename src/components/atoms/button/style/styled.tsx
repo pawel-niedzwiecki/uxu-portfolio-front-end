@@ -80,3 +80,12 @@ export const ButtonOutLinkStyled = styled.a`
 `;
 
 export const ButtonInLinkStyled = styled(Link)``;
+
+export const ButtonSubmitStyled = styled.button`
+  ${buttonwholestyle}
+
+  @media all and (min-width: 768px) {
+    font-size: 1.5rem;
+    padding: 1rem 4rem;
+  }
+`;

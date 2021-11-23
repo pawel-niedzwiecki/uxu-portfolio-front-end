@@ -23,8 +23,6 @@ const HistorySectionComponent = () => {
   useEffect(() => {
     setActiveHistory("ok");
     itemsRef.current.forEach((item) => console.log(item));
-
-    console.log(itemsRef);
   }, [itemsRef]);
 
   return (

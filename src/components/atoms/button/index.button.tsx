@@ -2,7 +2,7 @@
 import React from "react";
 
 // import style
-import { ButtonStyled, ButtonCyrlicStyled, ButtonOutLinkStyled, ButtonInLinkStyled } from "./style/styled";
+import { ButtonStyled, ButtonCyrlicStyled, ButtonOutLinkStyled, ButtonInLinkStyled, ButtonSubmitStyled } from "./style/styled";
 
 // create interface
 interface ButtonProps {
@@ -39,13 +39,14 @@ export const ButtonCyrlic = ({ children, className, onClick }: ButtonCyrlicProps
 // create interface
 interface ButtonOutLinkProps {
   href: string;
+  title?: string;
   children?: JSX.Element | JSX.Element[] | any;
 }
 
 // create component
-export const ButtonOutLink = ({ children, href }: ButtonOutLinkProps, props: any) => {
+export const ButtonOutLink = ({ children, href, title }: ButtonOutLinkProps, props: any) => {
   return (
-    <ButtonOutLinkStyled href={href} target="_blank">
+    <ButtonOutLinkStyled href={href} title={title} target="_blank">
       {children}
     </ButtonOutLinkStyled>
   );
@@ -59,4 +60,21 @@ interface ButtonInLinkProps {
 // create component
 export const ButtonInLink = ({ children }: ButtonInLinkProps, props: any) => {
   return <ButtonInLinkStyled {...props}>{children}</ButtonInLinkStyled>;
+};
+
+// create interface
+interface ButtonSubmitProps {
+  style?: any;
+  onClick?: any;
+  className?: string;
+  children?: JSX.Element | JSX.Element[] | any;
+}
+
+// create component
+export const ButtonSubmit = ({ children, className, onClick, style }: ButtonSubmitProps) => {
+  return (
+    <ButtonSubmitStyled onClick={onClick} className={className} style={style} type="submit">
+      {children}
+    </ButtonSubmitStyled>
+  );
 };

@@ -53,11 +53,10 @@ const GlobalStyle = styled.createGlobalStyle<GlobalStyleProps>`
     font-size: 1.6rem;
     font-style: normal;
     font-weight: normal;
-    height: 300vh;
     color: var(--uxu-pl-text);
     background-color: var(--uxu-pl-bg-primary);
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans",
-      sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   }
 
   p,
