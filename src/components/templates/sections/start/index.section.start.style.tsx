@@ -1,36 +1,36 @@
-// import plugin
 import styled from "styled-components";
 
 export const Section = styled.section`
   width: 100%;
+  height: 100vh;
   overflow: unset;
+  overflow: hidden;
   position: relative;
 
   .bg {
-    background-size: 20rem;
+    background-size: 30rem;
     background-repeat: no-repeat;
     background-position: right bottom;
 
     @media all and (min-width: 768px) {
-      background-size: 40rem;
+      background-size: 35rem;
     }
 
     @media all and (min-width: 1024px) {
+      background-size: 50rem;
+    }
+
+    @media all and (min-width: 1170px) {
       background-size: 60rem;
     }
   }
 
   .col {
-    min-height: 40rem;
-    height: 100vh;
-    max-height: 98rem;
     display: flex;
+    height: 100vh;
+    min-height: 40rem;
     flex-direction: column;
     justify-content: center;
-    &:last-of-type {
-      justify-content: flex-start;
-      padding-top: 25rem;
-    }
 
     @media all and (min-width: 768px) {
       min-height: 62rem;
@@ -38,10 +38,20 @@ export const Section = styled.section`
   }
 
   .btn {
-    margin: 3rem auto 0rem 0;
+    font-size: 1.4rem;
     animation-duration: 500ms;
+    margin: 3rem auto 0rem auto;
     animation-fill-mode: forwards;
     animation-name: startAnimation4;
+
+    @media all and (min-width: 768px) {
+      margin: 3rem auto 0rem 0;
+      font-size: 1.6rem;
+    }
+
+    @media all and (min-width: 1170px) {
+      font-size: 2rem;
+    }
   }
 
   @keyframes startAnimation4 {
@@ -57,14 +67,24 @@ export const Section = styled.section`
 `;
 
 export const H1 = styled.h1`
-  font-size: 3.1rem;
+  font-size: 2.5rem;
   font-weight: bold;
+  text-align: center;
   color: var(--uxu-pl-text);
   animation-duration: 500ms;
   animation-fill-mode: forwards;
   animation-name: startAnimation1;
 
   @media all and (min-width: 768px) {
+    text-align: left;
+    font-size: 3.9rem;
+  }
+
+  @media all and (min-width: 1024px) {
+    font-size: 5rem;
+  }
+
+  @media all and (min-width: 1170px) {
     font-size: 6.1rem;
   }
 
@@ -81,13 +101,23 @@ export const H1 = styled.h1`
 `;
 
 export const H2 = styled.h2`
-  font-size: 2rem;
-  animation-name: startAnimation2;
+  font-size: 1.6rem;
+  text-align: center;
   animation-duration: 500ms;
   color: var(--uxu-pl-text-off);
   animation-fill-mode: forwards;
+  animation-name: startAnimation2;
 
   @media all and (min-width: 768px) {
+    text-align: left;
+    font-size: 2.3rem;
+  }
+
+  @media all and (min-width: 1024px) {
+    font-size: 2.6rem;
+  }
+
+  @media all and (min-width: 1170px) {
     font-size: 3.1rem;
   }
 
@@ -104,9 +134,12 @@ export const H2 = styled.h2`
 `;
 
 export const List = styled.ul`
+  width: 100%;
+  bottom: 3rem;
   display: flex;
-  flex-wrap: wrap;
-  position: relative;
+  flex-wrap: nowrap;
+  position: absolute;
+  justify-content: center;
   animation-duration: 500ms;
   animation-fill-mode: forwards;
   animation-name: startAnimation3;
@@ -125,7 +158,7 @@ export const List = styled.ul`
   @media all and (min-width: 768px) {
     bottom: 6rem;
     flex-wrap: nowrap;
-    position: absolute;
+    width: max-content;
 
     @keyframes startAnimation3 {
       from {
@@ -141,9 +174,9 @@ export const List = styled.ul`
 `;
 
 export const Item = styled.li`
-  padding: 0.5rem 0;
-  width: 100%;
+  width: max-content;
   position: relative;
+  padding: 0.5rem 2rem;
 
   @media all and (min-width: 768px) {
     padding: 0 4rem;
@@ -151,17 +184,34 @@ export const Item = styled.li`
   }
 
   &::after {
-    display: none;
+    top: 1.5rem;
+    width: 2rem;
+    content: "";
+    display: block;
+    right: -1rem;
+    height: 0.1rem;
+    position: absolute;
+    background: var(--uxu-pl-text-off);
 
     @media all and (min-width: 768px) {
-      content: "";
-      display: block;
       top: 2rem;
       width: 3rem;
       right: -1.5rem;
       height: 0.1rem;
-      position: absolute;
-      background: var(--uxu-pl-text-off);
+    }
+
+    @media all and (min-width: 768px) {
+      top: 1.3rem;
+      width: 3rem;
+      right: -1.5rem;
+    }
+
+    @media all and (min-width: 1024px) {
+      top: 1.5rem;
+    }
+
+    @media all and (min-width: 1170px) {
+      top: 2rem;
     }
   }
 
@@ -181,9 +231,18 @@ export const Item = styled.li`
     border: none;
     border-radius: 0;
     color: white;
-    font-size: 2rem;
+    font-size: 1.4rem;
     font-weight: bold;
+
     @media all and (min-width: 768px) {
+      font-size: 2.3rem;
+    }
+
+    @media all and (min-width: 1024px) {
+      font-size: 2.6rem;
+    }
+
+    @media all and (min-width: 1170px) {
       font-size: 3.2rem;
     }
 
@@ -205,22 +264,40 @@ export const Img = styled.img`
 
 export const ModalContent = styled.div`
   width: 100%;
+  display: block;
   max-width: 55rem;
   position: relative;
 `;
 
 export const ModdalTitle = styled.h1`
-  font-size: 4rem;
-  font-weight: bold;
-  display: block;
   width: 100%;
+  display: block;
+  font-size: 1.8rem;
+  font-weight: bold;
   text-align: center;
+
+  @media all and (min-width: 1024px) {
+    font-size: 3rem;
+  }
+
+  @media all and (min-width: 1170px) {
+    font-size: 4rem;
+  }
 `;
+
 export const ModdalDescription = styled.p`
   width: 100%;
   display: block;
-  font-size: 2rem;
+  font-size: 1.6rem;
   text-align: center;
+
+  @media all and (min-width: 1024px) {
+    font-size: 1.8rem;
+  }
+
+  @media all and (min-width: 1170px) {
+    font-size: 2rem;
+  }
 `;
 
 export const Form = styled.form`

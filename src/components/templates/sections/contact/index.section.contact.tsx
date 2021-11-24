@@ -7,7 +7,19 @@ import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexbo
 import { InputText, InputEmail, InputTel, TextArea, CheckBoxClassic } from "components/molecules/form/index.form";
 
 // import styled
-import { Section, SelectBox, List, Header, BoxContact, Title, Form, BoxAnimation, SharpCircle, SharpSquare, SharpTriangle } from "./style/styled";
+import {
+  Section,
+  SelectBox,
+  List,
+  Header,
+  BoxContact,
+  Title,
+  Form,
+  BoxAnimation,
+  SharpCircle,
+  SharpSquare,
+  SharpTriangle,
+} from "./index.section.contact.styled";
 
 // import context
 import { LanguageContext } from "providers/LanguageProvider";
@@ -22,12 +34,11 @@ import { ReactComponent as Square } from "assets/icon/square.svg";
 // create component
 const ContactSectionComponent = () => {
   const { language } = useContext(LanguageContext);
-
   return (
     <Section id="contact">
       <Container>
         <Row>
-          <Col xs={12} md={3}>
+          <Col xs={12} md={4} lg={3}>
             <SelectBox>
               <Header style={{ paddingBottom: "2rem" }}>UXU</Header>
               <List>
@@ -72,7 +83,7 @@ const ContactSectionComponent = () => {
             </SelectBox>
           </Col>
 
-          <Col xs={12} md={5}>
+          <Col xs={12} md={8} lg={5} style={{ zIndex: 1 }}>
             <BoxContact>
               <Title>{language === "pl" ? "Kontakt" : "Contact"}</Title>
 

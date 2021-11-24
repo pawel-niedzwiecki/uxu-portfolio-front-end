@@ -2,7 +2,7 @@
 import React from "react";
 
 // import style
-import { ButtonStyled, ButtonCyrlicStyled, ButtonOutLinkStyled, ButtonInLinkStyled, ButtonSubmitStyled } from "./style/styled";
+import { ButtonStyled, ButtonCyrlicStyled, ButtonOutLinkStyled, ButtonInLinkStyled, ButtonSubmitStyled } from "./index.button.style";
 
 // create interface
 interface ButtonProps {

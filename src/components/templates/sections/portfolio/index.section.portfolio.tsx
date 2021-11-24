@@ -1,12 +1,8 @@
-// import plugin
 import React, { useContext, useState, useEffect } from "react";
-
-// import component
+import { ReactComponent as Circle } from "assets/icon/circle.svg";
 import { SquareConent } from "components/atoms/animation/index.animation";
 import { Button, ButtonOutLink } from "components/atoms/button/index.button";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-
-// import styled
 import {
   Section,
   SelectBox,
@@ -20,9 +16,7 @@ import {
   FlipBoxList,
   FlipBoxListItem,
   FlipBoxButton,
-} from "./style/styled";
-
-// import context
+} from "./index.section.portfolio.style";
 import { DataBaseContext } from "providers/DataBaseProvider";
 import { LanguageContext } from "providers/LanguageProvider";
 
@@ -48,7 +42,7 @@ const PortfolioSectionComponent = () => {
     <Section id="portfolio">
       <Container>
         <Row>
-          <Col xs={12} md={3}>
+          <Col xs={12} md={4} lg={3}>
             <SelectBox>
               <Header style={{ paddingBottom: "2rem" }}>Portfolio</Header>
               <List>
@@ -85,7 +79,7 @@ const PortfolioSectionComponent = () => {
                     <li>I have a problem with download data, try in 1 hour</li>
                   )
                 ) : (
-                  [1, 2, 3, 4, 5].map((x) => (
+                  new Array(5).map((x) => (
                     <li key={x}>
                       <SquareConent typ="dark" height={4.5} />
                     </li>
@@ -94,7 +88,7 @@ const PortfolioSectionComponent = () => {
               </List>
             </SelectBox>
           </Col>
-          <Col xs={12} md={9}>
+          <Col xs={12} md={8} lg={9} style={{ zIndex: 1 }}>
             <Row>
               {!!displayPortfolio.length ? (
                 displayPortfolio.map((item) => {
@@ -139,7 +133,7 @@ const PortfolioSectionComponent = () => {
                   </Col>
                 )
               ) : (
-                [1, 2, 3, 4, 5, 6, 7, 8, 9].map((x) => (
+                new Array(9).map((x) => (
                   <Col xs={12} md={6} lg={4} className="col" key={x}>
                     <SquareConent height={20} />
                   </Col>
@@ -148,6 +142,7 @@ const PortfolioSectionComponent = () => {
             </Row>
           </Col>
         </Row>
+        <Circle className="circle" />
       </Container>
     </Section>
   );

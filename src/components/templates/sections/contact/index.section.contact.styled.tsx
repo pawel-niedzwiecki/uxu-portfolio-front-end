@@ -5,7 +5,11 @@ export const Section = styled.section`
   width: 100%;
   overflow: unset;
   position: relative;
-  padding: 6rem 0 10rem 0;
+  padding: 4rem 0 0 0;
+
+  @media all and (min-width: 768px) {
+    padding: 6rem 0 10rem 0;
+  }
 
   .col {
     padding: 1rem;
@@ -13,11 +17,8 @@ export const Section = styled.section`
 `;
 
 export const SelectBox = styled.div`
-  top: 7.9rem;
   width: 100%;
   margin-top: 1rem;
-  position: -webkit-sticky;
-  position: sticky;
   border-radius: 0.3em;
   padding: ${({ theme }) => theme.break.big};
   background-color: ${({ theme }) => theme.blue};
@@ -88,12 +89,16 @@ export const Header = styled.h1`
 `;
 
 export const BoxContact = styled.div`
-  display: flex;
   height: 100%;
+  display: flex;
   position: relative;
   flex-direction: column;
   justify-content: center;
-  padding: ${({ theme }) => theme.break.big};
+  padding: var(--uxu-pl-break-bigger) var(--uxu-pl-break-main);
+
+  @media all and (min-width: 768px) {
+    padding: var(--uxu-pl-break-bigger);
+  }
 `;
 export const Title = styled.h1`
   display: block;
@@ -108,12 +113,16 @@ export const Form = styled.form`
 `;
 
 export const BoxAnimation = styled.div`
-  top: 0;
-  right: 0;
-  width: 40rem;
-  display: flex;
-  position: absolute;
-  flex-direction: column;
+  display: none;
+
+  @media all and (min-width: 1024px) {
+    top: 0;
+    right: 0;
+    width: 40rem;
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+  }
 `;
 
 interface SharpCircleProps {

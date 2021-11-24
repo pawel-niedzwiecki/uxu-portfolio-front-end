@@ -110,11 +110,7 @@ const GlobalStyle = styled.createGlobalStyle<GlobalStyleProps>`
 
   section {
     width: 100%;
-    overflow: hidden;
     position: relative;
-  }
-
-  form {
   }
 `;
 

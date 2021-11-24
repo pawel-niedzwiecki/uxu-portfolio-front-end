@@ -1,4 +1,3 @@
-// import plugin
 import styled, { css } from "styled-components";
 
 export const Section = styled.section`
@@ -10,17 +9,47 @@ export const Section = styled.section`
   .col {
     padding: 1rem;
   }
+
+  .circle {
+    display: none;
+
+    @media all and (min-width: 768px) {
+      top: auto;
+      z-index: 0;
+      width: 100%;
+      left: 10rem;
+      display: none;
+      bottom: -20rem;
+      max-width: 60rem;
+      position: absolute;
+    }
+
+    @media all and (min-width: 1024px) {
+      bottom: -30rem;
+      max-width: 80rem;
+    }
+  }
 `;
 
 export const SelectBox = styled.div`
-  top: 7.9rem;
+  top: 8rem;
+  z-index: 1;
   width: 100%;
-  margin-top: 1rem;
-  position: -webkit-sticky;
   position: sticky;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   border-radius: 0.3em;
+  position: -webkit-sticky;
   padding: ${({ theme }) => theme.break.big};
   background-color: ${({ theme }) => theme.blue};
+
+  @media all and (min-width: 768px) {
+    top: 7rem;
+  }
+
+  @media all and (min-width: 1024px) {
+    top: 8rem;
+  }
 
   button {
     border: none;

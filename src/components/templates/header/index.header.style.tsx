@@ -1,26 +1,35 @@
-// import plugin
 import styled from "styled-components";
 
-// create new elemnt
 export const Header = styled.header`
   width: 100%;
   z-index: 99999;
   display: block;
   position: fixed;
+  max-height: 6rem;
   transition: all 0.3s;
 `;
 
 export const Logo = styled.button`
+  padding: 0;
   border: none;
-  display: block;
+  display: flex;
   position: relative;
+  align-items: center;
   background: transparent;
 
   svg {
-    height: 4rem;
+    height: 2rem;
     fill: ${({ theme }) => theme.white};
     &:hover {
       fill: ${({ theme }) => theme.aqua};
+    }
+
+    @media all and (min-width: 768px) {
+      height: 3rem;
+    }
+
+    @media all and (min-width: 1170px) {
+      height: 4rem;
     }
   }
 `;
@@ -33,10 +42,9 @@ export const List = styled.ul`
 `;
 
 export const Item = styled.li`
+  padding: 0 1rem;
   position: relative;
   width: max-content;
-
-  padding: 0 1rem;
 
   &:last-of-type {
     padding-right: 0;
@@ -45,12 +53,21 @@ export const Item = styled.li`
   a {
     display: block;
     color: white;
-    font-size: 3rem;
+    font-size: 1.6rem;
     font-weight: bold;
+
+    @media all and (min-width: 768px) {
+      font-size: 2.3rem;
+    }
+
+    @media all and (min-width: 1170px) {
+      font-size: 3rem;
+    }
 
     &:hover {
       color: ${({ theme }) => theme.aqua};
     }
+
     &.active {
       cursor: no-drop;
       color: ${({ theme }) => theme.gray};

@@ -1,9 +1,6 @@
-// import plugin
 import React, { useState, useEffect, useContext } from "react";
-
 import { LanguageContext } from "providers/LanguageProvider";
 
-// create context
 export const DataBaseContext = React.createContext({
   portfolio: [],
   histories: [],
@@ -11,13 +8,10 @@ export const DataBaseContext = React.createContext({
   error: { portfolio: false, histories: false, tags: false },
 });
 
-// create interface
-
 interface DataBaseProviderProps {
   children?: JSX.Element | JSX.Element[] | any;
 }
 
-// create component
 const DataBaseProvider = ({ children }: DataBaseProviderProps) => {
   const { language } = useContext(LanguageContext);
 

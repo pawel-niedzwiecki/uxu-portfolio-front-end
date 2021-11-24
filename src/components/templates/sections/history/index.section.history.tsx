@@ -7,7 +7,7 @@ import { Button } from "components/atoms/button/index.button";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 
 // import styled
-import { Section, SelectBox, List, Header, BoxHistory, LogoHistory, ContentHistory, TitleHistory, DescriptionHistory } from "./style/styled";
+import { Section, SelectBox, List, Header, BoxHistory, LogoHistory, ContentHistory, TitleHistory, DescriptionHistory } from "./index.section.history.style";
 
 // import context
 import { DataBaseContext } from "providers/DataBaseProvider";
@@ -29,7 +29,7 @@ const HistorySectionComponent = () => {
     <Section id="history">
       <Container>
         <Row>
-          <Col xs={12} md={3}>
+          <Col xs={12} md={4} lg={3}>
             <SelectBox>
               <Header style={{ paddingBottom: "2rem" }}>{language === "pl" ? "Moja historia" : "My history"}</Header>
               <List>
@@ -69,7 +69,7 @@ const HistorySectionComponent = () => {
             </SelectBox>
           </Col>
 
-          <Col xs={12} md={9}>
+          <Col xs={12} md={8} lg={9}>
             <Row>
               {histories.length ? (
                 <>

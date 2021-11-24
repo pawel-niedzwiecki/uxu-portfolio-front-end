@@ -31,15 +31,21 @@ export const Button = styled.button`
 
 const buttonwholestyle = css`
   cursor: pointer;
+  font-size: 1.6rem;
   font-weight: bold;
   padding: 1rem 2rem;
   border-radius: 5rem;
   transition: all 0.3s;
   background-color: transparent;
   color: ${({ theme }) => theme.aqua};
-  border: 0.5rem solid ${({ theme }) => theme.aqua};
+  border: 0.3rem solid ${({ theme }) => theme.aqua};
 
   @media all and (min-width: 768px) {
+    padding: 1.5rem 3rem;
+    border: 0.5rem solid ${({ theme }) => theme.aqua};
+  }
+
+  @media all and (min-width: 1024px) {
     font-size: 2rem;
     padding: 2rem 4rem;
   }
@@ -70,9 +76,25 @@ export const ButtonStyled = styled.button`
 // create style
 export const ButtonCyrlicStyled = styled.button`
   ${buttonwholestyle}
-  height: 5rem;
-  padding: 1rem !important;
-  border-radius: 100% !important;
+  width: 3rem;
+  height: 3rem;
+  padding: 0.2rem;
+  border-radius: 100%;
+
+  svg {
+    width: 1rem;
+  }
+
+  @media all and (min-width: 768px) {
+    width: 5rem;
+    height: 5rem;
+    padding: 1rem 0.5rem;
+
+    svg {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
 `;
 
 export const ButtonOutLinkStyled = styled.a`

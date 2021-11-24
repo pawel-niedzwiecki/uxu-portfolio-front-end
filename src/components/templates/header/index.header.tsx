@@ -1,23 +1,11 @@
-// import plugin
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
-
-// import styled
-import { Header, Logo, List, Item } from "./style/styled";
-
-// import component
+import useWindowData from "hooks/useWindowData";
+import { LanguageContext } from "providers/LanguageProvider";
+import { ReactComponent as Brand } from "assets/icon/logo.svg";
+import { Header, Logo, List, Item } from "./index.header.style";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 
-// import hooks
-import useWindowData from "hooks/useWindowData";
-
-// import provider
-import { LanguageContext } from "providers/LanguageProvider";
-
-//import svg
-import { ReactComponent as Brand } from "assets/icon/logo.svg";
-
-// create new component
 const HeaderComponent = () => {
   const windowData = useWindowData();
   const { languageChange } = useContext(LanguageContext);
@@ -27,12 +15,11 @@ const HeaderComponent = () => {
       style={{
         backgroundColor: `${windowData.pageScrollY < 120 ? "transparent" : "var(--uxu-pl-bg-secondary)"}`,
         padding: `${windowData.pageScrollY < 120 ? "var(--uxu-pl-break-bigger) 0" : "var(--uxu-pl-break-main) 0"}`,
-        maxHeight: `${windowData.pageScrollY < 120 ? "6rem" : "auto"}`,
       }}
     >
       <Container>
         <Row>
-          <Col xs={6}>
+          <Col xs={6} style={{ display: "flex", alignItems: "center" }}>
             <Logo
               onClick={() => {
                 window.scrollTo({ top: document.getElementById("start").getBoundingClientRect().top, behavior: "smooth" });
