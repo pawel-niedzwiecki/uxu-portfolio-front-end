@@ -56,16 +56,16 @@ const HistorySectionComponent = () => {
                   )
                 ) : (
                   <>
-                    {[1, 2, 3, 4, 5].map((x) => {
+                    {[...new Array(5)].map((x, i) => {
                       return (
-                        <li key={x}>
+                        <li key={i}>
                           <SquareConent height={4.5} />
                         </li>
                       );
                     })}
                   </>
                 )}
-              </List>
+              </List> 
             </SelectBox>
           </Col>
 
@@ -90,9 +90,9 @@ const HistorySectionComponent = () => {
                   })}
                 </>
               ) : (
-                [1, 2, 3, 4, 5].map((x) => {
+                [...new Array(5)].map((x, i) => {
                   return (
-                    <Col xs={12} key={x}>
+                    <Col xs={12} key={i}>
                       <SquareConent height={30} />
                     </Col>
                   );

@@ -79,8 +79,8 @@ const PortfolioSectionComponent = () => {
                     <li>I have a problem with download data, try in 1 hour</li>
                   )
                 ) : (
-                  new Array(5).map((x) => (
-                    <li key={x}>
+                  [...new Array(5)].map((x, i) => (
+                    <li key={i}>
                       <SquareConent typ="dark" height={4.5} />
                     </li>
                   ))
@@ -133,8 +133,8 @@ const PortfolioSectionComponent = () => {
                   </Col>
                 )
               ) : (
-                new Array(9).map((x) => (
-                  <Col xs={12} md={6} lg={4} className="col" key={x}>
+                [...new Array(10)].map((x, i) => (
+                  <Col xs={12} md={6} lg={4} className="col" key={i}>
                     <SquareConent height={20} />
                   </Col>
                 ))

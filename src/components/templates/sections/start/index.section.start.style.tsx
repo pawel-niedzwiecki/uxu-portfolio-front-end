@@ -26,6 +26,7 @@ export const Section = styled.section`
   }
 
   .col {
+    padding: 0;
     display: flex;
     height: 100vh;
     min-height: 40rem;
@@ -33,6 +34,7 @@ export const Section = styled.section`
     justify-content: center;
 
     @media all and (min-width: 768px) {
+      padding: 0 1rem;
       min-height: 62rem;
     }
   }
@@ -134,6 +136,7 @@ export const H2 = styled.h2`
 `;
 
 export const List = styled.ul`
+  left: 0;
   width: 100%;
   bottom: 3rem;
   display: flex;
@@ -156,6 +159,7 @@ export const List = styled.ul`
   }
 
   @media all and (min-width: 768px) {
+    left: 1rem;
     bottom: 6rem;
     flex-wrap: nowrap;
     width: max-content;

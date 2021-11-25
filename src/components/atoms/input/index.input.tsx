@@ -2,7 +2,7 @@
 import React, { useRef, useEffect, useState } from "react";
 
 // import style
-import { Label, Text, InputTextStyled, InputEmailStyled, InputTelStyled } from "./style/styled";
+import { Label, Text, InputTextStyled, InputEmailStyled, InputTelStyled } from "./index.input.style";
 
 // create interface
 interface InputTextProps {
@@ -28,7 +28,12 @@ export const InputText = ({ id, children, required }: InputTextProps) => {
     });
 
     return () => {
-        
+      current.removeEventListener("focus", () => {
+        setFocusInput(true);
+      });
+      current.removeEventListener("blur", () => {
+        setFocusInput(false);
+      });
     };
   }, []);
 
@@ -54,12 +59,24 @@ export const InputEmail = ({ id, children, required }: InputEmailProps) => {
   const refInput = useRef(null);
 
   useEffect(() => {
-    refInput.current.addEventListener("focus", () => {
+    const { current } = refInput;
+
+    current.addEventListener("focus", () => {
       setFocusInput(true);
     });
-    refInput.current.addEventListener("blur", () => {
+
+    current.addEventListener("blur", () => {
       setFocusInput(false);
     });
+
+    return () => {
+      current.removeEventListener("focus", () => {
+        setFocusInput(true);
+      });
+      current.removeEventListener("blur", () => {
+        setFocusInput(false);
+      });
+    };
   }, []);
 
   return (
@@ -84,15 +101,25 @@ export const InputTel = ({ id, children, required }: InputTelProps) => {
   const refInput = useRef(null);
 
   useEffect(() => {
-    if (!!refInput.current) {
-      refInput.current.addEventListener("focus", () => {
+    const { current } = refInput;
+
+    current.addEventListener("focus", () => {
+      setFocusInput(true);
+    });
+
+    current.addEventListener("blur", () => {
+      setFocusInput(false);
+    });
+
+    return () => {
+      current.removeEventListener("focus", () => {
         setFocusInput(true);
       });
-      refInput.current.addEventListener("blur", () => {
+      current.removeEventListener("blur", () => {
         setFocusInput(false);
       });
-    }
-  }, [focusInput]);
+    };
+  }, []);
 
   return (
     <Label htmlFor={id}>

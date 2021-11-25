@@ -1,36 +1,45 @@
-// import plugin
 import React, { useState, useEffect } from "react";
+import translationsWords from "assets/lang/index.translationsWords";
 
-// create context
 export const LanguageContext = React.createContext({
+  translations: { ...translationsWords.en },
   language: window.localStorage.lang || navigator.language,
   languageChange: (lang: string) => {},
 });
-
-// create interface
 
 interface UsersProviderProps {
   children?: JSX.Element | JSX.Element[] | any;
 }
 
-// create component
 const LanguageProvider = ({ children }: UsersProviderProps) => {
   const [language, setLanguage] = useState(window.localStorage.lang || navigator.language);
+  const [translations, setTranslations] = useState({ ...translationsWords.en });
 
-  useEffect(() => {
-    const setLang = window.localStorage.lang;
-    if (!setLang) return window.localStorage.setItem("lang", language);
-  }, [language]);
+  const translationsSwitch = (lang: string) => {
+    switch (lang) {
+      case "pl":
+        return setTranslations(translationsWords["pl"]);
+      case "en":
+        return setTranslations(translationsWords["en"]);
+    }
+  };
 
   const languageChange = (lang: string) => {
     setLanguage(lang);
     window.localStorage.setItem("lang", lang);
   };
 
+  useEffect(() => {
+    const setLang = window.localStorage.lang;
+    translationsSwitch(language);
+    if (!setLang) return window.localStorage.setItem("lang", language);
+  }, [language]);
+
   return (
     <LanguageContext.Provider
       value={{
         language,
+        translations,
         languageChange,
       }}
     >
