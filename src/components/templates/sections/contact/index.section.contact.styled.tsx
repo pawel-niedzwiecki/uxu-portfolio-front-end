@@ -107,7 +107,7 @@ export const Title = styled.h1`
 `;
 
 interface FormProps {
-  netlify: boolean;
+  netlify: any;
 }
 
 export const Form = styled.form<FormProps>`
