@@ -1,5 +1,5 @@
 // import plugin
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 
 // import component
 import { ButtonOutLink, ButtonSubmit } from "components/atoms/button/index.button";
@@ -36,6 +36,19 @@ const ContactSectionComponent = () => {
   const { translations } = useContext(LanguageContext);
   const { name, phone, email, message, clausureRodo, buttonSend } = translations.forms;
   const { title } = translations.section.contact;
+  const refFormContact = useRef(null);
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    let myForm = refFormContact.current;
+    let formData: {} = new FormData(myForm);
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(formData).toString(),
+    })
+      .then(() => console.log("Form successfully submitted"))
+      .catch((error) => alert(error));
+  };
 
   console.log(translations);
   return (
@@ -91,13 +104,22 @@ const ContactSectionComponent = () => {
             <BoxContact>
               <Title>{title}</Title>
 
-              <Form name="contact" method="POST" data-netlify="true">
+              <Form ref={refFormContact}>
                 <InputText id="nameContact">{name}</InputText>
                 <InputEmail id="emailContact">{email}</InputEmail>
                 <InputTel id="telContact">{phone}</InputTel>
                 <TextArea id="descriptionContact">{message}</TextArea>
                 <CheckBoxClassic id="clausureRodoContact">{clausureRodo}</CheckBoxClassic>
-                <ButtonSubmit style={{ marginTop: "3rem" }}>{buttonSend}</ButtonSubmit>
+                <ButtonSubmit
+                  style={{ marginTop: "3rem" }}
+                  onClick={(e: any) => {
+                    e.preventDefault();
+                    handleSubmit(e);
+                    console.log("subbmit ok");
+                  }}
+                >
+                  {buttonSend}
+                </ButtonSubmit>
               </Form>
             </BoxContact>
           </Col>
