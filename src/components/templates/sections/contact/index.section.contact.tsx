@@ -2,14 +2,24 @@
 import React, { useContext } from "react";
 
 // import component
-// eslint-disable-next-line no-unused-vars
 import { ButtonOutLink, ButtonSubmit } from "components/atoms/button/index.button";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-// eslint-disable-next-line no-unused-vars
 import { InputText, InputEmail, InputTel, TextArea, CheckBoxClassic } from "components/molecules/form/index.form";
 
 // import styled
-import { Section, SelectBox, List, Header, BoxContact, Title, BoxAnimation, SharpCircle, SharpSquare, SharpTriangle } from "./index.section.contact.styled";
+import {
+  Section,
+  SelectBox,
+  List,
+  Header,
+  BoxContact,
+  Title,
+  Form,
+  BoxAnimation,
+  SharpCircle,
+  SharpSquare,
+  SharpTriangle,
+} from "./index.section.contact.styled";
 
 // import context
 import { LanguageContext } from "providers/LanguageProvider";
@@ -24,10 +34,10 @@ import { ReactComponent as Square } from "assets/icon/square.svg";
 // create component
 const ContactSectionComponent = () => {
   const { translations } = useContext(LanguageContext);
-  // eslint-disable-next-line no-unused-vars
   const { name, phone, email, message, clausureRodo, buttonSend } = translations.forms;
   const { title } = translations.section.contact;
 
+  console.log(translations);
   return (
     <Section id="contact">
       <Container>
@@ -81,24 +91,14 @@ const ContactSectionComponent = () => {
             <BoxContact>
               <Title>{title}</Title>
 
-              <form name="contact v1" method="post" data-netlify="true" onSubmit="submit" action="/ok">
-                <input type="hidden" name="form-name" value="contact" />
-                <p>
-                  <label htmlFor="name">Name</label> <br />
-                  <input type="text" id="name" name="name" required />
-                </p>
-                <p>
-                  <label htmlFor="email">Email</label> <br />
-                  <input type="email" id="email" name="email" required />
-                </p>
-                <p>
-                  <label htmlFor="message">Message</label> <br />
-                  <textarea id="message" name="message" required></textarea>
-                </p>
-                <p>
-                  <input type="submit" value="Submit message" />
-                </p>
-              </form>
+              <Form name="conversation" method="post" data-netlify="true">
+                <InputText id="nameContact">{name}</InputText>
+                <InputEmail id="emailContact">{email}</InputEmail>
+                <InputTel id="telContact">{phone}</InputTel>
+                <TextArea id="descriptionContact">{message}</TextArea>
+                <CheckBoxClassic id="clausureRodoContact">{clausureRodo}</CheckBoxClassic>
+                <ButtonSubmit style={{ marginTop: "3rem" }}>{buttonSend}</ButtonSubmit>
+              </Form>
             </BoxContact>
           </Col>
         </Row>

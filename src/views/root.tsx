@@ -26,12 +26,13 @@ const Root = () => {
         <DataBaseProvider>
           <LayoutComponent>
             <Switch>
-              <Route exact path="/">
-                {language === "pl" ? <Redirect to="/pl" /> : <Redirect to="/en" />}
-              </Route>
-              <Route exact path="/:lang">
+              <Route exact path="/pl">
                 <Home />
               </Route>
+              <Route exact path="/en">
+                <Home />
+              </Route>
+              <Route path="/*">{language === "pl" ? <Redirect to="/pl" /> : <Redirect to="/en" />}</Route>
             </Switch>
           </LayoutComponent>
         </DataBaseProvider>
