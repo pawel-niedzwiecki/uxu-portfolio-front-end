@@ -19,8 +19,6 @@ import { ReactComponent as Linkedin } from "assets/icon/linkedin.svg";
 import { ReactComponent as Instagram } from "assets/icon/instagram.svg";
 import { ReactComponent as Square } from "assets/icon/square.svg";
 
-const FORM_NAME = "contact";
-
 // create component
 const ContactSectionComponent = () => {
   const { translations } = useContext(LanguageContext);
