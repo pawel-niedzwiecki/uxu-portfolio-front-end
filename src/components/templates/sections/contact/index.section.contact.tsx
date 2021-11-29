@@ -37,7 +37,17 @@ const ContactSectionComponent = () => {
   const { name, phone, email, message, clausureRodo, buttonSend } = translations.forms;
   const { title } = translations.section.contact;
 
-  console.log(translations);
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: "ok",
+    })
+      .then(() => console.log("all ok"))
+      .catch((error) => alert(error));
+  };
+
   return (
     <Section id="contact">
       <Container>
@@ -91,7 +101,7 @@ const ContactSectionComponent = () => {
             <BoxContact>
               <Title>{title}</Title>
 
-              <Form name="conversation" method="post" data-netlify="true">
+              <Form data-netlify="true" name="contact v1" method="post" onSubmit={handleSubmit}>
                 <InputText id="nameContact">{name}</InputText>
                 <InputEmail id="emailContact">{email}</InputEmail>
                 <InputTel id="telContact">{phone}</InputTel>
