@@ -81,7 +81,7 @@ const ContactSectionComponent = () => {
             <BoxContact>
               <Title>{title}</Title>
 
-              <form name="contact" method="post" data-netlify="true" data-netlify-honeypot="bot-field">
+              <form name="contact v1" method="post" data-netlify="true" onSubmit="submit" action="/ok">
                 <input type="hidden" name="form-name" value="contact" />
                 <p>
                   <label htmlFor="name">Name</label> <br />
