@@ -29,10 +29,9 @@ const Root = () => {
               <Route exact path="/">
                 {language === "pl" ? <Redirect to="/pl" /> : <Redirect to="/en" />}
               </Route>
-              <Route path="/:lang">
+              <Route exact path="/:lang">
                 <Home />
               </Route>
-              <Route path="*">404</Route>
             </Switch>
           </LayoutComponent>
         </DataBaseProvider>
