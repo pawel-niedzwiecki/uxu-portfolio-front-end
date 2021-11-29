@@ -91,7 +91,7 @@ const ContactSectionComponent = () => {
             <BoxContact>
               <Title>{title}</Title>
 
-              <Form name="conversation" method="POST" data-netlify="true">
+              <Form name="conversation" method="POST" netlify={true}>
                 <InputText id="nameContact">{name}</InputText>
                 <InputEmail id="emailContact">{email}</InputEmail>
                 <InputTel id="telContact">{phone}</InputTel>
