@@ -80,7 +80,7 @@ const ContactSectionComponent = () => {
           <Col xs={12} md={8} lg={5} style={{ zIndex: 1 }}>
             <BoxContact>
               <Title>{title}</Title>
-              <form name="contact" method="POST" data-netlify="true">
+              <form name="contact" data-netlify="true">
                 <p>
                   <label>
                     Your Name: <input type="text" name="name" />
