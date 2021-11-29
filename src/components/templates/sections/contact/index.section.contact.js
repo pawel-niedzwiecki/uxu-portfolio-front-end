@@ -2,8 +2,10 @@
 import React, { useContext } from "react";
 
 // import component
+// eslint-disable-next-line no-unused-vars
 import { ButtonOutLink, ButtonSubmit } from "components/atoms/button/index.button";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
+// eslint-disable-next-line no-unused-vars
 import { InputText, InputEmail, InputTel, TextArea, CheckBoxClassic } from "components/molecules/form/index.form";
 
 // import styled
@@ -22,6 +24,7 @@ import { ReactComponent as Square } from "assets/icon/square.svg";
 // create component
 const ContactSectionComponent = () => {
   const { translations } = useContext(LanguageContext);
+  // eslint-disable-next-line no-unused-vars
   const { name, phone, email, message, clausureRodo, buttonSend } = translations.forms;
   const { title } = translations.section.contact;
 
@@ -77,14 +80,34 @@ const ContactSectionComponent = () => {
           <Col xs={12} md={8} lg={5} style={{ zIndex: 1 }}>
             <BoxContact>
               <Title>{title}</Title>
-
-              <form name="contact" netlify>
-                <InputText id="nameContact">{name}</InputText>
-                <InputEmail id="emailContact">{email}</InputEmail>
-                <InputTel id="telContact">{phone}</InputTel>
-                <TextArea id="descriptionContact">{message}</TextArea>
-                <CheckBoxClassic id="clausureRodoContact">{clausureRodo}</CheckBoxClassic>
-                <ButtonSubmit style={{ marginTop: "3rem" }}>{buttonSend}</ButtonSubmit>
+              <form name="contact" method="POST" data-netlify="true">
+                <p>
+                  <label>
+                    Your Name: <input type="text" name="name" />
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    Your Email: <input type="email" name="email" />
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    Your Role:
+                    <select name="role[]" multiple>
+                      <option value="leader">Leader</option>
+                      <option value="follower">Follower</option>
+                    </select>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    Message: <textarea name="message"></textarea>
+                  </label>
+                </p>
+                <p>
+                  <button type="submit">Send</button>
+                </p>
               </form>
             </BoxContact>
           </Col>
