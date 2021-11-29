@@ -29,6 +29,14 @@ interface translationsWordsTemplate {
         title: string;
       };
     };
+    forms: {
+      name: string;
+      phone: string;
+      email: string;
+      message: string;
+      buttonSend: string;
+      clausureRodo: string;
+    };
   };
   en: {
     section: {
@@ -59,6 +67,14 @@ interface translationsWordsTemplate {
       contact: {
         title: string;
       };
+    };
+    forms: {
+      name: string;
+      phone: string;
+      email: string;
+      message: string;
+      buttonSend: string;
+      clausureRodo: string;
     };
   };
 }
@@ -94,6 +110,15 @@ const translationsWords: translationsWordsTemplate = {
         title: "Contact",
       },
     },
+    forms: {
+      name: "Imię",
+      phone: "Telefon",
+      email: "email",
+      message: "Twoja wiadomosć",
+      buttonSend: "wyślij",
+      clausureRodo:
+        "wyrażam zgodę na przetwarzanie przez UXU moich danych osobowych, zawartych w formularzu kontaktowym, w celu udzielenia odpowiedzi na przesłane przeze mnie zapytanie.",
+    },
   },
   en: {
     section: {
@@ -124,6 +149,14 @@ const translationsWords: translationsWordsTemplate = {
       contact: {
         title: "Contact",
       },
+    },
+    forms: {
+      name: "name",
+      phone: "phone",
+      email: "email",
+      message: "Your message",
+      buttonSend: "send",
+      clausureRodo: "exercising consent to the processing of my personal data by UXU, processing in the contact form in order to obtain a response",
     },
   },
 };

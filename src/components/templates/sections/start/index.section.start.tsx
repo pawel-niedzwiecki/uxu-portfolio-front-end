@@ -9,8 +9,9 @@ import { Section, H1, H2, List, Item, ModalContent, ModdalTitle, ModdalDescripti
 
 const StartSectionComponent = () => {
   const { Modal, isOpen, handleOpenModal, handleClouseModal } = useModal();
-  const { language, translations } = useContext(LanguageContext);
+  const { translations } = useContext(LanguageContext);
   const { content, link, modal } = translations.section.start;
+  const { name, phone, email, clausureRodo, buttonSend } = translations.forms;
   const [hello, setHello] = useState(false);
 
   const helloChange = (changeSwitch: boolean) => {
@@ -80,17 +81,13 @@ const StartSectionComponent = () => {
           <ModalContent>
             <ModdalTitle>{modal.h1}</ModdalTitle>
             <ModdalDescription>{modal.h2}</ModdalDescription>
-            <Form>
-              <InputText id="nameYour">Imię</InputText>
-              <InputEmail id="emailYour">Email</InputEmail>
-              <InputTel id="telYour">Telefon</InputTel>
-              <CheckBoxClassic id="ches">
-                {language === "pl"
-                  ? "PL Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam"
-                  : "EN Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyamerat, sed diam"}
-              </CheckBoxClassic>
+            <Form name="conversation" method="POST" data-netlify="true">
+              <InputText id="nameYourFirstMsg">{name}</InputText>
+              <InputEmail id="emailYourFirstMsg">{email}</InputEmail>
+              <InputTel id="telYourFirstMsg">{phone}</InputTel>
+              <CheckBoxClassic id="ches">{clausureRodo}</CheckBoxClassic>
               <ButtonSubmit style={{ marginTop: "3rem" }} onClick={(e: any) => e.preventDefault()}>
-                {language === "pl" ? "Wyślij" : "Send"}
+                {buttonSend}
               </ButtonSubmit>
             </Form>
           </ModalContent>

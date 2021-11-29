@@ -33,7 +33,11 @@ import { ReactComponent as Square } from "assets/icon/square.svg";
 
 // create component
 const ContactSectionComponent = () => {
-  const { language } = useContext(LanguageContext);
+  const { translations } = useContext(LanguageContext);
+  const { name, phone, email, message, clausureRodo, buttonSend } = translations.forms;
+  const { title } = translations.section.contact;
+
+  console.log(translations);
   return (
     <Section id="contact">
       <Container>
@@ -85,19 +89,15 @@ const ContactSectionComponent = () => {
 
           <Col xs={12} md={8} lg={5} style={{ zIndex: 1 }}>
             <BoxContact>
-              <Title>{language === "pl" ? "Kontakt" : "Contact"}</Title>
+              <Title>{title}</Title>
 
-              <Form>
-                <InputText id="name">Twoje imię</InputText>
-                <InputEmail id="email">Adres Email</InputEmail>
-                <InputTel id="tel">Numer telefonu</InputTel>
-                <TextArea id="description">Twoja wiadomość</TextArea>
-                <CheckBoxClassic id="subscribeNews">
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
-                  diam
-                </CheckBoxClassic>
-
-                <ButtonSubmit style={{ marginTop: "3rem" }}>wyślij</ButtonSubmit>
+              <Form name="conversation" method="POST" data-netlify="true">
+                <InputText id="nameContact">{name}</InputText>
+                <InputEmail id="emailContact">{email}</InputEmail>
+                <InputTel id="telContact">{phone}</InputTel>
+                <TextArea id="descriptionContact">{message}</TextArea>
+                <CheckBoxClassic id="clausureRodoContact">{clausureRodo}</CheckBoxClassic>
+                <ButtonSubmit style={{ marginTop: "3rem" }}>{buttonSend}</ButtonSubmit>
               </Form>
             </BoxContact>
           </Col>
