@@ -31,7 +31,7 @@ import { ReactComponent as Linkedin } from "assets/icon/linkedin.svg";
 import { ReactComponent as Instagram } from "assets/icon/instagram.svg";
 import { ReactComponent as Square } from "assets/icon/square.svg";
 
-const FORM_NAME = "Contact Form";
+const FORM_NAME = "contact";
 
 // create component
 const ContactSectionComponent = () => {
@@ -39,7 +39,7 @@ const ContactSectionComponent = () => {
   const { name, phone, email, message, clausureRodo, buttonSend } = translations.forms;
   const { title } = translations.section.contact;
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e) => {
     // This `data` object is what's passed to the createFormDataObj. It needs all of your form fields, where the key is the name= attribute and the value is the value=
     const data = {
       "form-name": FORM_NAME,
@@ -53,7 +53,7 @@ const ContactSectionComponent = () => {
     fetch("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(createFormDataObj(data)).toString(),
+      body: new URLSearchParams(data.toString()),
     })
       .then(() => console.log("ok"))
       .catch((error) => alert(error));
@@ -114,7 +114,7 @@ const ContactSectionComponent = () => {
             <BoxContact>
               <Title>{title}</Title>
 
-              <Form name={FORM_NAME} data-netlify="true" onSubmit={handleSubmit} action="/" method="POST">
+              <Form name={FORM_NAME} netlify onSubmit={handleSubmit} method="POST">
                 <InputText id="nameContact">{name}</InputText>
                 <InputEmail id="emailContact">{email}</InputEmail>
                 <InputTel id="telContact">{phone}</InputTel>
@@ -155,13 +155,3 @@ const ContactSectionComponent = () => {
 
 // export component
 export default ContactSectionComponent;
-function createFormDataObj(data: {
-  "form-name": string;
-  FirstName: string;
-  LastName: string;
-  Email: string;
-  Phone: string;
-  Message: string;
-}): string | string[][] | Record<string, string> | URLSearchParams {
-  throw new Error("Function not implemented.");
-}
