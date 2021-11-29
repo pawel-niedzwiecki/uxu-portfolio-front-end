@@ -7,19 +7,7 @@ import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexbo
 import { InputText, InputEmail, InputTel, TextArea, CheckBoxClassic } from "components/molecules/form/index.form";
 
 // import styled
-import {
-  Section,
-  SelectBox,
-  List,
-  Header,
-  BoxContact,
-  Title,
-  Form,
-  BoxAnimation,
-  SharpCircle,
-  SharpSquare,
-  SharpTriangle,
-} from "./index.section.contact.styled";
+import { Section, SelectBox, List, Header, BoxContact, Title, BoxAnimation, SharpCircle, SharpSquare, SharpTriangle } from "./index.section.contact.styled";
 
 // import context
 import { LanguageContext } from "providers/LanguageProvider";
@@ -38,28 +26,6 @@ const ContactSectionComponent = () => {
   const { translations } = useContext(LanguageContext);
   const { name, phone, email, message, clausureRodo, buttonSend } = translations.forms;
   const { title } = translations.section.contact;
-
-  const handleSubmit = (e) => {
-    // This `data` object is what's passed to the createFormDataObj. It needs all of your form fields, where the key is the name= attribute and the value is the value=
-    const data = {
-      "form-name": FORM_NAME,
-      FirstName: "Paweł",
-      LastName: "ok",
-      Email: "email",
-      Phone: "email",
-      Message: "kupa",
-    };
-    // This POSTs your encoded form to Netlify with the required headers (for text; headers will be different for POSTing a file) and, on success, redirects to the custom success page using Gatsby's `navigate` helper function that we imported at the top
-    fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(data.toString()),
-    })
-      .then(() => console.log("ok"))
-      .catch((error) => alert(error));
-    // This is required to prevent the default onSubmit behavior
-    e.preventDefault();
-  };
 
   return (
     <Section id="contact">
@@ -114,14 +80,14 @@ const ContactSectionComponent = () => {
             <BoxContact>
               <Title>{title}</Title>
 
-              <Form name={FORM_NAME} netlify onSubmit={handleSubmit} method="POST">
+              <form name="contact" netlify method="POST">
                 <InputText id="nameContact">{name}</InputText>
                 <InputEmail id="emailContact">{email}</InputEmail>
                 <InputTel id="telContact">{phone}</InputTel>
                 <TextArea id="descriptionContact">{message}</TextArea>
                 <CheckBoxClassic id="clausureRodoContact">{clausureRodo}</CheckBoxClassic>
                 <ButtonSubmit style={{ marginTop: "3rem" }}>{buttonSend}</ButtonSubmit>
-              </Form>
+              </form>
             </BoxContact>
           </Col>
         </Row>
