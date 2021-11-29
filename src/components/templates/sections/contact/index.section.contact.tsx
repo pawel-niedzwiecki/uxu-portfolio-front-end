@@ -36,19 +36,7 @@ const ContactSectionComponent = () => {
   const { translations } = useContext(LanguageContext);
   const { name, phone, email, message, clausureRodo, buttonSend } = translations.forms;
   const { title } = translations.section.contact;
-  const refFormContact = useRef(null);
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
 
-    fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    })
-      .then(() => console.log("Form successfully submitted"))
-      .catch((error) => alert(error));
-  };
-
-  console.log(translations);
   return (
     <Section id="contact">
       <Container>
@@ -102,7 +90,7 @@ const ContactSectionComponent = () => {
             <BoxContact>
               <Title>{title}</Title>
 
-              <Form ref={refFormContact}>
+              <Form name="dogPictures" method="POST" data-netlify="true">
                 <InputText id="nameContact">{name}</InputText>
                 <InputEmail id="emailContact">{email}</InputEmail>
                 <InputTel id="telContact">{phone}</InputTel>
@@ -112,7 +100,6 @@ const ContactSectionComponent = () => {
                   style={{ marginTop: "3rem" }}
                   onClick={(e: any) => {
                     e.preventDefault();
-                    handleSubmit(e);
                     console.log("subbmit ok");
                   }}
                 >
