@@ -106,11 +106,7 @@ export const Title = styled.h1`
   padding-bottom: ${({ theme }) => theme.break.main};
 `;
 
-interface FormProps {
-  netlify: any;
-}
-
-export const Form = styled.form<FormProps>`
+export const Form = styled.form`
   display: flex;
   flex-wrap: wrap;
   position: relative;
