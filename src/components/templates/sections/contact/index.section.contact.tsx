@@ -39,12 +39,10 @@ const ContactSectionComponent = () => {
   const refFormContact = useRef(null);
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    let myForm = refFormContact.current;
-    let formData: {} = new FormData(myForm);
+
     fetch("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(formData).toString(),
     })
       .then(() => console.log("Form successfully submitted"))
       .catch((error) => alert(error));
