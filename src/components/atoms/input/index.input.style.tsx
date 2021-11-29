@@ -4,10 +4,8 @@ import styled, { css } from "styled-components";
 const InputTXT = css`
   height: 3.6rem;
   border-radius: 0.3rem;
-  background-color: transparent;
   color: ${({ theme }) => theme.white};
   padding: 0 ${({ theme }) => theme.break.main};
-  border: 0.1rem solid ${({ theme }) => theme.riverBed};
 
   &:focus {
     outline: none;
@@ -34,14 +32,32 @@ export const Text = styled.p<TextPtops>`
   top: ${({ active }) => (active ? "1rem" : "4.2rem")};
 `;
 
-export const InputTextStyled = styled.input`
+interface InputTextStyledPtops {
+  error: boolean;
+}
+
+export const InputTextStyled = styled.input<InputTextStyledPtops>`
   ${InputTXT}
+  background-color: ${({ error, theme }) => (error ? "rgb(255 0 0 / 10%)" : `transparent`)};
+  border: ${({ error, theme }) => (error ? "0.1rem solid red" : `0.1rem solid ${theme.riverBed}`)};
 `;
 
-export const InputEmailStyled = styled.input`
+interface InputEmailStyledPtops {
+  error: boolean;
+}
+
+export const InputEmailStyled = styled.input<InputEmailStyledPtops>`
   ${InputTXT}
+  background-color: ${({ error, theme }) => (error ? "rgb(255 0 0 / 10%)" : `transparent`)};
+  border: ${({ error, theme }) => (error ? "0.1rem solid red" : `0.1rem solid ${theme.riverBed}`)};
 `;
 
-export const InputTelStyled = styled.input`
+interface InputTelStyledPtops {
+  error: boolean;
+}
+
+export const InputTelStyled = styled.input<InputTelStyledPtops>`
   ${InputTXT}
+  background-color: ${({ error, theme }) => (error ? "rgb(255 0 0 / 10%)" : `transparent`)};
+  border: ${({ error, theme }) => (error ? "0.1rem solid red" : `0.1rem solid ${theme.riverBed}`)};
 `;

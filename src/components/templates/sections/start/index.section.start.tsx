@@ -82,14 +82,16 @@ const StartSectionComponent = () => {
             <ModdalDescription>{modal.h2}</ModdalDescription>
             <Form>
               <InputText id="nameYour">Imię</InputText>
-              <InputEmail id="emailYour">email</InputEmail>
-              <InputTel id="telYour">email</InputTel>
+              <InputEmail id="emailYour">Email</InputEmail>
+              <InputTel id="telYour">Telefon</InputTel>
               <CheckBoxClassic id="ches">
                 {language === "pl"
                   ? "PL Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam"
                   : "EN Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyamerat, sed diam"}
               </CheckBoxClassic>
-              <ButtonSubmit style={{ marginTop: "3rem" }}>{language === "pl" ? "Wyślij" : "Send"}</ButtonSubmit>
+              <ButtonSubmit style={{ marginTop: "3rem" }} onClick={(e: any) => e.preventDefault()}>
+                {language === "pl" ? "Wyślij" : "Send"}
+              </ButtonSubmit>
             </Form>
           </ModalContent>
         </Modal>

@@ -7,15 +7,34 @@ import { Label, Text, InputTextStyled, InputEmailStyled, InputTelStyled } from "
 // create interface
 interface InputTextProps {
   id: string;
+
   required?: boolean;
-  children: JSX.Element | JSX.Element[] | any;
+  children: string;
 }
 
+// regex
+
+const regexEmail =
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const regexTel = /^[\\+]?[(]?[0-9]{3}[)]?[-\s\\.]?[0-9]{3}[-\s\\.]?[0-9]{3,6}$/im;
+
 // create new cpomponent
+
+let InputTextValid: ReturnType<typeof setTimeout> = setTimeout(() => "", 500);
+
 export const InputText = ({ id, children, required }: InputTextProps) => {
   const [focusInput, setFocusInput] = useState(false);
   const [content, setContent] = useState("");
+  const [error, setError] = useState(false);
   const refInput = useRef(null);
+
+  const verificationValue = (value: string) => {
+    clearTimeout(InputTextValid);
+    InputTextValid = setTimeout(() => {
+      if (value.length <= 2) return setError(true);
+      setError(false);
+    }, 500);
+  };
 
   useEffect(() => {
     const { current } = refInput;
@@ -23,8 +42,10 @@ export const InputText = ({ id, children, required }: InputTextProps) => {
     current.addEventListener("focus", () => {
       setFocusInput(true);
     });
+
     current.addEventListener("blur", () => {
-      setFocusInput(false);
+      if (current.value.length === 0) return setFocusInput(false);
+      verificationValue(current.value);
     });
 
     return () => {
@@ -32,7 +53,8 @@ export const InputText = ({ id, children, required }: InputTextProps) => {
         setFocusInput(true);
       });
       current.removeEventListener("blur", () => {
-        setFocusInput(false);
+        if (current.value.length === 0) return setFocusInput(false);
+        verificationValue(current.value);
       });
     };
   }, []);
@@ -40,7 +62,18 @@ export const InputText = ({ id, children, required }: InputTextProps) => {
   return (
     <Label htmlFor={id}>
       <Text active={!!content || focusInput ? true : false}>{children}</Text>
-      <InputTextStyled ref={refInput} onChange={(e) => setContent(e.target.value)} type="text" id={id} name={id} required={required} />
+      <InputTextStyled
+        error={error}
+        ref={refInput}
+        onChange={(e) => {
+          setContent(e.target.value);
+          focusInput && verificationValue(e.target.value);
+        }}
+        type="text"
+        id={id}
+        name={id}
+        required={required}
+      />
     </Label>
   );
 };
@@ -52,11 +85,22 @@ interface InputEmailProps {
   children: JSX.Element | JSX.Element[] | any;
 }
 
+let InputEmailValid: ReturnType<typeof setTimeout> = setTimeout(() => "", 500);
+
 // create new cpomponent
 export const InputEmail = ({ id, children, required }: InputEmailProps) => {
   const [focusInput, setFocusInput] = useState(false);
   const [content, setContent] = useState("");
+  const [error, setError] = useState(false);
   const refInput = useRef(null);
+
+  const verificationValue = (value: string) => {
+    clearTimeout(InputEmailValid);
+    InputEmailValid = setTimeout(() => {
+      if (regexEmail.test(value)) return setError(false);
+      setError(true);
+    }, 500);
+  };
 
   useEffect(() => {
     const { current } = refInput;
@@ -66,7 +110,8 @@ export const InputEmail = ({ id, children, required }: InputEmailProps) => {
     });
 
     current.addEventListener("blur", () => {
-      setFocusInput(false);
+      if (current.value.length === 0) return setFocusInput(false);
+      verificationValue(current.value);
     });
 
     return () => {
@@ -74,7 +119,8 @@ export const InputEmail = ({ id, children, required }: InputEmailProps) => {
         setFocusInput(true);
       });
       current.removeEventListener("blur", () => {
-        setFocusInput(false);
+        if (current.value.length === 0) return setFocusInput(false);
+        verificationValue(current.value);
       });
     };
   }, []);
@@ -82,7 +128,18 @@ export const InputEmail = ({ id, children, required }: InputEmailProps) => {
   return (
     <Label htmlFor={id}>
       <Text active={!!content || focusInput ? true : false}>{children}</Text>
-      <InputEmailStyled ref={refInput} onChange={(e) => setContent(e.target.value)} type="email" id={id} name={id} required={required} />
+      <InputEmailStyled
+        error={error}
+        ref={refInput}
+        onChange={(e) => {
+          setContent(e.target.value);
+          focusInput && verificationValue(e.target.value);
+        }}
+        type="email"
+        id={id}
+        name={id}
+        required={required}
+      />
     </Label>
   );
 };
@@ -94,11 +151,22 @@ interface InputTelProps {
   children: JSX.Element | JSX.Element[] | any;
 }
 
+let InputTelValid: ReturnType<typeof setTimeout> = setTimeout(() => "", 500);
+
 // create new cpomponent
 export const InputTel = ({ id, children, required }: InputTelProps) => {
   const [focusInput, setFocusInput] = useState(false);
   const [content, setContent] = useState("");
+  const [error, setError] = useState(false);
   const refInput = useRef(null);
+
+  const verificationValue = (value: string) => {
+    clearTimeout(InputTelValid);
+    InputTelValid = setTimeout(() => {
+      if (regexTel.test(value)) return setError(false);
+      setError(true);
+    }, 500);
+  };
 
   useEffect(() => {
     const { current } = refInput;
@@ -108,7 +176,8 @@ export const InputTel = ({ id, children, required }: InputTelProps) => {
     });
 
     current.addEventListener("blur", () => {
-      setFocusInput(false);
+      if (current.value.length === 0) return setFocusInput(false);
+      verificationValue(current.value);
     });
 
     return () => {
@@ -116,7 +185,8 @@ export const InputTel = ({ id, children, required }: InputTelProps) => {
         setFocusInput(true);
       });
       current.removeEventListener("blur", () => {
-        setFocusInput(false);
+        if (current.value.length === 0) return setFocusInput(false);
+        verificationValue(current.value);
       });
     };
   }, []);
@@ -124,7 +194,18 @@ export const InputTel = ({ id, children, required }: InputTelProps) => {
   return (
     <Label htmlFor={id}>
       <Text active={!!content || focusInput ? true : false}>{children}</Text>
-      <InputTelStyled ref={refInput} onChange={(e) => setContent(e.target.value)} type="tel" id={id} name={id} required={required} />
+      <InputTelStyled
+        error={error}
+        ref={refInput}
+        onChange={(e) => {
+          setContent(e.target.value);
+          focusInput && verificationValue(e.target.value);
+        }}
+        type="tel"
+        id={id}
+        name={id}
+        required={required}
+      />
     </Label>
   );
 };
