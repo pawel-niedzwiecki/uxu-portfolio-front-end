@@ -140,7 +140,10 @@ const StartSectionComponent = () => {
             <ModdalTitle>{modal.h1}</ModdalTitle>
             <ModdalDescription>{modal.h2}</ModdalDescription>
             <Form
+              name="Firstcontact"
               method="POST"
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
               onSubmit={(e: any) => {
                 e.preventDefault();
                 console.log(e.target[0]);
