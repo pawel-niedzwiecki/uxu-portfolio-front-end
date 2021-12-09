@@ -7,7 +7,7 @@ import { Label, Text, InputTextStyled, InputEmailStyled, InputTelStyled } from "
 // create interface
 interface InputTextProps {
   id: string;
-
+  validate?: any;
   required?: boolean;
   children: string;
 }
@@ -22,7 +22,7 @@ const regexTel = /^[\\+]?[(]?[0-9]{3}[)]?[-\s\\.]?[0-9]{3}[-\s\\.]?[0-9]{3,6}$/i
 
 let InputTextValid: ReturnType<typeof setTimeout> = setTimeout(() => "", 500);
 
-export const InputText = ({ id, children, required }: InputTextProps) => {
+export const InputText = ({ id, validate, children, required }: InputTextProps) => {
   const [focusInput, setFocusInput] = useState(false);
   const [content, setContent] = useState("");
   const [error, setError] = useState(false);
@@ -31,8 +31,12 @@ export const InputText = ({ id, children, required }: InputTextProps) => {
   const verificationValue = (value: string) => {
     clearTimeout(InputTextValid);
     InputTextValid = setTimeout(() => {
-      if (value.length <= 2) return setError(true);
-      setError(false);
+      if (value.length <= 2) {
+        validate({ type: id, value: false });
+        return setError(true);
+      }
+      validate({ type: id, value: true });
+      return setError(false);
     }, 500);
   };
 
@@ -52,6 +56,7 @@ export const InputText = ({ id, children, required }: InputTextProps) => {
       current.removeEventListener("focus", () => {
         setFocusInput(true);
       });
+
       current.removeEventListener("blur", () => {
         if (current.value.length === 0) return setFocusInput(false);
         verificationValue(current.value);
@@ -63,16 +68,16 @@ export const InputText = ({ id, children, required }: InputTextProps) => {
     <Label htmlFor={id}>
       <Text active={!!content || focusInput ? true : false}>{children}</Text>
       <InputTextStyled
+        id={id}
+        name={id}
+        type="text"
         error={error}
         ref={refInput}
+        required={required}
         onChange={(e) => {
           setContent(e.target.value);
           focusInput && verificationValue(e.target.value);
         }}
-        type="text"
-        id={id}
-        name={id}
-        required={required}
       />
     </Label>
   );
@@ -81,6 +86,7 @@ export const InputText = ({ id, children, required }: InputTextProps) => {
 // create interface
 interface InputEmailProps {
   id: string;
+  validate?: any;
   required?: boolean;
   children: JSX.Element | JSX.Element[] | any;
 }
@@ -88,7 +94,7 @@ interface InputEmailProps {
 let InputEmailValid: ReturnType<typeof setTimeout> = setTimeout(() => "", 500);
 
 // create new cpomponent
-export const InputEmail = ({ id, children, required }: InputEmailProps) => {
+export const InputEmail = ({ id, validate, children, required }: InputEmailProps) => {
   const [focusInput, setFocusInput] = useState(false);
   const [content, setContent] = useState("");
   const [error, setError] = useState(false);
@@ -97,8 +103,12 @@ export const InputEmail = ({ id, children, required }: InputEmailProps) => {
   const verificationValue = (value: string) => {
     clearTimeout(InputEmailValid);
     InputEmailValid = setTimeout(() => {
-      if (regexEmail.test(value)) return setError(false);
-      setError(true);
+      if (regexEmail.test(value)) {
+        validate({ type: id, value: true });
+        return setError(false);
+      }
+      validate({ type: id, value: false });
+      return setError(true);
     }, 500);
   };
 
@@ -147,6 +157,7 @@ export const InputEmail = ({ id, children, required }: InputEmailProps) => {
 // create interface
 interface InputTelProps {
   id: string;
+  validate?: any;
   required?: boolean;
   children: JSX.Element | JSX.Element[] | any;
 }
@@ -154,7 +165,7 @@ interface InputTelProps {
 let InputTelValid: ReturnType<typeof setTimeout> = setTimeout(() => "", 500);
 
 // create new cpomponent
-export const InputTel = ({ id, children, required }: InputTelProps) => {
+export const InputTel = ({ id, validate, children, required }: InputTelProps) => {
   const [focusInput, setFocusInput] = useState(false);
   const [content, setContent] = useState("");
   const [error, setError] = useState(false);
@@ -163,8 +174,12 @@ export const InputTel = ({ id, children, required }: InputTelProps) => {
   const verificationValue = (value: string) => {
     clearTimeout(InputTelValid);
     InputTelValid = setTimeout(() => {
-      if (regexTel.test(value)) return setError(false);
-      setError(true);
+      if (regexTel.test(value)) {
+        validate({ type: id, value: true });
+        return setError(false);
+      }
+      validate({ type: id, value: false });
+      return setError(true);
     }, 500);
   };
 
