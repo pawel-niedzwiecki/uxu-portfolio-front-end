@@ -1,51 +1,71 @@
-// import plugin
 import React, { useContext } from "react";
-
-// import component
+import { useForm } from "react-hook-form";
+import { emailRegex, telRegex, nameRegex } from "assets/regex/index.regex";
+import { Input, CheckBox, TextArea } from "components/molecules/form/index.form";
 import { ButtonOutLink, ButtonSubmit } from "components/atoms/button/index.button";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { InputText, InputEmail, InputTel, TextArea, CheckBoxClassic } from "components/molecules/form/index.form";
-
-// import styled
-import {
-  Section,
-  SelectBox,
-  List,
-  Header,
-  BoxContact,
-  Title,
-  Form,
-  BoxAnimation,
-  SharpCircle,
-  SharpSquare,
-  SharpTriangle,
-} from "./index.section.contact.styled";
-
-// import context
+import { Section, SelectBox, List, Header, BoxContact, Title, Form, BoxAnimation, SharpCircle, SharpSquare, SharpTriangle } from "./index.section.contact.styled";
 import { LanguageContext } from "providers/LanguageProvider";
-
-//import svg
 import noise from "assets/icon/noise.svg";
 import { ReactComponent as GitHub } from "assets/icon/github.svg";
 import { ReactComponent as Linkedin } from "assets/icon/linkedin.svg";
 import { ReactComponent as Instagram } from "assets/icon/instagram.svg";
 import { ReactComponent as Square } from "assets/icon/square.svg";
 
-// create component
 const ContactSectionComponent = () => {
   const { translations } = useContext(LanguageContext);
   const { name, phone, email, message, clausureRodo, buttonSend } = translations.forms;
   const { title } = translations.section.contact;
 
-  const handleSubmit = (event: any) => {
-    event.preventDefault();
-    fetch("/pl", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: "ok",
-    })
-      .then(() => console.log("all ok"))
-      .catch((error) => alert(error));
+  const {
+    reset,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const url = "https://comunicatorforclient.herokuapp.com/api/v1/email";
+  const settings = { method: "PUT" };
+
+  type SendEmailAPIProps = {
+    url: string;
+    settings: {
+      method: string;
+    };
+    data: any;
+  };
+
+  const sendEmailAPI = async ({ url, settings = { method: "GET" }, data }: SendEmailAPIProps) => {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+    const urlencoded = new URLSearchParams();
+    for (const property in data) {
+      urlencoded.append(property, data[property]);
+    }
+    type requestOptionsProps = {
+      method: string;
+      headers: any;
+      body: any;
+    };
+    const requestOptions: requestOptionsProps = {
+      method: settings.method,
+      headers: myHeaders,
+      body: urlencoded,
+    };
+    await fetch(url, requestOptions)
+      .then((res) => {
+        if (!(res.status < 200 || res.status >= 300)) return res.json();
+      })
+      .then((result) => {
+        if (!(result.status < 200 || result.status >= 300)) {
+          alert(`Hej ${JSON.parse(data.message).nameContact}! w ciągu 24h spodziewaj sie kontaktu ze mną ! :)`);
+          return reset();
+        }
+      })
+      .catch((error) => {
+        alert("Ups... coś poszło nie tak :( Napisz do mnie bezpośrednio na ,,hello@uxu.pl'' aby dłuzej nie czekać na naprawę błędu...");
+        return reset();
+      });
   };
 
   return (
@@ -101,12 +121,20 @@ const ContactSectionComponent = () => {
             <BoxContact>
               <Title>{title}</Title>
 
-              <Form data-netlify="true" name="contact v1" method="post" onSubmit={handleSubmit}>
-                <InputText id="nameContact">{name}</InputText>
-                <InputEmail id="emailContact">{email}</InputEmail>
-                <InputTel id="telContact">{phone}</InputTel>
-                <TextArea id="descriptionContact">{message}</TextArea>
-                <CheckBoxClassic id="clausureRodoContact">{clausureRodo}</CheckBoxClassic>
+              <Form
+                onSubmit={handleSubmit((d) => {
+                  sendEmailAPI({
+                    url,
+                    settings,
+                    data: { domian: "uxu.pl", emailTo: "hello@uxu.pl", emailFrom: d.emailContact, message: JSON.stringify(d) },
+                  });
+                })}
+              >
+                <Input id="nameContact" type="text" pattern={nameRegex} error={errors.nameContact} label={name} register={register} required />
+                <Input id="emailContact" type="email" pattern={emailRegex} error={errors.emailContact} label={email} register={register} required />
+                <Input id="telContact" type="tel" pattern={telRegex} error={errors.telContact} label={phone} register={register} required />
+                <TextArea id="descriptionContact" pattern={nameRegex} error={errors.descriptionContact} label={message} register={register} required />
+                <CheckBox id="privacyPolicyContact" pattern={emailRegex} error={errors.privacyPolicyContact} label={clausureRodo} register={register} required />
                 <ButtonSubmit style={{ marginTop: "3rem" }}>{buttonSend}</ButtonSubmit>
               </Form>
             </BoxContact>

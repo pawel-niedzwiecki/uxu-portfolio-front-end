@@ -112,6 +112,55 @@ const GlobalStyle = styled.createGlobalStyle<GlobalStyleProps>`
     width: 100%;
     position: relative;
   }
+
+  .modalWrapper {
+    top: 0;
+    width: 100vw;
+    display: flex;
+    z-index: 999999;
+    position: fixed;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--uxu-pl-bg-primary);
+  }
+
+  .modal {
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+    display: block;
+    position: fixed;
+    overflow: hidden;
+    border-radius: 0.3rem;
+    flex-direction: column;
+    background-color: var(--uxu-pl-bg-secondary);
+  }
+
+  .modalHeader {
+    display: flex;
+    justify-content: flex-end;
+    padding: var(--uxu-pl-break-main);
+
+    @media all and (min-width: 768px) {
+      padding: var(--uxu-pl-break-bigger);
+    }
+  }
+
+  .modalContent {
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+    align-items: center;
+    justify-content: center;
+    height: calc(100% - 7rem);
+    padding: 4rem var(--uxu-pl-break-main);
+
+    @media all and (min-width: 768px) {
+      height: calc(100% - 13.3rem);
+    }
+  }
 `;
 
 export default GlobalStyle;

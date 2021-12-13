@@ -2,7 +2,7 @@ import ReactDOM from "react-dom";
 import React, { useEffect } from "react";
 import { ReactComponent as Closed } from "assets/icon/closed.svg";
 import { ButtonCyrlic } from "components/atoms/button/index.button";
-import { GlobalStyle, ModalWraper, Modal, ModalHeader, ModalContent } from "components/orgamis/modal/index.modal.style";
+import { ModalWraper, Modal, ModalHeader, ModalContent } from "components/orgamis/modal/index.modal.style";
 
 const modalContainer = document.getElementById("modal-container");
 
@@ -24,7 +24,6 @@ const ModalComponent = ({ handleClouseModal, children }: ModalComponentProps) =>
 
   return ReactDOM.createPortal(
     <ModalWraper>
-      <GlobalStyle />
       <Modal>
         <ModalHeader>
           <ButtonCyrlic onClick={handleClouseModal}>

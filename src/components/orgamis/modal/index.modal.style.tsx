@@ -1,10 +1,4 @@
-import styled, { createGlobalStyle } from "styled-components";
-
-export const GlobalStyle = createGlobalStyle`
-  body {
-    overflow: hidden;
-  }
-`;
+import styled from "styled-components";
 
 export const ModalWraper = styled.div`
   top: 0;

@@ -36,27 +36,7 @@ interface InputTextStyledPtops {
   error: boolean;
 }
 
-export const InputTextStyled = styled.input<InputTextStyledPtops>`
-  ${InputTXT}
-  background-color: ${({ error, theme }) => (error ? "rgb(255 0 0 / 10%)" : `transparent`)};
-  border: ${({ error, theme }) => (error ? "0.1rem solid red" : `0.1rem solid ${theme.riverBed}`)};
-`;
-
-interface InputEmailStyledPtops {
-  error: boolean;
-}
-
-export const InputEmailStyled = styled.input<InputEmailStyledPtops>`
-  ${InputTXT}
-  background-color: ${({ error, theme }) => (error ? "rgb(255 0 0 / 10%)" : `transparent`)};
-  border: ${({ error, theme }) => (error ? "0.1rem solid red" : `0.1rem solid ${theme.riverBed}`)};
-`;
-
-interface InputTelStyledPtops {
-  error: boolean;
-}
-
-export const InputTelStyled = styled.input<InputTelStyledPtops>`
+export const InputStyled = styled.input<InputTextStyledPtops>`
   ${InputTXT}
   background-color: ${({ error, theme }) => (error ? "rgb(255 0 0 / 10%)" : `transparent`)};
   border: ${({ error, theme }) => (error ? "0.1rem solid red" : `0.1rem solid ${theme.riverBed}`)};

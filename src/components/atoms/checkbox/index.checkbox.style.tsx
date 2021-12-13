@@ -2,7 +2,7 @@
 import styled, { css } from "styled-components";
 
 interface LabelProps {
-  checked: boolean;
+  checkedInput: boolean;
 }
 
 export const Label = styled.label<LabelProps>`
@@ -15,7 +15,8 @@ export const Label = styled.label<LabelProps>`
 `;
 
 interface RoadProps {
-  checked: boolean;
+  error: boolean;
+  checkedInput: boolean;
 }
 
 export const Road = styled.div<RoadProps>`
@@ -28,15 +29,23 @@ export const Road = styled.div<RoadProps>`
   border-radius: 3rem;
   border: 1px solid ${({ theme }) => theme.riverBed};
 
-  ${({ checked }) =>
-    checked &&
-    css`
-      border: 1px solid ${({ theme }) => theme.aqua};
-    `}
+  ${({ checkedInput, error }) =>
+    checkedInput
+      ? css`
+          border: ${({ theme }) => `1px solid ${theme.aqua}`};
+        `
+      : error && !checkedInput
+      ? css`
+          border: ${({ theme }) => `1px solid red`}};
+        `
+      : css`
+          border: 1px solid ${({ theme }) => theme.riverBed};
+        `}
 `;
 
 interface FaceProps {
-  checked: boolean;
+  error: boolean;
+  checkedInput: boolean;
 }
 
 export const Face = styled.i<FaceProps>`
@@ -49,12 +58,18 @@ export const Face = styled.i<FaceProps>`
   border-radius: 50%;
   background: ${({ theme }) => theme.white};
 
-  ${({ checked }) =>
-    checked &&
-    css`
-      left: 28px;
-      background: ${({ theme }) => theme.aqua};
-    `}
+  ${({ checkedInput, error }) =>
+    checkedInput
+      ? css`
+          left: 28px;
+          background: ${({ theme }) => theme.aqua};
+        `
+      : error && !checkedInput
+      ? css`
+          left: 4px;
+          background: ${({ theme }) => "red"};
+        `
+      : null}
 
   &::before {
     content: "";
@@ -80,8 +95,8 @@ export const Face = styled.i<FaceProps>`
     border-radius: 0.6rem;
     background: ${({ theme }) => theme.blueDark};
 
-    ${({ checked }) =>
-      checked &&
+    ${({ checkedInput }) =>
+      !!checkedInput &&
       css`
         bottom: 2px;
         height: 8px;

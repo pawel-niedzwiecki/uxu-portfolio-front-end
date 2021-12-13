@@ -1,45 +1,12 @@
-// import plugin
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState } from "react";
+import { Label, Text, TextAreaStyled } from "./index.textarea.styled";
 
-// import style
-import { Label, Text, TextAreaStyled } from "./style/styled";
-
-// create interface
-interface TextAreaProps {
-  id: string;
-  required?: boolean;
-  children: JSX.Element | JSX.Element[] | any;
-}
-
-// create new cpomponent
-export const TextArea = ({ id, children, required }: TextAreaProps) => {
-  const [focusTextArea, setFocusTextArea] = useState(false);
-  const [content, setContent] = useState("");
-  const refInput = useRef(null);
-
-  useEffect(() => {
-    refInput.current.addEventListener("focus", () => {
-      setFocusTextArea(true);
-    });
-    refInput.current.addEventListener("blur", () => {
-      setFocusTextArea(false);
-    });
-
-    return () => {
-      refInput.current.removeEventListener("focus", () => {
-        setFocusTextArea(true);
-      });
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      refInput.current.removeEventListener("blur", () => {
-        setFocusTextArea(false);
-      });
-    };
-  }, []);
-
+export const TextArea = ({ id, label, pattern, error, register, required }: any) => {
+  const [active, setActive] = useState(false);
   return (
     <Label htmlFor={id}>
-      <Text active={!!content || focusTextArea ? true : false}>{children}</Text>
-      <TextAreaStyled ref={refInput} onChange={(e) => setContent(e.target.value)} id={id} name={id} required={required} />
+      <Text active={active}>{label}</Text>
+      <TextAreaStyled id={id} error={!!error} onFocus={() => setActive(true)} onBlur={(e) => setActive(!!e.target.value.length)} {...register(id, { pattern, required })} />
     </Label>
   );
 };

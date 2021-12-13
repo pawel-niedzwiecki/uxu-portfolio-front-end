@@ -1,28 +1,17 @@
-// import plugin
-import React, { useRef, useState } from "react";
-
-// import style
-import { Label, Text, CheckBoxStyled, Road, Face } from "./style/styled";
-
-// create interface
-interface InputTextProps {
-  id: string;
-  required?: boolean;
-  children: JSX.Element | JSX.Element[] | any;
-}
+import React, { useState } from "react";
+import { Label, Text, CheckBoxStyled, Road, Face } from "./index.checkbox.style";
 
 // create new cpomponent
-export const CheckBoxClassic = ({ id, children, required }: InputTextProps) => {
+export const CheckBox = ({ id, type, label, pattern, error, register, required }: any) => {
   const [checkedInput, setCheckedInput] = useState(false);
-  const refInput = useRef(null);
 
   return (
-    <Label htmlFor={id} checked={checkedInput}>
-      <CheckBoxStyled ref={refInput} onChange={(e) => setCheckedInput(e.target.checked)} type="checkbox" id={id} name={id} required={required} />
-      <Road checked={checkedInput}>
-        <Face checked={checkedInput} />
+    <Label htmlFor={id} checkedInput={checkedInput} {...register(id, { pattern, required })}>
+      <CheckBoxStyled id={id} name={id} type="checkbox" onChange={(e) => setCheckedInput(e.target.checked)} />
+      <Road checkedInput={checkedInput} error={!!error}>
+        <Face checkedInput={checkedInput} error={!!error} />
       </Road>
-      <Text>{children}</Text>
+      <Text>{label}</Text>
     </Label>
   );
 };

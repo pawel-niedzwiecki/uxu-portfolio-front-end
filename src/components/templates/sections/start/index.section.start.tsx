@@ -1,35 +1,35 @@
-import React, { useState, useEffect, useContext, useReducer } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useForm } from "react-hook-form";
+import Modal from "react-modal";
 import useModal from "hooks/useModal";
 import face from "assets/img/face.png";
+
+import { emailRegex, telRegex, nameRegex } from "assets/regex/index.regex";
+import { ReactComponent as Closed } from "assets/icon/closed.svg";
+import { Input, CheckBox } from "components/molecules/form/index.form";
 import { LanguageContext } from "providers/LanguageProvider";
-import { Button, ButtonSubmit } from "components/atoms/button/index.button";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { InputText, InputEmail, InputTel, CheckBoxClassic } from "components/molecules/form/index.form";
-import { Section, H1, H2, List, Item, ModalContent, ModdalTitle, ModdalDescription, Form } from "./index.section.start.style";
-
-const initialStateInput = {
-  nameYourFirstMsg: false,
-  emailYourFirstMsg: false,
-  telYourFirstMsg: false,
-  privacyPolicyFirstContact: false,
-};
-
-function reducerInput(state: any, action: any) {
-  switch (action.type) {
-    case "changeValue":
-      return { ...state, nameYourFirstMsg: action.value };
-    case "reset":
-      return { ...initialStateInput };
-  }
-}
+import { Button, ButtonCyrlic, ButtonSubmit } from "components/atoms/button/index.button";
+import { Section, H1, H2, List, Item, ModdalTitle, ModalContent, ModdalDescription, Form } from "./index.section.start.style";
 
 const StartSectionComponent = () => {
-  const { Modal, isOpen, handleOpenModal, handleClouseModal } = useModal();
   const { translations } = useContext(LanguageContext);
   const { content, link, modal } = translations.section.start;
+  const { isOpen, handleOpenModal, handleClouseModal } = useModal();
+
   const { name, phone, email, clausureRodo, buttonSend } = translations.forms;
   const [hello, setHello] = useState(false);
-  const [stateInputs, dispatchInputs] = useReducer(reducerInput, initialStateInput);
+
+  const {
+    reset,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const url = "https://comunicatorforclient.herokuapp.com/api/v1/email";
+  const settings = { method: "PUT" };
+
   const helloChange = (changeSwitch: boolean) => {
     setHello(changeSwitch);
   };
@@ -67,21 +67,31 @@ const StartSectionComponent = () => {
       body: urlencoded,
     };
 
-    await fetch("http://localhost:4000/api/v1/email", requestOptions)
-      .then((res) => res.json())
-      .then((res) => console.log(res))
-      .catch((err) => err);
+    await fetch(url, requestOptions)
+      .then((res) => {
+        if (!(res.status < 200 || res.status >= 300)) return res.json();
+      })
+      .then((result) => {
+        if (!(result.status < 200 || result.status >= 300)) {
+          alert(`Hej ${JSON.parse(data.message).nameFistContact}! w ciągu 24h spodziewaj sie kontaktu ze mną ! :)`);
+          reset();
+          return handleClouseModal();
+        }
+      })
+      .catch((error) => {
+        alert("Ups... coś poszło nie tak :( Napisz do mnie bezpośrednio na ,,hello@uxu.pl'' aby dłuzej nie czekać na naprawę błędu...");
+        reset();
+        return handleClouseModal();
+      });
   };
 
-  console.log(stateInputs);
+  useEffect(() => {
+    isOpen && (document.body.style.overflow = "hidden");
+    !isOpen && (document.body.style.overflow = "unset");
+  }, [isOpen]);
 
   useEffect(() => {
     helloChange(true);
-    const url = "http://localhost:4000/api/v1/email";
-    const settings = { method: "PUT" };
-    const data = { domian: "uxu.pl", emailTo: "hello@o2.pl", emailFrom: "kupa@o2.pl", message: "pk" };
-
-    console.log(sendEmailAPI({ url, settings, data }));
   }, []);
 
   return (
@@ -134,36 +144,36 @@ const StartSectionComponent = () => {
         </Container>
       </Section>
 
-      {isOpen ? (
-        <Modal handleClouseModal={handleClouseModal}>
+      <Modal ariaHideApp={false} isOpen={isOpen} className="modal" overlayClassName="modalWrapper">
+        <div className="modalHeader">
+          <ButtonCyrlic onClick={handleClouseModal}>
+            <Closed />
+          </ButtonCyrlic>
+        </div>
+        <div className="modalContent">
           <ModalContent>
             <ModdalTitle>{modal.h1}</ModdalTitle>
             <ModdalDescription>{modal.h2}</ModdalDescription>
+
             <Form
-              name="Firstcontact"
-              method="POST"
-              data-netlify="true"
-              data-netlify-honeypot="bot-field"
-              onSubmit={(e: any) => {
-                e.preventDefault();
-                console.log(e.target[0]);
-              }}
+              onSubmit={handleSubmit((d) => {
+                sendEmailAPI({
+                  url,
+                  settings,
+                  data: { domian: "uxu.pl", emailTo: "hello@uxu.pl", emailFrom: d.emailFistContact, message: JSON.stringify(d) },
+                });
+              })}
             >
-              <InputText id="nameYourFirstMsg" validate={dispatchInputs}>
-                {name}
-              </InputText>
-              <InputEmail id="emailYourFirstMsg" validate={dispatchInputs}>
-                {email}
-              </InputEmail>
-              <InputTel id="telYourFirstMsg" validate={dispatchInputs}>
-                {phone}
-              </InputTel>
-              <CheckBoxClassic id="privacyPolicyFirstContact">{clausureRodo}</CheckBoxClassic>
+              <Input id="nameFistContact" type="text" pattern={nameRegex} error={errors.nameFistContact} label={name} register={register} required />
+              <Input id="phoneFistContact" type="tel" pattern={telRegex} error={errors.phoneFistContact} label={phone} register={register} required />
+              <Input id="emailFistContact" type="email" pattern={emailRegex} error={errors.emailFistContact} label={email} register={register} required />
+
+              <CheckBox id="privacyPolicyFistContact" pattern={emailRegex} error={errors.privacyPolicyFistContact} label={clausureRodo} register={register} required />
               <ButtonSubmit style={{ marginTop: "3rem" }}>{buttonSend}</ButtonSubmit>
             </Form>
           </ModalContent>
-        </Modal>
-      ) : null}
+        </div>
+      </Modal>
     </>
   );
 };

@@ -1,7 +1,5 @@
-// import plugin
 import styled from "styled-components";
 
-// create component
 export const Label = styled.label`
   width: 100%;
   display: flex;
@@ -22,14 +20,18 @@ export const Text = styled.p<TextPtops>`
   top: ${({ active }) => (active ? "1rem" : "3.8rem")};
 `;
 
-export const TextAreaStyled = styled.textarea`
+interface TextAreaStyledPtops {
+  error: boolean;
+}
+
+export const TextAreaStyled = styled.textarea<TextAreaStyledPtops>`
   width: 100%;
   height: 8rem;
   border-radius: 0.3rem;
-  background-color: transparent;
   color: ${({ theme }) => theme.white};
   padding: ${({ theme }) => theme.break.main};
-  border: 0.1rem solid ${({ theme }) => theme.riverBed};
+  background-color: ${({ error, theme }) => (error ? "rgb(255 0 0 / 10%)" : `transparent`)};
+  border: ${({ error, theme }) => (error ? "0.1rem solid red" : `0.1rem solid ${theme.riverBed}`)};
 
   &:focus {
     outline: none;
