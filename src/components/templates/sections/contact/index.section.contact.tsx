@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import { SquareConent } from "components/atoms/animation/index.animation";
 import { emailRegex, telRegex, nameRegex } from "assets/regex/index.regex";
 import { Input, CheckBox, TextArea } from "components/molecules/form/index.form";
 import { ButtonOutLink, ButtonSubmit } from "components/atoms/button/index.button";
@@ -14,6 +15,7 @@ import { ReactComponent as Square } from "assets/icon/square.svg";
 
 const ContactSectionComponent = () => {
   const { translations } = useContext(LanguageContext);
+  const [send, setSend] = useState(false);
   const { name, phone, email, message, clausureRodo, buttonSend } = translations.forms;
   const { title } = translations.section.contact;
 
@@ -59,6 +61,7 @@ const ContactSectionComponent = () => {
       .then((result) => {
         if (!(result.status < 200 || result.status >= 300)) {
           alert(`Hej ${JSON.parse(data.message).nameContact}! w ciągu 24h spodziewaj sie kontaktu ze mną ! :)`);
+          setSend(false);
           return reset();
         }
       })
@@ -120,23 +123,32 @@ const ContactSectionComponent = () => {
           <Col xs={12} md={8} lg={5} style={{ zIndex: 1 }}>
             <BoxContact>
               <Title>{title}</Title>
-
-              <Form
-                onSubmit={handleSubmit((d) => {
-                  sendEmailAPI({
-                    url,
-                    settings,
-                    data: { domian: "uxu.pl", emailTo: "hello@uxu.pl", emailFrom: d.emailContact, message: JSON.stringify(d) },
-                  });
-                })}
-              >
-                <Input id="nameContact" type="text" pattern={nameRegex} error={errors.nameContact} label={name} register={register} required />
-                <Input id="emailContact" type="email" pattern={emailRegex} error={errors.emailContact} label={email} register={register} required />
-                <Input id="telContact" type="tel" pattern={telRegex} error={errors.telContact} label={phone} register={register} required />
-                <TextArea id="descriptionContact" pattern={nameRegex} error={errors.descriptionContact} label={message} register={register} required />
-                <CheckBox id="privacyPolicyContact" pattern={emailRegex} error={errors.privacyPolicyContact} label={clausureRodo} register={register} required />
-                <ButtonSubmit style={{ marginTop: "3rem" }}>{buttonSend}</ButtonSubmit>
-              </Form>
+              {send ? (
+                <>
+                  <SquareConent height={4} />
+                  <SquareConent height={4} />
+                  <SquareConent height={4} />
+                  <SquareConent height={8} />
+                  <SquareConent height={4} />
+                </>
+              ) : (
+                <Form
+                  onSubmit={handleSubmit((d) => {
+                    sendEmailAPI({
+                      url,
+                      settings,
+                      data: { domian: "uxu.pl", emailTo: "hello@uxu.pl", emailFrom: d.emailContact, message: JSON.stringify(d) },
+                    });
+                  })}
+                >
+                  <Input id="nameContact" type="text" pattern={nameRegex} error={errors.nameContact} label={name} register={register} required />
+                  <Input id="emailContact" type="email" pattern={emailRegex} error={errors.emailContact} label={email} register={register} required />
+                  <Input id="telContact" type="tel" pattern={telRegex} error={errors.telContact} label={phone} register={register} required />
+                  <TextArea id="descriptionContact" pattern={nameRegex} error={errors.descriptionContact} label={message} register={register} required />
+                  <CheckBox id="privacyPolicyContact" pattern={emailRegex} error={errors.privacyPolicyContact} label={clausureRodo} register={register} required />
+                  <ButtonSubmit style={{ marginTop: "3rem" }}>{buttonSend}</ButtonSubmit>
+                </Form>
+              )}
             </BoxContact>
           </Col>
         </Row>

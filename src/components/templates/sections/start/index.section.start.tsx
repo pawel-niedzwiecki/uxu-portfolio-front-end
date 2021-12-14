@@ -3,6 +3,9 @@ import { useForm } from "react-hook-form";
 import Modal from "react-modal";
 import useModal from "hooks/useModal";
 import face from "assets/img/face.png";
+import { SquareConent } from "components/atoms/animation/index.animation";
+
+import { TextScramble } from "components/atoms/animation/index.animation";
 
 import { emailRegex, telRegex, nameRegex } from "assets/regex/index.regex";
 import { ReactComponent as Closed } from "assets/icon/closed.svg";
@@ -14,6 +17,7 @@ import { Section, H1, H2, List, Item, ModdalTitle, ModalContent, ModdalDescripti
 
 const StartSectionComponent = () => {
   const { translations } = useContext(LanguageContext);
+  const [send, setSend] = useState(false);
   const { content, link, modal } = translations.section.start;
   const { isOpen, handleOpenModal, handleClouseModal } = useModal();
 
@@ -74,6 +78,7 @@ const StartSectionComponent = () => {
       .then((result) => {
         if (!(result.status < 200 || result.status >= 300)) {
           alert(`Hej ${JSON.parse(data.message).nameFistContact}! w ciągu 24h spodziewaj sie kontaktu ze mną ! :)`);
+          setSend(false);
           reset();
           return handleClouseModal();
         }
@@ -103,7 +108,10 @@ const StartSectionComponent = () => {
               {hello && (
                 <>
                   <H2>{content.h2}</H2>
-                  <H1>{content.h1}</H1>
+                  <H1>
+                    {content.h1} <TextScramble phrases={["JavaScript", "React.js", "Gatsby.js", "Huj wam w dupe", "Kurwa mać"]} option={{ time: 15000 }} />
+                  </H1>
+
                   <Button onClick={handleOpenModal} className="btn">
                     {modal.button}
                   </Button>
@@ -154,23 +162,32 @@ const StartSectionComponent = () => {
           <ModalContent>
             <ModdalTitle>{modal.h1}</ModdalTitle>
             <ModdalDescription>{modal.h2}</ModdalDescription>
+            {send ? (
+              <>
+                <SquareConent height={4} />
+                <SquareConent height={4} />
+                <SquareConent height={4} />
+                <SquareConent height={4} />
+              </>
+            ) : (
+              <Form
+                onSubmit={handleSubmit((d) => {
+                  setSend(true);
+                  sendEmailAPI({
+                    url,
+                    settings,
+                    data: { domian: "uxu.pl", emailTo: "hello@uxu.pl", emailFrom: d.emailFistContact, message: JSON.stringify(d) },
+                  });
+                })}
+              >
+                <Input id="nameFistContact" type="text" pattern={nameRegex} error={errors.nameFistContact} label={name} register={register} required />
+                <Input id="phoneFistContact" type="tel" pattern={telRegex} error={errors.phoneFistContact} label={phone} register={register} required />
+                <Input id="emailFistContact" type="email" pattern={emailRegex} error={errors.emailFistContact} label={email} register={register} required />
 
-            <Form
-              onSubmit={handleSubmit((d) => {
-                sendEmailAPI({
-                  url,
-                  settings,
-                  data: { domian: "uxu.pl", emailTo: "hello@uxu.pl", emailFrom: d.emailFistContact, message: JSON.stringify(d) },
-                });
-              })}
-            >
-              <Input id="nameFistContact" type="text" pattern={nameRegex} error={errors.nameFistContact} label={name} register={register} required />
-              <Input id="phoneFistContact" type="tel" pattern={telRegex} error={errors.phoneFistContact} label={phone} register={register} required />
-              <Input id="emailFistContact" type="email" pattern={emailRegex} error={errors.emailFistContact} label={email} register={register} required />
-
-              <CheckBox id="privacyPolicyFistContact" pattern={emailRegex} error={errors.privacyPolicyFistContact} label={clausureRodo} register={register} required />
-              <ButtonSubmit style={{ marginTop: "3rem" }}>{buttonSend}</ButtonSubmit>
-            </Form>
+                <CheckBox id="privacyPolicyFistContact" pattern={emailRegex} error={errors.privacyPolicyFistContact} label={clausureRodo} register={register} required />
+                <ButtonSubmit style={{ marginTop: "3rem" }}>{buttonSend}</ButtonSubmit>
+              </Form>
+            )}
           </ModalContent>
         </div>
       </Modal>
