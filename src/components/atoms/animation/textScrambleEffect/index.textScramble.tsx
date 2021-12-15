@@ -30,19 +30,26 @@ export const TextScramble = ({ phrases, option: { time = 1000 } = {} }: TextScra
       const end = start + Math.floor(Math.random() * 40);
       queue.push({ from, to, start, end });
     }
+
+    const maxEnd = queue.reduce((acc, shot) => (acc = acc > shot.end ? acc : shot.end), 0);
+
     const update = () => {
       let char = "";
       let output = "";
 
       for (let i = 0, n = queue.length; i < n; i++) {
         let { from, to, start, end } = queue[i];
-        if (frame >= end) output += to;
-        else if (frame >= start) {
+        if (frame >= end) {
+          output += to;
+        } else if (frame >= start) {
           if (!char || Math.random() < 0.28) char = chars[Math.floor(Math.random() * chars.length)];
           output += `<span class="textScrambleSign">${char}</span>`;
         } else output += from;
       }
+
       if (!!span.current) span.current.innerHTML = output;
+      if (maxEnd < frame) clearInterval(updateStart);
+
       frame++;
     };
 
