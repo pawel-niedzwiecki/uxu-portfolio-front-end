@@ -21,7 +21,7 @@ export const TextScramble = ({ phrases, option: { time = 1000 } = {} }: TextScra
 
     const updateStart: any = setInterval(() => {
       update();
-    }, 10);
+    }, 30);
 
     for (let i = 0; i < wordLenght; i++) {
       const from = phrases[lastPhrase][i] || "";
