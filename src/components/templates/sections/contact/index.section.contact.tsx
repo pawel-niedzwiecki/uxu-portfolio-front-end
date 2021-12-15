@@ -134,6 +134,7 @@ const ContactSectionComponent = () => {
               ) : (
                 <Form
                   onSubmit={handleSubmit((d) => {
+                    setSend(true);
                     sendEmailAPI({
                       url,
                       settings,

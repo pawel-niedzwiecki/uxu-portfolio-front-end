@@ -109,7 +109,7 @@ const StartSectionComponent = () => {
                 <>
                   <H2>{content.h2}</H2>
                   <H1>
-                    {content.h1} <TextScramble phrases={["JavaScript", "React.js", "Gatsby.js", "Huj wam w dupe", "Kurwa mać"]} option={{ time: 15000 }} />
+                    {content.h1} <br /> <TextScramble phrases={["JavaScript", "React.js", "Gatsby.js", "Huj wam w dupe", "Kurwa mać"]} option={{ time: 3000 }} />
                   </H1>
 
                   <Button onClick={handleOpenModal} className="btn">
