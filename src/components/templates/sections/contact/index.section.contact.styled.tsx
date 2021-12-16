@@ -215,8 +215,6 @@ export const SharpTriangle = styled.div<SharpCircleProps>`
   position: absolute;
   align-items: center;
   justify-content: center;
-
-  transform: rotate(40deg);
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 
   .ball-shadow {

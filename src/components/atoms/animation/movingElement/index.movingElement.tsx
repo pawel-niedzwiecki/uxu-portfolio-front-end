@@ -6,40 +6,33 @@ export const MovingElement = ({ children }: any) => {
 
   useEffect(() => {
     const el = box.current;
-    const elWidth = el.offsetWidth;
-    const elHeight = el.offsetHeight;
-    const ElMoviePrecent: number[] = [];
-    const widthWindow = window.innerWidth;
-    const widthHeight = window.innerHeight;
+    const allRand: any = [];
     const allElMovie = el.querySelectorAll(".movieEL");
-    allElMovie.forEach(() => ElMoviePrecent.push(Math.floor(Math.random() * 100)));
-
-    console.log(ElMoviePrecent);
+    allElMovie.forEach(() => allRand.push(Math.floor(Math.random() * 1000)));
 
     const handleMousemove: any = (event: any) => {
+      const { innerHeight, innerWidth } = window;
       const { x, y } = event;
+      const midWidth = innerWidth / 2;
+      const midHeight = innerHeight / 2;
 
-      allElMovie.forEach(
-        (elMovie: any, i: number) =>
-          (elMovie.style.transform = `translate(${100 - (((-widthWindow + elWidth + x) * ElMoviePrecent[i]) / elWidth) * 2}%, ${
-            100 - (((-widthHeight + elHeight + y) * ElMoviePrecent[i]) / elHeight) * 2
-          }%)`)
-      );
+      allElMovie.forEach((el: any, index: number) => {
+        const { variantX = 10, variantY = 10 } = el.dataset;
+        const tx = (((x - midWidth) * allRand[index]) / midWidth) * (variantX / 100);
+        const ty = (((y - midHeight) * allRand[index]) / midHeight) * (variantY / 100);
+        el.style.transform = `translate(${tx}%, ${ty}%)`;
+      });
     };
 
-    const movingElementEvent = el.addEventListener("mousemove", (e: any) => {
+    window.addEventListener("mousemove", (e: any) => {
       clearTimeout(handleMousemove);
-      setTimeout(() => {
-        handleMousemove(e);
-      }, 10);
+      setTimeout(() => handleMousemove(e), 10);
     });
 
     return () => {
-      movingElementEvent.removeEventListener("mousemove", (e: any) => {
+      window.removeEventListener("mousemove", (e: any) => {
         clearTimeout(handleMousemove);
-        setTimeout(() => {
-          handleMousemove(e);
-        }, 10);
+        setTimeout(() => handleMousemove(e), 10);
       });
     };
   }, [box]);
