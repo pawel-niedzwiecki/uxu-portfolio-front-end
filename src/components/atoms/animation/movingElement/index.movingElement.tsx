@@ -8,19 +8,38 @@ export const MovingElement = ({ children }: any) => {
     const el = box.current;
     const elWidth = el.offsetWidth;
     const elHeight = el.offsetHeight;
+    const ElMoviePrecent: number[] = [];
+    const widthWindow = window.innerWidth;
+    const widthHeight = window.innerHeight;
     const allElMovie = el.querySelectorAll(".movieEL");
+    allElMovie.forEach(() => ElMoviePrecent.push(Math.floor(Math.random() * 100)));
 
-    const handleMousemove = async (event: any) => {
-      const { offsetX, offsetY } = event;
-      console.log(Math.floor((offsetX * 100) / elWidth));
-      allElMovie.forEach((elMovie: any) => (elMovie.style.transform = `translate(-100%, 0%)`));
+    console.log(ElMoviePrecent);
+
+    const handleMousemove: any = (event: any) => {
+      const { x, y } = event;
+
+      allElMovie.forEach(
+        (elMovie: any, i: number) =>
+          (elMovie.style.transform = `translate(${100 - (((-widthWindow + elWidth + x) * ElMoviePrecent[i]) / elWidth) * 2}%, ${
+            100 - (((-widthHeight + elHeight + y) * ElMoviePrecent[i]) / elHeight) * 2
+          }%)`)
+      );
     };
 
-    const movingElementEvent = el.addEventListener("mousemove", (e: any) => handleMousemove(e));
+    const movingElementEvent = el.addEventListener("mousemove", (e: any) => {
+      clearTimeout(handleMousemove);
+      setTimeout(() => {
+        handleMousemove(e);
+      }, 10);
+    });
 
     return () => {
       movingElementEvent.removeEventListener("mousemove", (e: any) => {
-        handleMousemove(e);
+        clearTimeout(handleMousemove);
+        setTimeout(() => {
+          handleMousemove(e);
+        }, 10);
       });
     };
   }, [box]);
