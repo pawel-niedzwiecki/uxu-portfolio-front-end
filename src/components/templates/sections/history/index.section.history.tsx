@@ -7,7 +7,17 @@ import { Button } from "components/atoms/button/index.button";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 
 // import styled
-import { Section, SelectBox, List, Header, BoxHistory, LogoHistory, ContentHistory, TitleHistory, DescriptionHistory } from "./index.section.history.style";
+import {
+  Section,
+  SelectBox,
+  List,
+  Header,
+  BoxHistory,
+  LogoHistory,
+  ContentHistory,
+  TitleHistory,
+  DescriptionHistory,
+} from "./index.section.history.style";
 
 // import context
 import { DataBaseContext } from "providers/DataBaseProvider";
@@ -22,7 +32,7 @@ const HistorySectionComponent = () => {
 
   useEffect(() => {
     setActiveHistory("ok");
-    itemsRef.current.forEach((item) => console.log(item));
+    itemsRef.current.forEach((item) => null);
   }, [itemsRef]);
 
   return (
@@ -65,7 +75,7 @@ const HistorySectionComponent = () => {
                     })}
                   </>
                 )}
-              </List> 
+              </List>
             </SelectBox>
           </Col>
 

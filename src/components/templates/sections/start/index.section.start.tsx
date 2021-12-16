@@ -3,10 +3,7 @@ import { useForm } from "react-hook-form";
 import Modal from "react-modal";
 import useModal from "hooks/useModal";
 import face from "assets/img/face.png";
-import { SquareConent } from "components/atoms/animation/index.animation";
-
-import { TextScramble } from "components/atoms/animation/index.animation";
-
+import { SquareConent, TextScramble } from "components/atoms/animation/index.animation";
 import { emailRegex, telRegex, nameRegex } from "assets/regex/index.regex";
 import { ReactComponent as Closed } from "assets/icon/closed.svg";
 import { Input, CheckBox } from "components/molecules/form/index.form";
@@ -176,7 +173,12 @@ const StartSectionComponent = () => {
                   sendEmailAPI({
                     url,
                     settings,
-                    data: { domian: "uxu.pl", emailTo: "hello@uxu.pl", emailFrom: d.emailFistContact, message: JSON.stringify(d) },
+                    data: {
+                      domian: "uxu.pl",
+                      emailTo: "hello@uxu.pl",
+                      emailFrom: d.emailFistContact,
+                      message: JSON.stringify(d),
+                    },
                   });
                 })}
               >

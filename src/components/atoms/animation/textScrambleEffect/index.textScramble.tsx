@@ -1,12 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
+import { TextScrambleType } from "./index.textScramble.type";
 import { TextScrambleContainer } from "./index.textScramble.style";
-
-type TextScrambleType = {
-  option?: {
-    time?: number;
-  };
-  phrases: string[];
-};
 
 export const TextScramble = ({ phrases, option: { time = 1000 } = {} }: TextScrambleType) => {
   const span = useRef(null);
@@ -17,11 +11,8 @@ export const TextScramble = ({ phrases, option: { time = 1000 } = {} }: TextScra
 
   useEffect(() => {
     let frame = 0;
+    const updateStart: any = setInterval(() => update(), 30);
     let queue: { from: string; to: string; start: number; end: number }[] = [];
-
-    const updateStart: any = setInterval(() => {
-      update();
-    }, 30);
 
     for (let i = 0; i < wordLenght; i++) {
       const from = phrases[lastPhrase][i] || "";
@@ -34,15 +25,14 @@ export const TextScramble = ({ phrases, option: { time = 1000 } = {} }: TextScra
     const maxEnd = queue.reduce((acc, shot) => (acc = acc > shot.end ? acc : shot.end), 0);
 
     const update = () => {
-      let char = "";
-      let output = "";
+      let char,
+        output = "";
 
       for (let i = 0, n = queue.length; i < n; i++) {
         let { from, to, start, end } = queue[i];
-        if (frame >= end) {
-          output += to;
-        } else if (frame >= start) {
-          if (!char || Math.random() < 0.28) char = chars[Math.floor(Math.random() * chars.length)];
+        if (frame >= end) output += to;
+        else if (frame >= start) {
+          if (!char) char = chars[Math.floor(Math.random() * chars.length)];
           output += `<span class="textScrambleSign">${char}</span>`;
         } else output += from;
       }
@@ -53,9 +43,7 @@ export const TextScramble = ({ phrases, option: { time = 1000 } = {} }: TextScra
       frame++;
     };
 
-    return () => {
-      clearInterval(updateStart);
-    };
+    return () => clearInterval(updateStart);
   }, [wordLenght, phrases, lastPhrase, activePhrase]);
 
   useEffect(() => {
@@ -63,14 +51,8 @@ export const TextScramble = ({ phrases, option: { time = 1000 } = {} }: TextScra
       setActivePhrase((activePhrase + 1) % phrases.length);
     }, time);
 
-    return () => {
-      clearInterval(interval);
-    };
+    return () => clearInterval(interval);
   }, [time, phrases, activePhrase]);
 
-  return (
-    <>
-      <TextScrambleContainer ref={span}></TextScrambleContainer>
-    </>
-  );
+  return <TextScrambleContainer ref={span}></TextScrambleContainer>;
 };

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { SquareConent } from "components/atoms/animation/index.animation";
+import { SquareConent, MovingElement } from "components/atoms/animation/index.animation";
 import { emailRegex, telRegex, nameRegex } from "assets/regex/index.regex";
 import { Input, CheckBox, TextArea } from "components/molecules/form/index.form";
 import { ButtonOutLink, ButtonSubmit } from "components/atoms/button/index.button";
@@ -138,7 +138,12 @@ const ContactSectionComponent = () => {
                     sendEmailAPI({
                       url,
                       settings,
-                      data: { domian: "uxu.pl", emailTo: "hello@uxu.pl", emailFrom: d.emailContact, message: JSON.stringify(d) },
+                      data: {
+                        domian: "uxu.pl",
+                        emailTo: "hello@uxu.pl",
+                        emailFrom: d.emailContact,
+                        message: JSON.stringify(d),
+                      },
                     });
                   })}
                 >
@@ -154,27 +159,29 @@ const ContactSectionComponent = () => {
           </Col>
         </Row>
         <BoxAnimation>
-          <SharpCircle bg={noise}>
-            <div className="isolate">
-              <div className="ball-shadow"></div>
-              <div className="ball-light"></div>
-            </div>
-          </SharpCircle>
-          <SharpSquare bg={noise}>
-            <div className="isolate">
-              <div className="ball-shadow"></div>
-              <div className="ball-light"></div>
-            </div>
-          </SharpSquare>
-          <SharpTriangle bg={noise}>
-            <div className="isolate">
-              <div className="ball-shadow"></div>
-              <div className="ball-light"></div>
-            </div>
-          </SharpTriangle>
+          <MovingElement>
+            <SharpCircle bg={noise} className="movieEL">
+              <div className="isolate">
+                <div className="ball-shadow"></div>
+                <div className="ball-light"></div>
+              </div>
+            </SharpCircle>
+            <SharpSquare bg={noise} className="movieEL">
+              <div className="isolate">
+                <div className="ball-shadow"></div>
+                <div className="ball-light"></div>
+              </div>
+            </SharpSquare>
+            <SharpTriangle bg={noise} className="movieEL">
+              <div className="isolate">
+                <div className="ball-shadow"></div>
+                <div className="ball-light"></div>
+              </div>
+            </SharpTriangle>
 
-          <Square style={{ width: "30rem" }} />
-          <Square style={{ width: "30rem", marginLeft: "4.2rem", top: "-2px", position: "relative" }} />
+            <Square style={{ width: "30rem" }} />
+            <Square style={{ width: "30rem", marginLeft: "4.2rem", top: "-2px", position: "relative" }} />
+          </MovingElement>
         </BoxAnimation>
       </Container>
     </Section>
