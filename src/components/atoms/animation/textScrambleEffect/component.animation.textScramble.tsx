@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
-import { TextScrambleType } from "./index.textScramble.type";
-import { TextScrambleContainer } from "./index.textScramble.style";
+import { TextScrambleType } from "./component.animation.textScramble.type";
+import { TextScrambleContainer } from "./component.animation.textScramble.style";
 
 export const TextScramble = ({ phrases, option: { time = 1000 } = {} }: TextScrambleType) => {
   const span = useRef(null);

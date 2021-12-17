@@ -1,17 +1,17 @@
 import Modal from "react-modal";
-import useModal from "hooks/useModal";
+import useModal from "hooks/hooks.modal";
 import face from "assets/img/face.png";
 import { useForm } from "react-hook-form";
-import { LanguageContext } from "providers/LanguageProvider";
+import { LanguageContext } from "providers/providers.language";
 import React, { useState, useEffect, useContext } from "react";
 import { ReactComponent as Closed } from "assets/icon/closed.svg";
 import { Input, CheckBox } from "components/molecules/form/index.form";
 import { emailRegex, telRegex, nameRegex } from "assets/regex/index.regex";
-import { SendEmailAPIProps, requestOptionsProps } from "./index.section.start.type";
+import { SendEmailAPIProps, requestOptionsProps } from "./section.start.type";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { SquareConent, TextScramble } from "components/atoms/animation/index.animation";
-import { Button, ButtonCyrlic, ButtonSubmit } from "components/atoms/button/index.button";
-import { Section, H1, H2, List, Item, ModdalTitle, ModalContent, ModdalDescription, Form } from "./index.section.start.style";
+import { SquareConent, TextScramble } from "components/atoms/animation/index.comonent.animation";
+import { Button, ButtonCyrlic, ButtonSubmit } from "components/atoms/button/component.button";
+import { Section, H1, H2, List, Item, ModdalTitle, ModalContent, ModdalDescription, Form } from "./section.start.style";
 
 const StartSectionComponent = () => {
   const [send, setSend] = useState(false);
@@ -88,39 +88,20 @@ const StartSectionComponent = () => {
                 <>
                   <H2>{content.h2}</H2>
                   <H1>
-                    {content.h1} <br /> <TextScramble phrases={["JavaScript", "React.js", "Gatsby.js", "Huj wam w dupe", "Kurwa mać"]} option={{ time: 3000 }} />
+                    {content.h1} <br /> <TextScramble phrases={["JavaScript", "React.js", "Gatsby.js", "Nest.js", "Next.js", "Node.js", "MongoDB", "PostgreSQL"]} option={{ time: 3000 }} />
                   </H1>
-
                   <Button onClick={handleOpenModal} className="btn">
                     {modal.button}
                   </Button>
                   <List>
                     <Item>
-                      <Button
-                        onClick={() => {
-                          scrollToEl("portfolio");
-                        }}
-                      >
-                        {link.portfolio}
-                      </Button>
+                      <Button onClick={() => scrollToEl("portfolio")}>{link.portfolio}</Button>
                     </Item>
                     <Item>
-                      <Button
-                        onClick={() => {
-                          scrollToEl("history");
-                        }}
-                      >
-                        {link.history}
-                      </Button>
+                      <Button onClick={() => scrollToEl("history")}>{link.history}</Button>
                     </Item>
                     <Item>
-                      <Button
-                        onClick={() => {
-                          scrollToEl("contact");
-                        }}
-                      >
-                        {link.contact}
-                      </Button>
+                      <Button onClick={() => scrollToEl("contact")}>{link.contact}</Button>
                     </Item>
                   </List>
                 </>

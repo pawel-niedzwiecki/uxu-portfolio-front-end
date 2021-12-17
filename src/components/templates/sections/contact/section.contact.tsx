@@ -1,12 +1,12 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { SquareConent, MovingElement } from "components/atoms/animation/index.animation";
+import { SquareConent, MovingElement } from "components/atoms/animation/index.comonent.animation";
 import { emailRegex, telRegex, nameRegex } from "assets/regex/index.regex";
 import { Input, CheckBox, TextArea } from "components/molecules/form/index.form";
-import { ButtonOutLink, ButtonSubmit } from "components/atoms/button/index.button";
+import { ButtonOutLink, ButtonSubmit } from "components/atoms/button/component.button";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { Section, SelectBox, List, Header, BoxContact, Title, Form, BoxAnimation, SharpCircle, SharpSquare, SharpTriangle } from "./index.section.contact.styled";
-import { LanguageContext } from "providers/LanguageProvider";
+import { Section, SelectBox, List, Header, BoxContact, Title, Form, BoxAnimation, SharpCircle, SharpSquare, SharpTriangle } from "./section.contact.styled";
+import { LanguageContext } from "providers/providers.language";
 import noise from "assets/icon/noise.svg";
 import { ReactComponent as GitHub } from "assets/icon/github.svg";
 import { ReactComponent as Linkedin } from "assets/icon/linkedin.svg";

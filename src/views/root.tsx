@@ -9,8 +9,8 @@ import settings from "assets/style/settings";
 import GlobalStyle from "assets/style/GlobalStyle";
 
 // import provider
-import DataBaseProvider from "providers/DataBaseProvider";
-import LanguageProvider, { LanguageContext } from "providers/LanguageProvider";
+import DataBaseProvider from "providers/providers.dataBase";
+import LanguageProvider, { LanguageContext } from "providers/providers.language";
 
 // import component
 import Home from "views/home";

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Label, Text, CheckBoxStyled, Road, Face } from "./index.checkbox.style";
+import { Label, Text, CheckBoxStyled, Road, Face } from "./component.checkbox.style";
 
 // create new cpomponent
 export const CheckBox = ({ id, type, label, pattern, error, register, required }: any) => {

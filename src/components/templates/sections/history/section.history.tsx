@@ -1,12 +1,8 @@
-// import plugin
 import React, { useContext, useState, useEffect, useRef } from "react";
-
-// import component
-import { SquareConent } from "components/atoms/animation/index.animation";
-import { Button } from "components/atoms/button/index.button";
+import useCallToApi from "hooks/hooks.callAPI";
+import { Button } from "components/atoms/button/component.button";
+import { SquareConent } from "components/atoms/animation/index.comonent.animation";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-
-// import styled
 import {
   Section,
   SelectBox,
@@ -17,23 +13,42 @@ import {
   ContentHistory,
   TitleHistory,
   DescriptionHistory,
-} from "./index.section.history.style";
+} from "./section.history.style";
+import { DataBaseContext } from "providers/providers.dataBase";
+import { LanguageContext } from "providers/providers.language";
 
-// import context
-import { DataBaseContext } from "providers/DataBaseProvider";
-import { LanguageContext } from "providers/LanguageProvider";
-
-// create component
 const HistorySectionComponent = () => {
   const itemsRef = useRef([]);
   const { language } = useContext(LanguageContext);
-  const { histories, error } = useContext(DataBaseContext);
+  const [sendRequest, setSendRequest] = useState(false);
   const [activeHistory, setActiveHistory] = useState("start");
+  const { histories, setHistories, error, setError } = useContext(DataBaseContext);
+  const { callToApi } = useCallToApi({ error, setError });
 
   useEffect(() => {
     setActiveHistory("ok");
     itemsRef.current.forEach((item) => null);
   }, [itemsRef]);
+
+  useEffect(() => {
+    const sectionHistory = document.getElementById("history");
+    window.addEventListener("scroll", (e) => {
+      const y = sectionHistory.getBoundingClientRect().top - (window.innerHeight - 100);
+      y <= 0 && !sendRequest && setSendRequest(true);
+    });
+
+    return () => {
+      window.addEventListener("scroll", (e) => {
+        const y = sectionHistory.getBoundingClientRect().top - (window.innerHeight - 100);
+        y <= 0 && !sendRequest && setSendRequest(true);
+      });
+    };
+  }, [sendRequest, setSendRequest]);
+
+  useEffect(() => {
+    sendRequest &&
+      callToApi({ url: `https://uxu-portfolio.herokuapp.com/histories?_locale=${language}`, type: "tags", setData: setHistories });
+  }, [callToApi, sendRequest, setHistories, language]);
 
   return (
     <Section id="history">

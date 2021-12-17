@@ -14,5 +14,4 @@ const useModal = (initialState = false) => {
   };
 };
 
-// export hooks
 export default useModal;

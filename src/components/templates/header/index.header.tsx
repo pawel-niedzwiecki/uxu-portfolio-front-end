@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import useWindowData from "hooks/useWindowData";
-import { LanguageContext } from "providers/LanguageProvider";
+import useWindowData from "hooks/hooks.windowData";
+import { LanguageContext } from "providers/providers.language";
 import { ReactComponent as Brand } from "assets/icon/logo.svg";
 import { Header, Logo, List, Item } from "./index.header.style";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";

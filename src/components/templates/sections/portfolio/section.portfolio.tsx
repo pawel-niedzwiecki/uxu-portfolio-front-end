@@ -1,7 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
+import useCallToApi from "hooks/hooks.callAPI";
 import { ReactComponent as Circle } from "assets/icon/circle.svg";
-import { SquareConent } from "components/atoms/animation/index.animation";
-import { Button, ButtonOutLink } from "components/atoms/button/index.button";
+import { SquareConent } from "components/atoms/animation/index.comonent.animation";
+import { Button, ButtonOutLink } from "components/atoms/button/component.button";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import {
   Section,
@@ -16,27 +17,50 @@ import {
   FlipBoxList,
   FlipBoxListItem,
   FlipBoxButton,
-} from "./index.section.portfolio.style";
-import { DataBaseContext } from "providers/DataBaseProvider";
-import { LanguageContext } from "providers/LanguageProvider";
+} from "./section.portfolio.style";
+import { DataBaseContext } from "providers/providers.dataBase";
+import { LanguageContext } from "providers/providers.language";
 
-// create component
 const PortfolioSectionComponent = () => {
-  const [filtrPortfolio, setFiltrPortfolio] = useState("all");
-  const { portfolio, tags, error } = useContext(DataBaseContext);
-  const [displayPortfolio, setDisplayPortfolio] = useState(portfolio);
   const { language } = useContext(LanguageContext);
+  const [sendRequest, setSendRequest] = useState(false);
+  const [filtrPortfolio, setFiltrPortfolio] = useState("all");
+  const { portfolio, setPortfolio, tags, setTags, error, setError } = useContext(DataBaseContext);
+  const { callToApi } = useCallToApi({ error, setError });
+  const [displayPortfolio, setDisplayPortfolio] = useState(portfolio);
 
   useEffect(() => {
     let selectPortfolio: any = [];
     if (!portfolio.length || filtrPortfolio === "all") return setDisplayPortfolio(portfolio);
-    portfolio.forEach((item: { id: string; tags: []; PortfolioGitHub: string; PortfolioURL: string; ProjectName: string; locale: string }) => {
-      item.tags.filter((el: { Name: string }) => {
-        return el.Name === filtrPortfolio;
-      }).length && selectPortfolio.push(item);
-    });
+    portfolio.forEach(
+      (item: { id: string; tags: []; PortfolioGitHub: string; PortfolioURL: string; ProjectName: string; locale: string }) => {
+        item.tags.filter((el: { Name: string }) => {
+          return el.Name === filtrPortfolio;
+        }).length && selectPortfolio.push(item);
+      }
+    );
     setDisplayPortfolio(selectPortfolio);
   }, [portfolio, filtrPortfolio]);
+
+  useEffect(() => {
+    const sectionHistory = document.getElementById("portfolio");
+    window.addEventListener("scroll", (e) => {
+      const y = sectionHistory.getBoundingClientRect().top - (window.innerHeight - 100);
+      y <= 0 && !sendRequest && setSendRequest(true);
+    });
+
+    return () => {
+      window.addEventListener("scroll", (e) => {
+        const y = sectionHistory.getBoundingClientRect().top - (window.innerHeight - 100);
+        y <= 0 && !sendRequest && setSendRequest(true);
+      });
+    };
+  }, [sendRequest, setSendRequest]);
+
+  useEffect(() => {
+    sendRequest && callToApi({ url: "https://uxu-portfolio.herokuapp.com/tags", type: "tags", setData: setTags });
+    sendRequest && callToApi({ url: "https://uxu-portfolio.herokuapp.com/portfolios", type: "portfolio", setData: setPortfolio });
+  }, [callToApi, setPortfolio, sendRequest, setTags]);
 
   return (
     <Section id="portfolio">

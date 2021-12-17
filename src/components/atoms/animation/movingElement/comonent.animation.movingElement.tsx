@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { MovingElementBox } from "./index.movingElement.style";
+import { MovingElementBox } from "./comonent.animation.movingElement.style";
 
 export const MovingElement = ({ children }: any) => {
   const box = useRef(null);
