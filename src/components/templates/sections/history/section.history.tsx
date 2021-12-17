@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import useCallToApi from "hooks/hooks.callAPI";
+import { callToApi } from "function/hooks.callAPI";
 import { Button } from "components/atoms/button/component.button";
 import { SquareConent } from "components/atoms/animation/index.comonent.animation";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
@@ -23,7 +23,6 @@ const HistorySectionComponent = () => {
   const [sendRequest, setSendRequest] = useState(false);
   const [activeHistory, setActiveHistory] = useState("start");
   const { histories, setHistories, error, setError } = useContext(DataBaseContext);
-  const { callToApi } = useCallToApi({ error, setError });
 
   useEffect(() => {
     setActiveHistory("ok");
@@ -32,23 +31,23 @@ const HistorySectionComponent = () => {
 
   useEffect(() => {
     const sectionHistory = document.getElementById("history");
-    window.addEventListener("scroll", (e) => {
-      const y = sectionHistory.getBoundingClientRect().top - (window.innerHeight - 100);
-      y <= 0 && !sendRequest && setSendRequest(true);
-    });
+    window.addEventListener(
+      "scroll",
+      (e) => sectionHistory.getBoundingClientRect().top - (window.innerHeight - 100) <= 0 && !sendRequest && setSendRequest(true)
+    );
 
-    return () => {
-      window.addEventListener("scroll", (e) => {
-        const y = sectionHistory.getBoundingClientRect().top - (window.innerHeight - 100);
-        y <= 0 && !sendRequest && setSendRequest(true);
-      });
-    };
+    return () =>
+      window.addEventListener(
+        "scroll",
+        (e) => sectionHistory.getBoundingClientRect().top - (window.innerHeight - 100) <= 0 && !sendRequest && setSendRequest(true)
+      );
   }, [sendRequest, setSendRequest]);
 
   useEffect(() => {
+    const phoneAPI = new callToApi({ error, setError });
     sendRequest &&
-      callToApi({ url: `https://uxu-portfolio.herokuapp.com/histories?_locale=${language}`, type: "tags", setData: setHistories });
-  }, [callToApi, sendRequest, setHistories, language]);
+      phoneAPI.call({ url: `https://uxu-portfolio.herokuapp.com/histories?_locale=${language}`, type: "tags", setData: setHistories });
+  }, [sendRequest, setHistories, language, error, setError]);
 
   return (
     <Section id="history">

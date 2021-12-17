@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import useCallToApi from "hooks/hooks.callAPI";
+import { callToApi } from "function/hooks.callAPI";
 import { ReactComponent as Circle } from "assets/icon/circle.svg";
 import { SquareConent } from "components/atoms/animation/index.comonent.animation";
 import { Button, ButtonOutLink } from "components/atoms/button/component.button";
@@ -26,7 +26,6 @@ const PortfolioSectionComponent = () => {
   const [sendRequest, setSendRequest] = useState(false);
   const [filtrPortfolio, setFiltrPortfolio] = useState("all");
   const { portfolio, setPortfolio, tags, setTags, error, setError } = useContext(DataBaseContext);
-  const { callToApi } = useCallToApi({ error, setError });
   const [displayPortfolio, setDisplayPortfolio] = useState(portfolio);
 
   useEffect(() => {
@@ -58,9 +57,10 @@ const PortfolioSectionComponent = () => {
   }, [sendRequest, setSendRequest]);
 
   useEffect(() => {
-    sendRequest && callToApi({ url: "https://uxu-portfolio.herokuapp.com/tags", type: "tags", setData: setTags });
-    sendRequest && callToApi({ url: "https://uxu-portfolio.herokuapp.com/portfolios", type: "portfolio", setData: setPortfolio });
-  }, [callToApi, setPortfolio, sendRequest, setTags]);
+    const phoneAPI = new callToApi({ error, setError });
+    sendRequest && phoneAPI.call({ url: "https://uxu-portfolio.herokuapp.com/tags", type: "tags", setData: setTags });
+    sendRequest && phoneAPI.call({ url: "https://uxu-portfolio.herokuapp.com/portfolios", type: "portfolio", setData: setPortfolio });
+  }, [sendRequest, setTags, setPortfolio, error, setError]);
 
   return (
     <Section id="portfolio">
