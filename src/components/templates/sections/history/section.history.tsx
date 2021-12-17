@@ -18,16 +18,31 @@ import { DataBaseContext } from "providers/providers.dataBase";
 import { LanguageContext } from "providers/providers.language";
 
 const HistorySectionComponent = () => {
-  const itemsRef = useRef([]);
+  const elRef: any = useRef([]);
   const { language } = useContext(LanguageContext);
   const [sendRequest, setSendRequest] = useState(false);
-  const [activeHistory, setActiveHistory] = useState("start");
+  const [activeHistory, setActiveHistory] = useState(0);
   const { histories, setHistories, error, setError } = useContext(DataBaseContext);
 
   useEffect(() => {
-    setActiveHistory("ok");
-    itemsRef.current.forEach((item) => null);
-  }, [itemsRef]);
+    let allBox: any[] = [];
+    let lastScroll: any = null;
+    let allActiveBox: any[] = [];
+    !!elRef.current.length && elRef.current.forEach((item: any) => allBox.push(document.getElementById(item.attributes.id.textContent)));
+    document.addEventListener("scroll", () => {
+      allActiveBox = [];
+      if (!!allBox.length) {
+        clearTimeout(lastScroll);
+        lastScroll = setTimeout(() => {
+          allBox.forEach((_, i) => {
+            if (allBox[i].getBoundingClientRect().top - (window.innerHeight - 400) < 0) return null;
+            allActiveBox.push(i);
+          });
+          setActiveHistory(allBox.length - allActiveBox.length);
+        }, 10);
+      }
+    });
+  }, [elRef, histories]);
 
   useEffect(() => {
     const sectionHistory = document.getElementById("history");
@@ -62,14 +77,17 @@ const HistorySectionComponent = () => {
               <Header style={{ paddingBottom: "2rem" }}>{language === "pl" ? "Moja historia" : "My history"}</Header>
               <List>
                 {histories.length ? (
-                  histories.map((item) => {
+                  histories.map((item, i) => {
                     return (
                       <li key={item.id}>
                         <Button
-                          className={`${item.HistoryTitle === activeHistory ? "active" : ""} `}
-                          onClick={() => {
-                            console.log(item.HistoryTitle);
-                          }}
+                          className={`${activeHistory === i ? "active" : null} `}
+                          onClick={() =>
+                            window.scrollTo({
+                              top: document.getElementById(item.id).getBoundingClientRect().top + window.pageYOffset + -70,
+                              behavior: "smooth",
+                            })
+                          }
                         >
                           {item.HistoryTitle}
                         </Button>
@@ -104,7 +122,7 @@ const HistorySectionComponent = () => {
                   {histories.map((item, i) => {
                     return (
                       <Col xs={12} key={item.id}>
-                        <BoxHistory ref={(el) => (itemsRef.current[i] = el)}>
+                        <BoxHistory id={item.id} ref={(el: any) => (elRef.current[i] = el)}>
                           <LogoHistory>
                             <img src={item.HistoryLogo.url} alt={item.HistoryTitle} />
                           </LogoHistory>
