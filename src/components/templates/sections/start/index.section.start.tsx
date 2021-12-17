@@ -1,25 +1,25 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useForm } from "react-hook-form";
 import Modal from "react-modal";
 import useModal from "hooks/useModal";
 import face from "assets/img/face.png";
-import { SquareConent, TextScramble } from "components/atoms/animation/index.animation";
-import { emailRegex, telRegex, nameRegex } from "assets/regex/index.regex";
+import { useForm } from "react-hook-form";
+import { LanguageContext } from "providers/LanguageProvider";
+import React, { useState, useEffect, useContext } from "react";
 import { ReactComponent as Closed } from "assets/icon/closed.svg";
 import { Input, CheckBox } from "components/molecules/form/index.form";
-import { LanguageContext } from "providers/LanguageProvider";
+import { emailRegex, telRegex, nameRegex } from "assets/regex/index.regex";
+import { SendEmailAPIProps, requestOptionsProps } from "./index.section.start.type";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
+import { SquareConent, TextScramble } from "components/atoms/animation/index.animation";
 import { Button, ButtonCyrlic, ButtonSubmit } from "components/atoms/button/index.button";
 import { Section, H1, H2, List, Item, ModdalTitle, ModalContent, ModdalDescription, Form } from "./index.section.start.style";
 
 const StartSectionComponent = () => {
-  const { translations } = useContext(LanguageContext);
   const [send, setSend] = useState(false);
+  const [hello, setHello] = useState(false);
+  const { translations } = useContext(LanguageContext);
   const { content, link, modal } = translations.section.start;
   const { isOpen, handleOpenModal, handleClouseModal } = useModal();
-
   const { name, phone, email, clausureRodo, buttonSend } = translations.forms;
-  const [hello, setHello] = useState(false);
 
   const {
     reset,
@@ -28,39 +28,21 @@ const StartSectionComponent = () => {
     formState: { errors },
   } = useForm();
 
-  const url = "https://comunicatorforclient.herokuapp.com/api/v1/email";
+  const myHeaders = new Headers();
   const settings = { method: "PUT" };
-
-  const helloChange = (changeSwitch: boolean) => {
-    setHello(changeSwitch);
-  };
-
+  const urlencoded = new URLSearchParams();
+  const url = "https://comunicatorforclient.herokuapp.com/api/v1/email";
+  const helloChange = (changeSwitch: boolean) => setHello(changeSwitch);
   const scrollToEl = (id: string) => {
-    window.scrollTo({ top: document.getElementById(id).getBoundingClientRect().top - 30, behavior: "smooth" });
-  };
-
-  type SendEmailAPIProps = {
-    url: string;
-    settings: {
-      method: string;
-    };
-    data: any;
+    const yOffset = -30;
+    const element = document.getElementById(id);
+    const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+    window.scrollTo({ top: y, behavior: "smooth" });
   };
 
   const sendEmailAPI = async ({ url, settings = { method: "GET" }, data }: SendEmailAPIProps) => {
-    const myHeaders = new Headers();
+    for (const property in data) urlencoded.append(property, data[property]);
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-    const urlencoded = new URLSearchParams();
-    for (const property in data) {
-      urlencoded.append(property, data[property]);
-    }
-
-    type requestOptionsProps = {
-      method: string;
-      headers: any;
-      body: any;
-    };
 
     const requestOptions: requestOptionsProps = {
       method: settings.method,
