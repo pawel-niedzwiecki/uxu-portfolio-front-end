@@ -35,7 +35,7 @@ const HistorySectionComponent = () => {
         clearTimeout(lastScroll);
         lastScroll = setTimeout(() => {
           allBox.forEach((_, i) => {
-            if (allBox[i].getBoundingClientRect().top - (window.innerHeight - 400) < 0) return null;
+            if (allBox[i].getBoundingClientRect().top - (window.innerHeight - 400) < 0 && !!(i + 1 === allBox.length)) return null;
             allActiveBox.push(i);
           });
           setActiveHistory(allBox.length - allActiveBox.length);
