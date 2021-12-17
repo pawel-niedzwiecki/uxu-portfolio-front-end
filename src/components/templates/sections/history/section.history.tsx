@@ -35,7 +35,7 @@ const HistorySectionComponent = () => {
         clearTimeout(lastScroll);
         lastScroll = setTimeout(() => {
           allBox.forEach((_, i) => {
-            if (allBox[i].getBoundingClientRect().top - (window.innerHeight - 400) < 0 && !!(i + 1 === allBox.length)) return null;
+            if (allBox[i].getBoundingClientRect().top - 200 < 0 && !!(i + 1 === allBox.length)) return null;
             allActiveBox.push(i);
           });
           setActiveHistory(allBox.length - allActiveBox.length);
@@ -84,7 +84,7 @@ const HistorySectionComponent = () => {
                           className={`${activeHistory === i ? "active" : null} `}
                           onClick={() =>
                             window.scrollTo({
-                              top: document.getElementById(item.id).getBoundingClientRect().top + window.pageYOffset + -70,
+                              top: document.getElementById(item.id).getBoundingClientRect().top + window.pageYOffset + -79,
                               behavior: "smooth",
                             })
                           }
