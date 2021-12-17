@@ -46,7 +46,11 @@ const HistorySectionComponent = () => {
   useEffect(() => {
     const phoneAPI = new callToApi({ error, setError });
     sendRequest &&
-      phoneAPI.call({ url: `https://uxu-portfolio.herokuapp.com/histories?_locale=${language}`, type: "tags", setData: setHistories });
+      phoneAPI.call({
+        url: `https://uxu-portfolio.herokuapp.com/histories?_locale=${language}`,
+        type: "tags",
+        setData: setHistories,
+      });
   }, [sendRequest, setHistories, language, error, setError]);
 
   return (
