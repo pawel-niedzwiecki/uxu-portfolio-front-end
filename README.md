@@ -7,9 +7,10 @@
 It is project my protfolio. This project use :
 
 - React.js
+- TypeScript
 - React hooks
 - React router
-- Styled domponent
+- Styled-components
 - REST API: Node.js + MongoDB ( [repositorie API ](https://github.com/pawel-niedzwiecki/uxu-portfolio-back-end). )
 
 # How to run this project?
