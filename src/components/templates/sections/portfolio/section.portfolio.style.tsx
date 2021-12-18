@@ -1,7 +1,5 @@
 import styled, { css } from "styled-components";
 
-
-
 export const Section = styled.section`
   width: 100%;
   overflow: unset;
@@ -54,13 +52,26 @@ export const SelectBox = styled.div`
   }
 
   button {
+    width: 100%;
     border: none;
+    display: block;
     padding: 1rem 0;
+    text-align: left;
+    position: relative;
     font-weight: normal;
     border-radius: inherit;
 
+    @media all and (min-width: 780px) {
+      left: -2rem;
+      padding: 1rem 2rem;
+    }
+
     &.active {
       color: ${({ theme }) => theme.white};
+
+      @media all and (min-width: 780px) {
+        background: ${({ theme }) => theme.blueDark} !important;
+      }
     }
 
     &:hover {

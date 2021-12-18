@@ -77,6 +77,10 @@ const PortfolioSectionComponent = () => {
                         className={filtrPortfolio === "all" && "active"}
                         onClick={() => {
                           setFiltrPortfolio("all");
+                          window.scrollTo({
+                            top: document.getElementById("portfolio").getBoundingClientRect().top + window.pageYOffset + -30,
+                            behavior: "smooth",
+                          });
                         }}
                       >
                         {language === "pl" ? "Wszystko" : "All "}
@@ -89,6 +93,10 @@ const PortfolioSectionComponent = () => {
                           className={filtrPortfolio === tag.Name && "active"}
                           onClick={() => {
                             setFiltrPortfolio(tag.Name);
+                            window.scrollTo({
+                              top: document.getElementById("portfolio").getBoundingClientRect().top + window.pageYOffset + -30,
+                              behavior: "smooth",
+                            });
                           }}
                         >
                           {tag.Name}
