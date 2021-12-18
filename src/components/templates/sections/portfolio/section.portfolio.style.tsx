@@ -58,7 +58,7 @@ export const SelectBox = styled.div`
     left: auto;
     z-index: 1;
     width: 100%;
-    bottom: auto;ć
+    bottom: auto;
     display: block;
     position: sticky;
     align-items: unset;
