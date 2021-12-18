@@ -180,7 +180,7 @@ export const List = styled.ul`
 export const Item = styled.li`
   width: max-content;
   position: relative;
-  padding: 0.5rem 2rem;
+  padding: 0.5rem 1rem;
 
   @media all and (min-width: 768px) {
     padding: 0 4rem;
@@ -188,12 +188,13 @@ export const Item = styled.li`
   }
 
   &::after {
-    top: 1.5rem;
-    width: 2rem;
+    top: 1.4rem;
+    height: 0.5rem;
+    width: 0.5rem;
+    border-radius: 100%;
     content: "";
     display: block;
-    right: -1rem;
-    height: 0.1rem;
+    right: -0.3rem;
     position: absolute;
     background: var(--uxu-pl-text-off);
 
@@ -230,7 +231,8 @@ export const Item = styled.li`
     }
   }
 
-  button {
+  button,
+  a {
     padding: 0;
     border: none;
     border-radius: 0;

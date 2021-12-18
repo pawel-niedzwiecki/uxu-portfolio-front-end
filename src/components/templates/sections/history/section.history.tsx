@@ -22,6 +22,7 @@ const HistorySectionComponent = () => {
   const { language } = useContext(LanguageContext);
   const [sendRequest, setSendRequest] = useState(false);
   const [activeHistory, setActiveHistory] = useState(0);
+  const [activeMobileSticky, setActiveMobileSticky] = useState(false);
   const { histories, setHistories, error, setError } = useContext(DataBaseContext);
 
   useEffect(() => {
@@ -68,13 +69,40 @@ const HistorySectionComponent = () => {
       });
   }, [sendRequest, setHistories, language, error, setError]);
 
+  useEffect(() => {
+    let switchSticky: any = null;
+    const windowWidth = window.innerWidth;
+    const sectionHistory = document.getElementById("history");
+
+    window.addEventListener("scroll", (e) => {
+      const y = sectionHistory.getBoundingClientRect().top;
+      const x = sectionHistory.getBoundingClientRect().bottom;
+
+      if (windowWidth < 767) {
+        if (y - 100 <= 0 && x - 100 >= 0) {
+          clearTimeout(switchSticky);
+          setTimeout(() => {
+            setActiveMobileSticky(true);
+          }, 20);
+        } else {
+          clearTimeout(switchSticky);
+          setTimeout(() => {
+            setActiveMobileSticky(false);
+          }, 20);
+        }
+      }
+    });
+  }, [activeMobileSticky]);
+
   return (
     <Section id="history">
       <Container>
         <Row>
           <Col xs={12} md={4} lg={3}>
-            <SelectBox>
-              <Header style={{ paddingBottom: "2rem" }}>{language === "pl" ? "Moja historia" : "My history"}</Header>
+            <SelectBox className={activeMobileSticky ? "sticky" : null}>
+              <Header>
+                {language === "pl" ? "Moja historia" : "My history"} <span>:</span>
+              </Header>
               <List>
                 {histories.length ? (
                   histories.map((item, i) => {

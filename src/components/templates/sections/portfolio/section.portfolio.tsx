@@ -25,6 +25,7 @@ const PortfolioSectionComponent = () => {
   const { language } = useContext(LanguageContext);
   const [sendRequest, setSendRequest] = useState(false);
   const [filtrPortfolio, setFiltrPortfolio] = useState("all");
+  const [activeMobileSticky, setActiveMobileSticky] = useState(false);
   const { portfolio, setPortfolio, tags, setTags, error, setError } = useContext(DataBaseContext);
   const [displayPortfolio, setDisplayPortfolio] = useState(portfolio);
 
@@ -43,18 +44,17 @@ const PortfolioSectionComponent = () => {
 
   useEffect(() => {
     const sectionHistory = document.getElementById("portfolio");
-    window.addEventListener("scroll", (e) => {
-      const y = sectionHistory.getBoundingClientRect().top - (window.innerHeight - 100);
-      y <= 0 && !sendRequest && setSendRequest(true);
-    });
-
+    window.addEventListener(
+      "scroll",
+      (e) => sectionHistory.getBoundingClientRect().top - (window.innerHeight - 100) <= 0 && !sendRequest && setSendRequest(true)
+    );
     return () => {
       window.addEventListener("scroll", (e) => {
         const y = sectionHistory.getBoundingClientRect().top - (window.innerHeight - 100);
         y <= 0 && !sendRequest && setSendRequest(true);
       });
     };
-  }, [sendRequest, setSendRequest]);
+  }, [activeMobileSticky, sendRequest, setSendRequest]);
 
   useEffect(() => {
     const phoneAPI = new callToApi({ error, setError });
@@ -62,13 +62,40 @@ const PortfolioSectionComponent = () => {
     sendRequest && phoneAPI.call({ url: "https://uxu-portfolio.herokuapp.com/portfolios", type: "portfolio", setData: setPortfolio });
   }, [sendRequest, setTags, setPortfolio, error, setError]);
 
+  useEffect(() => {
+    let switchSticky: any = null;
+    const windowWidth = window.innerWidth;
+    const sectionHistory = document.getElementById("portfolio");
+
+    window.addEventListener("scroll", (e) => {
+      const y = sectionHistory.getBoundingClientRect().top;
+      const x = sectionHistory.getBoundingClientRect().bottom;
+
+      if (windowWidth < 767) {
+        if (y - 100 <= 0 && x - 100 >= 0) {
+          clearTimeout(switchSticky);
+          setTimeout(() => {
+            setActiveMobileSticky(true);
+          }, 20);
+        } else {
+          clearTimeout(switchSticky);
+          setTimeout(() => {
+            setActiveMobileSticky(false);
+          }, 20);
+        }
+      }
+    });
+  }, [activeMobileSticky]);
+
   return (
     <Section id="portfolio">
       <Container>
         <Row>
           <Col xs={12} md={4} lg={3}>
-            <SelectBox>
-              <Header style={{ paddingBottom: "2rem" }}>Portfolio</Header>
+            <SelectBox className={activeMobileSticky ? "sticky" : null}>
+              <Header>
+                Portfolio <span>:</span>
+              </Header>
               <List>
                 {tags.length ? (
                   <>

@@ -32,19 +32,37 @@ export const Section = styled.section`
 `;
 
 export const SelectBox = styled.div`
-  top: 8rem;
-  z-index: 1;
-  width: 100%;
-  position: sticky;
+  left: 0;
+  top: -8rem;
+  z-index: 999;
+  display: flex;
+  position: fixed;
   margin-top: 1rem;
+  align-items: center;
   margin-bottom: 1rem;
-  border-radius: 0.3em;
-  position: -webkit-sticky;
-  padding: ${({ theme }) => theme.break.big};
+  transition: all 0.3s;
+  width: calc(100% + 2rem);
+  padding: 0 ${({ theme }) => theme.break.main};
   background-color: ${({ theme }) => theme.blue};
+
+  @media all and (max-width: 767px) {
+    &&.sticky {
+      left: 0;
+      top: 3rem;
+      position: fixed;
+    }
+  }
 
   @media all and (min-width: 768px) {
     top: 7rem;
+    left: auto;
+    z-index: 1;
+    width: 100%;
+    display: block;
+    position: sticky;
+    align-items: unset;
+    border-radius: 0.3em;
+    padding: ${({ theme }) => theme.break.big};
   }
 
   @media all and (min-width: 1024px) {
@@ -52,18 +70,18 @@ export const SelectBox = styled.div`
   }
 
   button {
+    padding: 0;
     width: 100%;
     border: none;
     display: block;
-    padding: 1rem 0;
     text-align: left;
     position: relative;
     font-weight: normal;
     border-radius: inherit;
 
     @media all and (min-width: 780px) {
-      left: -2rem;
       padding: 1rem 2rem;
+      border-radius: 0.3rem;
     }
 
     &.active {
@@ -82,41 +100,39 @@ export const SelectBox = styled.div`
 `;
 
 export const List = styled.ul`
-  .loadContent {
-    width: 100%;
-    height: 45px;
-    display: block;
-    overflow: hidden;
-    position: relative;
-    padding: 1rem 0;
+  width: 100%;
+  display: flex;
+  margin: 0 1rem;
+  overflow: scroll;
+  padding: 1rem 0rem;
+  position: relative;
 
-    &::after {
-      width: 100%;
-      content: "";
-      height: 100%;
-      display: block;
-      position: absolute;
-      animation-duration: 1s;
-      animation-name: loadContent;
-      animation-iteration-count: infinite;
-      background: linear-gradient(90deg, rgba(10, 18, 42, 1) 10%, rgba(4, 8, 21, 1) 50%, rgba(10, 18, 42, 1) 90%);
-    }
+  @media all and (min-width: 768px) {
+    margin: 0;
+    left: -2rem;
+    overflow: auto;
+    display: block;
+    width: calc(100% + 4rem);
   }
 
-  @keyframes loadContent {
-    to {
-      left: 90%;
-    }
+  li {
+    padding-left: 3rem;
 
-    from {
-      left: -90%;
+    @media all and (min-width: 768px) {
+      padding-left: 0;
     }
   }
 `;
 
 export const Header = styled.h1`
-  font-size: 3rem;
+  font-size: 1.6rem;
   font-weight: bold;
+  white-space: nowrap;
+
+  @media all and (min-width: 768px) {
+    font-size: 3rem;
+    padding-bottom: "2rem";
+  }
 `;
 
 export const FlipBoxInner = styled.div`

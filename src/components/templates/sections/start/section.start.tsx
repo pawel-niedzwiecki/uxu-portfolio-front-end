@@ -10,7 +10,7 @@ import { emailRegex, telRegex, nameRegex } from "assets/regex/index.regex";
 import { SendEmailAPIProps, requestOptionsProps } from "./section.start.type";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { SquareConent, TextScramble } from "components/atoms/animation/index.comonent.animation";
-import { Button, ButtonCyrlic, ButtonSubmit } from "components/atoms/button/component.button";
+import { Button, ButtonCyrlic, ButtonSubmit, ButtonOutLink } from "components/atoms/button/component.button";
 import { Section, H1, H2, List, Item, ModdalTitle, ModalContent, ModdalDescription, Form } from "./section.start.style";
 
 const StartSectionComponent = () => {
@@ -88,7 +88,11 @@ const StartSectionComponent = () => {
                 <>
                   <H2>{content.h2}</H2>
                   <H1>
-                    {content.h1} <br /> <TextScramble phrases={["JavaScript", "React.js", "Gatsby.js", "Nest.js", "Next.js", "Node.js", "MongoDB", "PostgreSQL"]} option={{ time: 3000 }} />
+                    {content.h1} <br />{" "}
+                    <TextScramble
+                      phrases={["JavaScript", "React.js", "Gatsby.js", "Nest.js", "Next.js", "Node.js", "MongoDB", "PostgreSQL"]}
+                      option={{ time: 3000 }}
+                    />
                   </H1>
                   <Button onClick={handleOpenModal} className="btn">
                     {modal.button}
@@ -99,6 +103,9 @@ const StartSectionComponent = () => {
                     </Item>
                     <Item>
                       <Button onClick={() => scrollToEl("history")}>{link.history}</Button>
+                    </Item>
+                    <Item>
+                      <ButtonOutLink href="https://polski.dev">blog</ButtonOutLink>
                     </Item>
                     <Item>
                       <Button onClick={() => scrollToEl("contact")}>{link.contact}</Button>
@@ -145,11 +152,42 @@ const StartSectionComponent = () => {
                   });
                 })}
               >
-                <Input id="nameFistContact" type="text" pattern={nameRegex} error={errors.nameFistContact} label={name} register={register} required />
-                <Input id="phoneFistContact" type="tel" pattern={telRegex} error={errors.phoneFistContact} label={phone} register={register} required />
-                <Input id="emailFistContact" type="email" pattern={emailRegex} error={errors.emailFistContact} label={email} register={register} required />
+                <Input
+                  id="nameFistContact"
+                  type="text"
+                  pattern={nameRegex}
+                  error={errors.nameFistContact}
+                  label={name}
+                  register={register}
+                  required
+                />
+                <Input
+                  id="phoneFistContact"
+                  type="tel"
+                  pattern={telRegex}
+                  error={errors.phoneFistContact}
+                  label={phone}
+                  register={register}
+                  required
+                />
+                <Input
+                  id="emailFistContact"
+                  type="email"
+                  pattern={emailRegex}
+                  error={errors.emailFistContact}
+                  label={email}
+                  register={register}
+                  required
+                />
 
-                <CheckBox id="privacyPolicyFistContact" pattern={emailRegex} error={errors.privacyPolicyFistContact} label={clausureRodo} register={register} required />
+                <CheckBox
+                  id="privacyPolicyFistContact"
+                  pattern={emailRegex}
+                  error={errors.privacyPolicyFistContact}
+                  label={clausureRodo}
+                  register={register}
+                  required
+                />
                 <ButtonSubmit style={{ marginTop: "3rem" }}>{buttonSend}</ButtonSubmit>
               </Form>
             )}
