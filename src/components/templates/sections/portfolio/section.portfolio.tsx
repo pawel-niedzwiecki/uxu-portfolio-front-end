@@ -65,6 +65,7 @@ const PortfolioSectionComponent = () => {
   useEffect(() => {
     let switchSticky: any = null;
     const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
     const sectionHistory = document.getElementById("portfolio");
 
     window.addEventListener("scroll", (e) => {
@@ -72,7 +73,7 @@ const PortfolioSectionComponent = () => {
       const x = sectionHistory.getBoundingClientRect().bottom;
 
       if (windowWidth < 767) {
-        if (y - 100 <= 0 && x - 100 >= 0) {
+        if (y - (windowHeight - 50) <= 0 && x - (windowHeight - 30) >= 0) {
           clearTimeout(switchSticky);
           setTimeout(() => {
             setActiveMobileSticky(true);

@@ -33,22 +33,22 @@ export const Section = styled.section`
 
 export const SelectBox = styled.div`
   left: 0;
-  top: -8rem;
   z-index: 999;
   display: flex;
+  bottom: -10rem;
   position: fixed;
   margin-top: 1rem;
   align-items: center;
   margin-bottom: 1rem;
   transition: all 0.3s;
   width: calc(100% + 2rem);
-  padding: 0 ${({ theme }) => theme.break.main};
+  padding: ${({ theme }) => theme.break.main};
   background-color: ${({ theme }) => theme.blue};
 
   @media all and (max-width: 767px) {
     &&.sticky {
       left: 0;
-      top: 3rem;
+      bottom: -1rem;
       position: fixed;
     }
   }
@@ -58,6 +58,7 @@ export const SelectBox = styled.div`
     left: auto;
     z-index: 1;
     width: 100%;
+    bottom: auto;ć
     display: block;
     position: sticky;
     align-items: unset;
