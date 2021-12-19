@@ -35,7 +35,7 @@ export const SelectBox = styled.div`
   left: 0;
   z-index: 999;
   display: flex;
-  bottom: -10rem;
+  bottom: -12rem;
   position: fixed;
   margin-top: 1rem;
   align-items: center;
