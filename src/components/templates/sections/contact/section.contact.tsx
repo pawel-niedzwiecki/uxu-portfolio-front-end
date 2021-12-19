@@ -5,9 +5,22 @@ import { emailRegex, telRegex, nameRegex } from "assets/regex/index.regex";
 import { Input, CheckBox, TextArea } from "components/molecules/form/index.form";
 import { ButtonOutLink, ButtonSubmit } from "components/atoms/button/component.button";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { Section, SelectBox, List, Header, BoxContact, Title, Form, BoxAnimation, SharpCircle, SharpSquare, SharpTriangle } from "./section.contact.styled";
+import {
+  Section,
+  SelectBox,
+  List,
+  Header,
+  BoxContact,
+  Title,
+  Form,
+  BoxAnimation,
+  SharpCircle,
+  SharpSquare,
+  SharpTriangle,
+} from "./section.contact.styled";
 import { LanguageContext } from "providers/providers.language";
 import noise from "assets/icon/noise.svg";
+import { ReactComponent as Dev } from "assets/icon/dev.svg";
 import { ReactComponent as GitHub } from "assets/icon/github.svg";
 import { ReactComponent as Linkedin } from "assets/icon/linkedin.svg";
 import { ReactComponent as Instagram } from "assets/icon/instagram.svg";
@@ -100,17 +113,22 @@ const ContactSectionComponent = () => {
                 <li>
                   <List typ="level">
                     <li>
-                      <ButtonOutLink href="https://github.com" title="GitHub">
+                      <ButtonOutLink href="https://www.polski.dev" title="Polski DEV - BLOG">
+                        <Dev />
+                      </ButtonOutLink>
+                    </li>
+                    <li>
+                      <ButtonOutLink href="https://github.com/pawel-niedzwiecki" title="GitHub">
                         <GitHub />
                       </ButtonOutLink>
                     </li>
                     <li>
-                      <ButtonOutLink href="https://github.com" title="Instagram">
+                      <ButtonOutLink href="https://www.instagram.com/uxupl/" title="Instagram">
                         <Instagram />
                       </ButtonOutLink>
                     </li>
                     <li>
-                      <ButtonOutLink href="https://github.com" title="LinkedIn">
+                      <ButtonOutLink href="https://www.linkedin.com/in/pawel-niedzwiecki/" title="LinkedIn">
                         <Linkedin />
                       </ButtonOutLink>
                     </li>
@@ -147,11 +165,49 @@ const ContactSectionComponent = () => {
                     });
                   })}
                 >
-                  <Input id="nameContact" type="text" pattern={nameRegex} error={errors.nameContact} label={name} register={register} required />
-                  <Input id="emailContact" type="email" pattern={emailRegex} error={errors.emailContact} label={email} register={register} required />
-                  <Input id="telContact" type="tel" pattern={telRegex} error={errors.telContact} label={phone} register={register} required />
-                  <TextArea id="descriptionContact" pattern={nameRegex} error={errors.descriptionContact} label={message} register={register} required />
-                  <CheckBox id="privacyPolicyContact" pattern={emailRegex} error={errors.privacyPolicyContact} label={clausureRodo} register={register} required />
+                  <Input
+                    id="nameContact"
+                    type="text"
+                    pattern={nameRegex}
+                    error={errors.nameContact}
+                    label={name}
+                    register={register}
+                    required
+                  />
+                  <Input
+                    id="emailContact"
+                    type="email"
+                    pattern={emailRegex}
+                    error={errors.emailContact}
+                    label={email}
+                    register={register}
+                    required
+                  />
+                  <Input
+                    id="telContact"
+                    type="tel"
+                    pattern={telRegex}
+                    error={errors.telContact}
+                    label={phone}
+                    register={register}
+                    required
+                  />
+                  <TextArea
+                    id="descriptionContact"
+                    pattern={nameRegex}
+                    error={errors.descriptionContact}
+                    label={message}
+                    register={register}
+                    required
+                  />
+                  <CheckBox
+                    id="privacyPolicyContact"
+                    pattern={emailRegex}
+                    error={errors.privacyPolicyContact}
+                    label={clausureRodo}
+                    register={register}
+                    required
+                  />
                   <ButtonSubmit style={{ marginTop: "3rem" }}>{buttonSend}</ButtonSubmit>
                 </Form>
               )}
