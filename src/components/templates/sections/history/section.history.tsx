@@ -18,7 +18,7 @@ import { DataBaseContext } from "providers/providers.dataBase";
 import { LanguageContext } from "providers/providers.language";
 
 const HistorySectionComponent = () => {
-  const elRef: any = useRef([]);
+  const elRef: { current: any[] } = useRef([]);
   const { language } = useContext(LanguageContext);
   const [sendRequest, setSendRequest] = useState(false);
   const [activeHistory, setActiveHistory] = useState(0);
@@ -26,20 +26,19 @@ const HistorySectionComponent = () => {
   const { histories, setHistories, error, setError } = useContext(DataBaseContext);
 
   useEffect(() => {
-    let allBox: any[] = [];
     let lastScroll: any = null;
     let allActiveBox: any[] = [];
-    !!elRef.current.length && elRef.current.forEach((item: any) => allBox.push(document.getElementById(item.attributes.id.textContent)));
+    console.log(elRef);
     document.addEventListener("scroll", () => {
       allActiveBox = [];
-      if (!!allBox.length) {
+      if (!!elRef.current.length) {
         clearTimeout(lastScroll);
         lastScroll = setTimeout(() => {
-          allBox.forEach((_, i) => {
-            if (allBox[i].getBoundingClientRect().top - 200 < 0 && !!(i + 1 === allBox.length)) return null;
+          elRef.current.forEach((_: any, i: number) => {
+            if (elRef.current[i].getBoundingClientRect().top + 200 < 0) return null;
             allActiveBox.push(i);
           });
-          setActiveHistory(allBox.length - allActiveBox.length);
+          setActiveHistory(elRef.current.length - allActiveBox.length);
         }, 10);
       }
     });

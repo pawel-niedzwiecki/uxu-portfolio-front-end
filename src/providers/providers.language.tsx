@@ -12,9 +12,8 @@ interface UsersProviderProps {
 }
 
 const LanguageProvider = ({ children }: UsersProviderProps) => {
-  const [language, setLanguage] = useState(
-    window.localStorage.lang || navigator.language === "en-GB" ? "en" : navigator.language === "pl-PL" ? "pl" : navigator.language
-  );
+  const navigatorLanguage = navigator.language === "en-GB" ? "en" : navigator.language === "pl-PL" ? "pl" : navigator.language;
+  const [language, setLanguage] = useState(window.localStorage.lang || navigatorLanguage);
   const [translations, setTranslations] = useState({ ...translationsWords.en });
 
   const translationsSwitch = (lang: string) => {
