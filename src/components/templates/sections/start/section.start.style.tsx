@@ -273,7 +273,7 @@ export const ModalContent = styled.div`
   display: block;
   max-width: 55rem;
   position: relative;
-  padding-top: 10rem;
+  padding-top: 12rem;
 `;
 
 export const ModdalTitle = styled.h1`
