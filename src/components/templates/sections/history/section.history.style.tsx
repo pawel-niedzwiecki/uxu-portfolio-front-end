@@ -16,7 +16,7 @@ export const SelectBox = styled.div`
   left: 0;
   z-index: 999;
   display: flex;
-  bottom: -12rem;
+  bottom: -15rem;
   position: fixed;
   margin-top: 1rem;
   align-items: center;
