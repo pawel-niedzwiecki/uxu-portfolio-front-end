@@ -42,7 +42,7 @@ export const SelectBox = styled.div`
   margin-bottom: 1rem;
   transition: all 0.3s;
   width: calc(100% + 2rem);
-  padding: ${({ theme }) => theme.break.main};
+  padding: 0 ${({ theme }) => theme.break.main};
   background-color: ${({ theme }) => theme.blue};
 
   @media all and (max-width: 767px) {
@@ -105,7 +105,7 @@ export const List = styled.ul`
   display: flex;
   margin: 0 1rem;
   overflow: scroll;
-  padding: 1rem 0rem;
+  padding: 3rem 0rem;
   position: relative;
 
   @media all and (min-width: 768px) {

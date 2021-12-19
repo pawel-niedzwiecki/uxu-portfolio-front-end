@@ -87,7 +87,7 @@ export const List = styled.ul`
   display: flex;
   margin: 0 1rem;
   overflow: scroll;
-  padding: 1rem 0rem;
+  padding: 3rem 0rem;
   position: relative;
 
   @media all and (min-width: 768px) {
