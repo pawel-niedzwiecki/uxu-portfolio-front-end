@@ -12,7 +12,6 @@ interface UsersProviderProps {
 }
 
 const LanguageProvider = ({ children }: UsersProviderProps) => {
-  console.log(window.location.pathname);
   const locationPathname = window.location.pathname === "/en" ? "en" : window.location.pathname === "/pl" ? "pl" : null;
   const navigatorLanguage = navigator.language === "en-GB" ? "en" : navigator.language === "pl-PL" ? "pl" : navigator.language;
   const [language, setLanguage] = useState(locationPathname || window.localStorage.lang || navigatorLanguage);

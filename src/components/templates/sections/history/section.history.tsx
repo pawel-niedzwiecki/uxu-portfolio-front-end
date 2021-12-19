@@ -28,7 +28,6 @@ const HistorySectionComponent = () => {
   useEffect(() => {
     let lastScroll: any = null;
     let allActiveBox: any[] = [];
-    console.log(elRef);
     document.addEventListener("scroll", () => {
       allActiveBox = [];
       if (!!elRef.current.length) {
