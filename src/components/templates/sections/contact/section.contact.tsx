@@ -20,7 +20,6 @@ import {
 } from "./section.contact.styled";
 import { LanguageContext } from "providers/providers.language";
 import noise from "assets/icon/noise.svg";
-import { ReactComponent as Dev } from "assets/icon/dev.svg";
 import { ReactComponent as GitHub } from "assets/icon/github.svg";
 import { ReactComponent as Linkedin } from "assets/icon/linkedin.svg";
 import { ReactComponent as Instagram } from "assets/icon/instagram.svg";
