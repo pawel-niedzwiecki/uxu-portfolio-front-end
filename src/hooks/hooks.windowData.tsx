@@ -1,7 +1,5 @@
-// import plugin
 import { useState, useEffect } from "react";
 
-// create new Hooks
 const useWindowData = () => {
   const [dimensions, setDimensions] = useState({
     width: window.innerWidth,
@@ -46,5 +44,4 @@ const useWindowData = () => {
   return { ...dimensions, ...scrollData };
 };
 
-// export default Hooks
 export default useWindowData;

@@ -85,7 +85,7 @@ const translationsWords: translationsWordsTemplate = {
       start: {
         content: {
           h2: "Hej!, mam na imię Paweł",
-          h1: "jestem programistom",
+          h1: "jestem programistą",
           scrambler: ["JavaScript", "Node.js", "SQL"],
         },
         modal: {
@@ -156,7 +156,8 @@ const translationsWords: translationsWordsTemplate = {
       email: "email",
       message: "Your message",
       buttonSend: "send",
-      clausureRodo: "exercising consent to the processing of my personal data by UXU, processing in the contact form in order to obtain a response",
+      clausureRodo:
+        "exercising consent to the processing of my personal data by UXU, processing in the contact form in order to obtain a response",
     },
   },
 };

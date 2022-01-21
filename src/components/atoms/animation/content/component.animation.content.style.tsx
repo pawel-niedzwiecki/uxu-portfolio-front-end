@@ -1,13 +1,10 @@
-// import plugin
 import styled, { css } from "styled-components";
 
-// create interface
 interface SquareProps {
   typ?: string;
   height: number;
 }
 
-// create styled
 export const Square = styled.div<SquareProps>`
   width: 100%;
   display: block;

@@ -113,11 +113,6 @@ const ContactSectionComponent = () => {
                 <li>
                   <List typ="level">
                     <li>
-                      <ButtonOutLink href="https://www.polski.dev" title="Polski DEV - BLOG">
-                        <Dev />
-                      </ButtonOutLink>
-                    </li>
-                    <li>
                       <ButtonOutLink href="https://github.com/pawel-niedzwiecki" title="GitHub">
                         <GitHub />
                       </ButtonOutLink>
