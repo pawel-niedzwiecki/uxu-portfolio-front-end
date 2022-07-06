@@ -7,7 +7,7 @@ export const tagsGetQuery = async (): Promise<TagsGetType> => {
   let data: TagsGetType = tagsGetState;
 
   try {
-    const res: AxiosResponse<TagsGetType> = await axios.get("https://uxu-portfolio.herdokuapp.com/tags");
+    const res: AxiosResponse<TagsGetType> = await axios.get("https://uxu-portfolio.herokuapp.com/tags");
     data = res.data;
   } catch (err) {
     data = MessageErrorGet({ name: "Error API", message: "Error server with api" });

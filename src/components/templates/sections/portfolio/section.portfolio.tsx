@@ -20,7 +20,8 @@ import {
 } from "./section.portfolio.style";
 
 import { tagsGetFetch } from "store/slice/store.slice.tags";
-import { useDispatch, useSelector } from "react-redux";
+import { portfolioGetFetch } from "store/slice/store.slice.portfolio";
+
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import { DataBaseContext } from "providers/providers.dataBase";
 import { LanguageContext } from "providers/providers.language";
@@ -33,12 +34,13 @@ const PortfolioSectionComponent = () => {
   const { portfolio, setPortfolio, tags, setTags, error, setError } = useContext(DataBaseContext);
   const [displayPortfolio, setDisplayPortfolio] = useState(portfolio);
 
-  const store = useSelector((store) => store);
-  const dispatch = useDispatch();
+  const store = useAppSelector((store) => store);
+  const dispatch = useAppDispatch();
 
   console.log(store);
   useEffect(() => {
-    dispatch(tagsGetFetch("ok"));
+    dispatch(tagsGetFetch());
+    dispatch(portfolioGetFetch());
   }, [dispatch]);
 
   useEffect(() => {
