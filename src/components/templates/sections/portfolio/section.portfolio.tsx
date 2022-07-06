@@ -58,8 +58,10 @@ const PortfolioSectionComponent = () => {
 
   useEffect(() => {
     const phoneAPI = new callToApi({ error, setError });
+
     sendRequest && phoneAPI.call({ url: "https://uxu-portfolio.herokuapp.com/tags", type: "tags", setData: setTags });
     sendRequest && phoneAPI.call({ url: "https://uxu-portfolio.herokuapp.com/portfolios", type: "portfolio", setData: setPortfolio });
+    phoneAPI.call({ url: "https://uxu-portfolio.herokuapp.com/tags", type: "tags", setData: setTags }).then((e) => console.log(e));
   }, [sendRequest, setTags, setPortfolio, error, setError]);
 
   useEffect(() => {
