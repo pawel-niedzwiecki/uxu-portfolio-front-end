@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
-import { TagsGetType } from "../types/utils.db.tags.types";
-import { tagsGetState } from "../state/utils.db.tags.state";
+import { TagsGetType } from "./../types/utils.db.tags.types";
+import { tagsGetState } from "./../state/utils.db.tags.state";
 import { MessageErrorGet } from "utils/lib/messages/utils.messages.errors";
 
 export const tagsGetQuery = async (): Promise<TagsGetType> => {
