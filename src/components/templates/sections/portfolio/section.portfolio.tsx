@@ -18,6 +18,10 @@ import {
   FlipBoxListItem,
   FlipBoxButton,
 } from "./section.portfolio.style";
+
+import { tagsGetFetch } from "store/slice/store.slice.tags";
+import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "store/hooks";
 import { DataBaseContext } from "providers/providers.dataBase";
 import { LanguageContext } from "providers/providers.language";
 
@@ -29,16 +33,22 @@ const PortfolioSectionComponent = () => {
   const { portfolio, setPortfolio, tags, setTags, error, setError } = useContext(DataBaseContext);
   const [displayPortfolio, setDisplayPortfolio] = useState(portfolio);
 
+  const store = useSelector((store) => store);
+  const dispatch = useDispatch();
+
+  console.log(store);
+  useEffect(() => {
+    dispatch(tagsGetFetch("ok"));
+  }, [dispatch]);
+
   useEffect(() => {
     let selectPortfolio: any = [];
     if (!portfolio.length || filtrPortfolio === "all") return setDisplayPortfolio(portfolio);
-    portfolio.forEach(
-      (item: { id: string; tags: []; PortfolioGitHub: string; PortfolioURL: string; ProjectName: string; locale: string }) => {
-        item.tags.filter((el: { Name: string }) => {
-          return el.Name === filtrPortfolio;
-        }).length && selectPortfolio.push(item);
-      }
-    );
+    portfolio.forEach((item: { id: string; tags: []; PortfolioGitHub: string; PortfolioURL: string; ProjectName: string; locale: string }) => {
+      item.tags.filter((el: { Name: string }) => {
+        return el.Name === filtrPortfolio;
+      }).length && selectPortfolio.push(item);
+    });
     setDisplayPortfolio(selectPortfolio);
   }, [portfolio, filtrPortfolio]);
 
