@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import tagsSlice from "./slice/store.slice.tags";
 import portfolioSlice from "./slice/store.slice.portfolio";
+import historiesSlice from "./slice/store.slice.histories";
 
 export const store = configureStore({
-  reducer: { tags: tagsSlice, portfolio: portfolioSlice },
+  reducer: { tags: tagsSlice, portfolio: portfolioSlice, histories: historiesSlice },
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

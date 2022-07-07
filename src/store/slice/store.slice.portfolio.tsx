@@ -1,5 +1,5 @@
-import { portfoliosGetQuery, PortfoliosGetType, portfoliosGetState } from "utils/db/portfolio/get";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { portfoliosGetQuery, PortfoliosGetType, portfoliosGetState } from "utils/db/portfolio/get";
 
 export const portfolioGetFetch: any = createAsyncThunk<PortfoliosGetType>(
   "portfolio/portfolioGetStatus",

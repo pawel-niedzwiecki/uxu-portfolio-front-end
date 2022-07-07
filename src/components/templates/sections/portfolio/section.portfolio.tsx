@@ -21,6 +21,7 @@ import {
 
 import { tagsGetFetch } from "store/slice/store.slice.tags";
 import { portfolioGetFetch } from "store/slice/store.slice.portfolio";
+import { historiesGetFetch } from "store/slice/store.slice.histories";
 
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import { DataBaseContext } from "providers/providers.dataBase";
@@ -41,7 +42,8 @@ const PortfolioSectionComponent = () => {
   useEffect(() => {
     dispatch(tagsGetFetch());
     dispatch(portfolioGetFetch());
-  }, [dispatch]);
+    dispatch(historiesGetFetch({ language }));
+  }, [dispatch, language]);
 
   useEffect(() => {
     let selectPortfolio: any = [];
