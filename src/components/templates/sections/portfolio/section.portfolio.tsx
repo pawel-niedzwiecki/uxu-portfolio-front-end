@@ -19,11 +19,7 @@ import {
   FlipBoxButton,
 } from "./section.portfolio.style";
 
-import { tagsGetFetch } from "store/slice/store.slice.tags";
-import { portfolioGetFetch } from "store/slice/store.slice.portfolio";
-import { historiesGetFetch } from "store/slice/store.slice.histories";
-
-import { useAppDispatch, useAppSelector } from "store/hooks";
+import { useAppSelector } from "store/hooks";
 import { DataBaseContext } from "providers/providers.dataBase";
 import { LanguageContext } from "providers/providers.language";
 
@@ -36,14 +32,8 @@ const PortfolioSectionComponent = () => {
   const [displayPortfolio, setDisplayPortfolio] = useState(portfolio);
 
   const store = useAppSelector((store) => store);
-  const dispatch = useAppDispatch();
 
   console.log(store);
-  useEffect(() => {
-    dispatch(tagsGetFetch());
-    dispatch(portfolioGetFetch());
-    dispatch(historiesGetFetch(language));
-  }, [dispatch, language]);
 
   useEffect(() => {
     let selectPortfolio: any = [];

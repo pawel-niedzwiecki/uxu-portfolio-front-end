@@ -12,6 +12,7 @@ import GlobalStyle from "assets/style/GlobalStyle";
 
 // import provider
 import DataBaseProvider from "providers/providers.dataBase";
+import ProviderDataQuery from "providers/providers.dataQuery";
 import LanguageProvider, { LanguageContext } from "providers/providers.language";
 
 // import component
@@ -21,24 +22,27 @@ import LayoutComponent from "layout/index.layout";
 // crate component
 const Root = () => {
   const { language } = useContext(LanguageContext);
+
   return (
     <Provider store={store}>
       <ThemeProvider theme={settings}>
         <GlobalStyle />
         <LanguageProvider>
-          <DataBaseProvider>
-            <LayoutComponent>
-              <Switch>
-                <Route exact path="/pl">
-                  <Home />
-                </Route>
-                <Route exact path="/en">
-                  <Home />
-                </Route>
-                <Route path="/*">{language === "pl" ? <Redirect to="/pl" /> : <Redirect to="/en" />}</Route>
-              </Switch>
-            </LayoutComponent>
-          </DataBaseProvider>
+          <ProviderDataQuery>
+            <DataBaseProvider>
+              <LayoutComponent>
+                <Switch>
+                  <Route exact path="/pl">
+                    <Home />
+                  </Route>
+                  <Route exact path="/en">
+                    <Home />
+                  </Route>
+                  <Route path="/*">{language === "pl" ? <Redirect to="/pl" /> : <Redirect to="/en" />}</Route>
+                </Switch>
+              </LayoutComponent>
+            </DataBaseProvider>
+          </ProviderDataQuery>
         </LanguageProvider>
       </ThemeProvider>
     </Provider>
