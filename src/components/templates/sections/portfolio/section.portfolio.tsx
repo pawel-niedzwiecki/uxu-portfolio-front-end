@@ -42,7 +42,7 @@ const PortfolioSectionComponent = () => {
   useEffect(() => {
     dispatch(tagsGetFetch());
     dispatch(portfolioGetFetch());
-    dispatch(historiesGetFetch({ language }));
+    dispatch(historiesGetFetch(language));
   }, [dispatch, language]);
 
   useEffect(() => {
