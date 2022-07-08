@@ -1,5 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
-import { callToApi } from "function/hooks.callAPI";
+import { useContext, useState, useEffect } from "react";
 import { ReactComponent as Circle } from "assets/icon/circle.svg";
 import { SquareConent } from "components/atoms/animation/index.comonent.animation";
 import { Button, ButtonOutLink } from "components/atoms/button/component.button";
@@ -20,31 +19,16 @@ import {
 } from "./section.portfolio.style";
 
 import { useAppSelector } from "store/hooks";
-import { DataBaseContext } from "providers/providers.dataBase";
+import { TagType } from "utils/types/utils.types.tags";
 import { LanguageContext } from "providers/providers.language";
+import { PortfolioType } from "utils/types/utils.types.portfolio";
 
 const PortfolioSectionComponent = () => {
+  const store = useAppSelector((store) => store);
+  const [select, setSelect] = useState("all");
   const { language } = useContext(LanguageContext);
   const [sendRequest, setSendRequest] = useState(false);
-  const [filtrPortfolio, setFiltrPortfolio] = useState("all");
   const [activeMobileSticky, setActiveMobileSticky] = useState(false);
-  const { portfolio, setPortfolio, tags, setTags, error, setError } = useContext(DataBaseContext);
-  const [displayPortfolio, setDisplayPortfolio] = useState(portfolio);
-
-  const store = useAppSelector((store) => store);
-
-  console.log(store);
-
-  useEffect(() => {
-    let selectPortfolio: any = [];
-    if (!portfolio.length || filtrPortfolio === "all") return setDisplayPortfolio(portfolio);
-    portfolio.forEach((item: { id: string; tags: []; PortfolioGitHub: string; PortfolioURL: string; ProjectName: string; locale: string }) => {
-      item.tags.filter((el: { Name: string }) => {
-        return el.Name === filtrPortfolio;
-      }).length && selectPortfolio.push(item);
-    });
-    setDisplayPortfolio(selectPortfolio);
-  }, [portfolio, filtrPortfolio]);
 
   useEffect(() => {
     const sectionHistory = document.getElementById("portfolio");
@@ -61,20 +45,12 @@ const PortfolioSectionComponent = () => {
   }, [activeMobileSticky, sendRequest, setSendRequest]);
 
   useEffect(() => {
-    const phoneAPI = new callToApi({ error, setError });
-
-    sendRequest && phoneAPI.call({ url: "https://uxu-portfolio.herokuapp.com/tags", type: "tags", setData: setTags });
-    sendRequest && phoneAPI.call({ url: "https://uxu-portfolio.herokuapp.com/portfolios", type: "portfolio", setData: setPortfolio });
-    phoneAPI.call({ url: "https://uxu-portfolio.herokuapp.com/tags", type: "tags", setData: setTags }).then((e) => console.log(e));
-  }, [sendRequest, setTags, setPortfolio, error, setError]);
-
-  useEffect(() => {
     let switchSticky: any = null;
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
     const sectionHistory = document.getElementById("portfolio");
 
-    window.addEventListener("scroll", (e) => {
+    window.addEventListener("scroll", (_e) => {
       const y = sectionHistory.getBoundingClientRect().top;
       const x = sectionHistory.getBoundingClientRect().bottom;
 
@@ -104,13 +80,13 @@ const PortfolioSectionComponent = () => {
                 Portfolio <span>:</span>
               </Header>
               <List>
-                {tags.length ? (
+                {store?.tags?.tags?.data?.length ? (
                   <>
                     <li>
                       <Button
-                        className={filtrPortfolio === "all" && "active"}
+                        className={select === "all" && "active"}
                         onClick={() => {
-                          setFiltrPortfolio("all");
+                          setSelect("all");
                           window.scrollTo({
                             top: document.getElementById("portfolio").getBoundingClientRect().top + window.pageYOffset + -30,
                             behavior: "smooth",
@@ -121,12 +97,12 @@ const PortfolioSectionComponent = () => {
                       </Button>
                     </li>
 
-                    {tags.map((tag) => (
+                    {store.tags.tags.data.map((tag: TagType) => (
                       <li key={tag.id}>
                         <Button
-                          className={filtrPortfolio === tag.Name && "active"}
+                          className={select === tag.Name && "active"}
                           onClick={() => {
-                            setFiltrPortfolio(tag.Name);
+                            setSelect(tag.Name);
                             window.scrollTo({
                               top: document.getElementById("portfolio").getBoundingClientRect().top + window.pageYOffset + -30,
                               behavior: "smooth",
@@ -138,7 +114,7 @@ const PortfolioSectionComponent = () => {
                       </li>
                     ))}
                   </>
-                ) : error.tags ? (
+                ) : store.tags.status === "error" ? (
                   language === "pl" ? (
                     <li>Mam problem z pobraniem danych, spróbuj za godzinę</li>
                   ) : (
@@ -156,8 +132,8 @@ const PortfolioSectionComponent = () => {
           </Col>
           <Col xs={12} md={8} lg={9} style={{ zIndex: 1 }}>
             <Row>
-              {!!displayPortfolio.length ? (
-                displayPortfolio.map((item) => {
+              {!!store?.portfolio?.portfolio?.data?.length ? (
+                store.portfolio.portfolio.data.map((item: PortfolioType): JSX.Element | JSX.Element[] => {
                   return (
                     <Col xs={12} md={6} lg={4} className="col" key={item.id}>
                       <FlipBox>
@@ -188,7 +164,7 @@ const PortfolioSectionComponent = () => {
                     </Col>
                   );
                 })
-              ) : error.portfolio ? (
+              ) : store.portfolio.status === "error" ? (
                 language === "pl" ? (
                   <Col xs={12} className="col">
                     Mam problem z pobraniem danych, spróbuj za godzinę
@@ -199,7 +175,7 @@ const PortfolioSectionComponent = () => {
                   </Col>
                 )
               ) : (
-                [...new Array(10)].map((x, i) => (
+                [...new Array(10)].map((x, i): JSX.Element | JSX.Element[] => (
                   <Col xs={12} md={6} lg={4} className="col" key={i}>
                     <SquareConent height={20} />
                   </Col>

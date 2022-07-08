@@ -2,7 +2,6 @@ import { historiesGetQuery, HistoriesGetType, historiesGetState } from "utils/db
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 
 export const historiesGetFetch: any = createAsyncThunk<HistoriesGetType>("histories/historiesGetStatus", async (language: any, thunkAPI) => {
-  console.log(language);
   return await historiesGetQuery({ language });
 });
 
